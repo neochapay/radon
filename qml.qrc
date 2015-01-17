@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>components/MainContent.qml</file>
+        <file>components/MasterPanel.qml</file>
+        <file>components/NavigationPanel.qml</file>
+        <file>components/WorkPanel.qml</file>
+        <file>components/MasterPanel/NowPlaying.qml</file>
+    </qresource>
+</RCC>
