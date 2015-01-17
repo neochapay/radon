@@ -6,5 +6,7 @@
         <file>components/NavigationPanel.qml</file>
         <file>components/WorkPanel.qml</file>
         <file>components/MasterPanel/NowPlaying.qml</file>
+        <file>components/MasterPanel/CurrentShow.qml</file>
+        <file>components/MasterPanel/AirButtons.qml</file>
     </qresource>
 </RCC>

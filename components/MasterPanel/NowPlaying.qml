@@ -9,13 +9,13 @@ Rectangle {
         rightMargin: 5
     }
 
-    property string prevTextLabel: "Unknow Artist - Unknow Song"
+    property string prevTextLabel: qsTr("Unknow Artist - Unknow Song")
     property string prevTimeLabel: "00:00:00"
 
     property int progress: 34
-    property string currentTextLabel: "Unknow Artist - Unknow Song"
+    property string currentTextLabel: qsTr("Unknow Artist - Unknow Song")
 
-    property string nextTextLabel: "Unknow Artist - Unknow Song"
+    property string nextTextLabel: qsTr("Unknow Artist - Unknow Song")
     property string nextTimeLabel: "00:00:00"
 
     Rectangle{
