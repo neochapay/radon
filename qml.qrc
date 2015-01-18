@@ -8,5 +8,6 @@
         <file>components/MasterPanel/NowPlaying.qml</file>
         <file>components/MasterPanel/CurrentShow.qml</file>
         <file>components/MasterPanel/AirButtons.qml</file>
+        <file>images/logo.png</file>
     </qresource>
 </RCC>

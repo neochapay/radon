@@ -25,5 +25,9 @@ evil_hack {
     components/WorkPanel.qml
 }
 
+ICON = images/logo.png
+
 DISTFILES += \
-    i18n/ru.ts
+    i18n/ru.ts \
+    images/logo.png \
+    images/logo.svg
