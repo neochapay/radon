@@ -78,7 +78,7 @@ Rectangle {
             onClicked: {
                 if(airStatus.state == "onair")
                 {
-                    if(liveStatus.state == "offlive")
+                    if(liveStatus.state != "onlive")
                     {
                         liveStatus.state = "onlive"
                     }
