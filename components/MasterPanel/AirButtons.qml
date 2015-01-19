@@ -9,6 +9,11 @@ Rectangle {
         margins: 10
     }
 
+    signal onAir()
+    signal offAir()
+    signal onLine()
+    signal offLine()
+
     Rectangle{
         id: airStatus
         width: 100
@@ -33,11 +38,13 @@ Rectangle {
             onClicked: {
                 if(airStatus.state == "offair")
                 {
-                    airStatus.state = "onair"
+                    airStatus.state = "onair";
+                    airButtons.onAir();
                 }
                 else
                 {
                     airStatus.state = "offair"
+                    airButtons.offAir();
                 }
             }
         }
@@ -81,10 +88,12 @@ Rectangle {
                     if(liveStatus.state != "onlive")
                     {
                         liveStatus.state = "onlive"
+                        airButtons.onLine();
                     }
                     else
                     {
                         liveStatus.state = "offlive"
+                        airButtons.offLive();
                     }
                 }
                 else

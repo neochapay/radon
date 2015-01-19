@@ -4,10 +4,9 @@ import QtQuick.Controls 1.0
 import "components"
 
 ApplicationWindow {
-    visible: true
-    width: 1024
-    height: 768
     id: main
+    visible: true
+    visibility: "Maximized"
     title: qsTr("RadON")
 
     Item{
