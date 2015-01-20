@@ -3,7 +3,7 @@ import QtQuick 2.0
 Rectangle {
     width: 480
     height: parent.height
-    color: "#3d3d3d"
+    color: "transparent"
     anchors{
         leftMargin: 10
         rightMargin: 10

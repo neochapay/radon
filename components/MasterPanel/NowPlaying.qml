@@ -3,7 +3,7 @@ import QtQuick 2.0
 Rectangle {
     width: 480
     height: parent.height
-    color: "#3d3d3d"
+    color: "transparent"
     anchors{
         leftMargin: 10
         rightMargin: 5
@@ -22,7 +22,7 @@ Rectangle {
         id: prevRow
         width: parent.width
         height: 30
-        color: "#3d3d3d"
+        color: "transparent"
         Text{
             id: prevLabel
             text: qsTr("Previews:")
@@ -92,7 +92,7 @@ Rectangle {
         id: nextRow
         width: parent.width
         height: 30
-        color: "#3d3d3d"
+        color: "transparent"
         anchors.top: currentRow.bottom
         Text{
             id: nextLabel

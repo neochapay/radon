@@ -4,7 +4,7 @@ Rectangle {
     id: airButtons
     width: 120
     height: parent.height
-    color: "#3d3d3d"
+    color: "transparent"
     anchors{
         margins: 10
     }
