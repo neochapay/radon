@@ -22,6 +22,7 @@ evil_hack {
     components/MasterPanel/CurrentShow.qml \
     components/MasterPanel/NowPlaying.qml \
     components/NavigationPanel.qml \
+    components/NavigationPanel/NavigationItem.qml \
     components/WorkPanel.qml
 }
 
