@@ -13,6 +13,8 @@ Rectangle {
     }
     WorkPanel{
         id: work
+        width: parent.width
+        height: mainContent.height-master.height-nav.height-1000
         anchors{
             top: nav.bottom
             bottom:mainContent.bottom

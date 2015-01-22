@@ -12,10 +12,14 @@ ApplicationWindow {
     Item{
         id: content
         anchors.fill: parent
-        MainContent{}
+        MainContent{
+            width: parent.width
+            height: parent.height-statusBar.height
+        }
     }
 
     StatusBar{
+        id: statusBar
         anchors.bottom: content.bottom
         Image{
             id: statusImage
