@@ -7,6 +7,11 @@ Rectangle {
     height: parent.height
     color: "transparent"
 
+    function disable()
+    {
+        console.log("DIS")
+    }
+
     Text{
         id: itemText
         anchors.fill: parent

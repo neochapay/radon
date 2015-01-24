@@ -2,11 +2,17 @@ import QtQuick 2.0
 import "./NavigatorPanel"
 
 Rectangle {
+    id: navigationPanel
     width: parent.width
     height: 30
     color: "#3d3d3d"
     border.color: "black"
     border.width: 1
+
+    function activateButton(id)
+    {
+        NavigatorItem.disable()
+    }
 
     NavigatorItem{
         id: playlistButton
