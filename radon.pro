@@ -11,7 +11,8 @@ SOURCES += main.cpp \
     src/qjack/port.cpp \
     src/qjack/audiobuffer.cpp \
     src/qjack/buffer.cpp \
-    src/qjack/midibuffer.cpp
+    src/qjack/midibuffer.cpp \
+    src/jackprocessor.cpp
 
 RESOURCES += qml.qrc
 
@@ -54,5 +55,6 @@ HEADERS += \
     src/qjack/audiobuffer.h \
     src/qjack/buffer.h \
     src/qjack/ringbuffer.h \
-    src/qjack/midibuffer.h
+    src/qjack/midibuffer.h \
+    src/jackprocessor.h
 
