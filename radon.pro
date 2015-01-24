@@ -2,7 +2,16 @@ TEMPLATE = app
 
 QT += qml quick widgets
 
-SOURCES += main.cpp
+LIBS += -ljack
+
+SOURCES += main.cpp \
+    src/qjack/client.cpp \
+    src/qjack/audioport.cpp \
+    src/qjack/midiport.cpp \
+    src/qjack/port.cpp \
+    src/qjack/audiobuffer.cpp \
+    src/qjack/buffer.cpp \
+    src/qjack/midibuffer.cpp
 
 RESOURCES += qml.qrc
 
@@ -33,3 +42,17 @@ DISTFILES += \
     i18n/ru.ts \
     images/logo.png \
     images/logo.svg
+
+HEADERS += \
+    src/qjack/client.h \
+    src/qjack/processor.h \
+    src/qjack/processor.h \
+    src/qjack/global.h \
+    src/qjack/audioport.h \
+    src/qjack/midiport.h \
+    src/qjack/port.h \
+    src/qjack/audiobuffer.h \
+    src/qjack/buffer.h \
+    src/qjack/ringbuffer.h \
+    src/qjack/midibuffer.h
+
