@@ -22,13 +22,13 @@ JackProcessor::JackProcessor(QJack::Client& client)
 
     client.activate();
 
-    QList<QJack::Port> systemclient = client.portsForClient("system");
-//TODO: Надо понять как соединять по именам а не по порядку
-    client.connect(systemclient[0],dj_in_l);
-    client.connect(systemclient[1],dj_in_r);
+    client.connect(client.portByName("system:capture_1"),dj_in_l);
+    client.connect(client.portByName("system:capture_2"),dj_in_r);
 
-    client.connect(dj_out_l,systemclient[2]);
-    client.connect(dj_out_r,systemclient[3]);
+    client.connect(dj_out_l,client.portByName("system:playback_1"));
+    client.connect(dj_out_r,client.portByName("system:playback_2"));
+    client.connect(stream_out_l,client.portByName("system:playback_3"));
+    client.connect(stream_out_r,client.portByName("system:playback_4"));
 }
 
 JackProcessor::~JackProcessor()
