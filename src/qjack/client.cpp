@@ -185,7 +185,7 @@ bool Client::disconnect(MidiPort source, MidiPort destination) {
     return result == 0;
 }
 
-QStringList Client::clientList() {
+QStringList Client::clientList() const {
     if(!_jackClient) {
         return QStringList();
     }
@@ -206,7 +206,7 @@ QStringList Client::clientList() {
     return clientList;
 }
 
-QList<Port> Client::portsForClient(QString clientName) {
+QList<Port> Client::portsForClient(QString clientName) const {
     if(!_jackClient) {
         return QList<Port>();
     }
@@ -232,7 +232,7 @@ bool Client::activate() {
         return false;
     }
 
-    if(jack_activate(_jackClient) != 0) {
+    if(jack_activate(_jackClient) == 0) {
         emit activated();
         return true;
     }
@@ -244,7 +244,7 @@ bool Client::deactivate() {
         return false;
     }
 
-    if(jack_deactivate(_jackClient) != 0) {
+    if(jack_deactivate(_jackClient) == 0) {
         emit deactivated();
         return true;
     }
@@ -294,6 +294,45 @@ bool Client::isRealtime() const {
     }
 
     return jack_is_realtime(_jackClient) == 1;
+}
+
+int Client::numberOfInputPorts(QString clientName) const {
+    QList<Port> ports = portsForClient(clientName);
+    int inputPortCount = 0;
+    foreach(Port port, ports) {
+        if(port.isInput()) {
+            inputPortCount++;
+        }
+    }
+    return inputPortCount;
+}
+
+int Client::numberOfOutputPorts(QString clientName) const {
+    QList<Port> ports = portsForClient(clientName);
+    int outputPortCount = 0;
+    foreach(Port port, ports) {
+        if(port.isOutput()) {
+            outputPortCount++;
+        }
+    }
+    return outputPortCount;
+}
+
+
+Port Client::portByName(QString name) {
+    if(!_jackClient) {
+        return Port();
+    }
+
+    return Port(jack_port_by_name(_jackClient, name.toStdString().c_str()));
+}
+
+Port Client::portById(int id) {
+    if(!_jackClient) {
+        return Port();
+    }
+
+    return Port(jack_port_by_id(_jackClient, id));
 }
 
 void Client::setProcessor(Processor *audioProcessor) {

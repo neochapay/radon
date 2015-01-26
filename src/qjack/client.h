@@ -90,14 +90,14 @@ public:
      * @returns a list of connected clients, that means their name to be specific.
      * This will only list client that offer ports.
      */
-    QStringList clientList();
+    QStringList clientList() const;
 
     /**
      * @param clientName The name of the client the ports should be listed of.
      * @returns a list of ports of this client.
      * @see clientList() to obtain a list of available clients.
      */
-    QList<Port> portsForClient(QString clientName);
+    QList<Port> portsForClient(QString clientName) const;
 
     /** Assigns a processor that will handle audio processing.
       * @param processor The processor that will handle audio processing.
@@ -128,6 +128,18 @@ public:
     /** @returns true, when running in realtime mode. */
     bool isRealtime() const;
 
+    /** @returns the number of input ports for this client. */
+    int numberOfInputPorts(QString clientName) const;
+
+    /** @returns the number of output ports for this client. */
+    int numberOfOutputPorts(QString clientName) const;
+
+    /** @returns a port by its name.*/
+    Port portByName(QString name);
+
+    /** @returns a port by its id. */
+    Port portById(int id);
+
 signals:
     /** Emitted when successfully connected to JACK server. */
     void connectedToServer();
@@ -141,23 +153,37 @@ signals:
     /** Emitted when audio processing has been stopped successfully. */
     void deactivated();
 
-    /** Emitted whenever a port has been registered successfully by this client. */
+    /** Emitted whenever a new client registered. */
     void clientRegistered(QString clientName);
+
+    /** Emitted when a client has quit. */
     void clientUnregistered(QString clientName);
 
+    /** Emitted when a port has been registered. */
     void portRegistered(QJack::Port port);
+
+    /** Emitted when a port has been unregistered. */
     void portUnregistered(QJack::Port port);
 
+    /** Emitted when two ports have been connected. */
     void portsConnected(QJack::Port from, QJack::Port to);
+
+    /** Emitted when two ports have been disconnected. */
     void portsDisconnected(QJack::Port from, QJack::Port to);
 
+    /** Emitted when a port has been renamed. */
     void portRenamed(QJack::Port port, QString oldName, QString newName);
 
+    /** Emitted when the connection graph has changed. */
     void graphOrderHasChanged();
 
+    /** Emitted when started freewheeling. */
     void startedFreewheeling();
+
+    /** Emitted when stopped freewheeling. */
     void stoppedFreewheeling();
 
+    /** Emitted when the server shuts down. */
     void serverShutdown();
 
     /** Emitted on change of the sample rate. */
