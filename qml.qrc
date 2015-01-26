@@ -10,6 +10,5 @@
         <file>components/MasterPanel/AirButtons.qml</file>
         <file>images/logo.png</file>
         <file>components/NavigatorPanel/NavigatorItem.qml</file>
-        <file>components/WorkPanel/WorkItem.qml</file>
     </qresource>
 </RCC>

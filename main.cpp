@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
     QJack::Client client;
     client.connectToServer("radon");
     JackProcessor *Processor = new JackProcessor(client);
-//    client.activate();
+    Processor->setupMp3Decoder();
 
     QQmlApplicationEngine engine;
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
