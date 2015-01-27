@@ -2,6 +2,7 @@
 #include <jack/jack.h>
 
 #include <QDebug>
+#include <QAudioDecoder>
 
 JackProcessor::JackProcessor(QJack::Client& client)
     :Processor(client)
@@ -32,6 +33,8 @@ JackProcessor::JackProcessor(QJack::Client& client)
     client.connect(dj_out_r,client.portByName("system:playback_2"));
     client.connect(stream_out_l,client.portByName("system:playback_3"));
     client.connect(stream_out_r,client.portByName("system:playback_4"));
+
+    audioDecoder = new QAudioDecoder();
 }
 
 void JackProcessor::setupMp3Decoder() {
@@ -40,20 +43,17 @@ void JackProcessor::setupMp3Decoder() {
     targetAudioFormat.setSampleType(QAudioFormat::SignedInt);
     targetAudioFormat.setChannelCount(2);
     targetAudioFormat.setCodec("audio/x-raw");
-    audioDecoder.setAudioFormat(targetAudioFormat);
+    audioDecoder->setAudioFormat(targetAudioFormat);
 }
 
 void JackProcessor::loadFile(QString fileName)
 {
-    if(!fileName.isEmpty())
-    {
-        audioDecoder.setSourceFilename(fileName);
-        audioDecoder.start();
-    }
+    audioDecoder->setSourceFilename(fileName);
+    audioDecoder->start();
 }
 
 void JackProcessor::transferSamples() {
-    QAudioBuffer audioBuffer = audioDecoder.read();
+    QAudioBuffer audioBuffer = audioDecoder->read();
     if(audioBuffer.isValid())
     {
         int frames = audioBuffer.frameCount();
@@ -79,6 +79,12 @@ void JackProcessor::timerEvent(QTimerEvent*) {
              << ringBufferLeft.numberOfElementsAvailableForRead()
              << " / "
              << ringBufferRight.numberOfElementsAvailableForRead();
+}
+
+void JackProcessor::process(int samples) {
+    // Just shift samples from the ringbuffers to the outputs buffers.
+    dj_out_l.buffer(samples).pop(ringBufferLeft);
+    dj_out_r.buffer(samples).pop(ringBufferRight);
 }
 
 JackProcessor::~JackProcessor()

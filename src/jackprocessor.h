@@ -6,14 +6,17 @@
 #include "qjack/buffer.h"
 
 #include <QAudioDecoder>
+#include <QObject>
 
 class JackProcessor : public QJack::Processor
 {
+     Q_OBJECT
     public:
         JackProcessor(QJack::Client &client);
         ~JackProcessor();
 
         void setupMp3Decoder();
+        void process(int samples);
 
         QJack::Client client;
 
@@ -31,7 +34,7 @@ class JackProcessor : public QJack::Processor
         QJack::AudioRingBuffer ringBufferLeft;
         QJack::AudioRingBuffer ringBufferRight;
 
-        QAudioDecoder audioDecoder;
+        QAudioDecoder *audioDecoder;
 
     protected:
         void timerEvent(QTimerEvent*);

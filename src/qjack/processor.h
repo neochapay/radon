@@ -32,7 +32,7 @@ namespace QJack {
 /**
  * @author Jacob Dawid ( jacob.dawid@omg-it.works )
  */
-class Processor {
+class Processor : public QObject{
 public:
     /** Constructs a new processor. */
     Processor(Client& client) {

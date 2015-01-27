@@ -16,6 +16,9 @@ int main(int argc, char *argv[])
     client.connectToServer("radon");
     JackProcessor *Processor = new JackProcessor(client);
     Processor->setupMp3Decoder();
+    Processor->loadFile(QString("/home/neochapay/Музыка/001_7Б - Молодые Ветра.mp3"));
+    QObject::connect(Processor->audioDecoder, SIGNAL(bufferReady()), Processor, SLOT(transferSamples()));
+
 
     QQmlApplicationEngine engine;
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
