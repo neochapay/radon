@@ -9,39 +9,48 @@ Rectangle {
     border.color: "black"
     border.width: 1
 
-    function activateButton(id)
+    function deactive()
     {
-        NavigatorItem.disable()
+        playlistButton.state = "deactevated";
+        libraryButton.state = "deactevated";
+        calendarButton.state = "deactevated";
+        informationButton.state = "deactevated";
+        settingButton.state = "deactevated";
     }
 
     NavigatorItem{
         id: playlistButton
         anchors.left: parent.left
         label: qsTr("Playlist")
+        activate: false;
     }
 
     NavigatorItem{
         id: libraryButton
         anchors.left: playlistButton.right
         label: qsTr("Library")
+        activate: false
     }
 
     NavigatorItem{
         id: calendarButton
         anchors.left: libraryButton.right
         label: qsTr("Calendar")
+        activate: false;
     }
 
     NavigatorItem{
         id: informationButton
         anchors.left: calendarButton.right
         label: qsTr("Information")
+        activate: false;
     }
 
     NavigatorItem{
         id: settingButton
         anchors.right: parent.right
         label: qsTr("Settings")
+        activate: false;
     }
 }
 

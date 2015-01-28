@@ -1,21 +1,17 @@
 import QtQuick 2.0
 
 Rectangle {
+    id: navButton
     property var label;
+    property bool activate: false;
 
     width: 110
     height: parent.height
-    color: "transparent"
-
-    function disable()
-    {
-        console.log("DIS")
-    }
+    state: "deactevated"
 
     Text{
         id: itemText
         anchors.fill: parent
-        color: "#ccc"
         text: label
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment: Text.AlignHCenter
@@ -27,14 +23,33 @@ Rectangle {
         anchors.fill: parent;
         anchors.margins: 5
         hoverEnabled: true
-        onEntered: {
-            parent.color = "black"
-            itemText.color = "white"
+/*        onEntered: {
+            parent.state = "actived"
         }
         onExited: {
-            parent.color = "transparent"
-            itemText.color = "#ccc"
+            if(parent.state != "actived")
+            {
+                parent.state = "deactevated"
+            }
+        }*/
+
+        onClicked: {
+            navigationPanel.deactive()
+            parent.state = "actived";
         }
     }
+
+    states:[
+        State{
+            name: "actived"; when: activate
+            PropertyChanges {target: navButton; color: "black"}
+            PropertyChanges {target: itemText; color: "white"}
+        },
+        State {
+            name: "deactevated"; when: !activate
+            PropertyChanges {target: navButton; color: "transparent"}
+            PropertyChanges {target: itemText; color: "#ccc"}
+        }
+    ]
 }
 
