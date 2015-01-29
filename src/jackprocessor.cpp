@@ -83,8 +83,8 @@ void JackProcessor::timerEvent(QTimerEvent*) {
 
 void JackProcessor::process(int samples) {
     // Just shift samples from the ringbuffers to the outputs buffers.
-    dj_out_l.buffer(samples).pop(ringBufferLeft);
-    dj_out_r.buffer(samples).pop(ringBufferRight);
+   dj_out_l.buffer(samples).pop(ringBufferLeft);
+   dj_out_r.buffer(samples).pop(ringBufferRight);
 }
 
 JackProcessor::~JackProcessor()
