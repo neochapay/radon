@@ -10,5 +10,10 @@
         <file>components/MasterPanel/AirButtons.qml</file>
         <file>images/logo.png</file>
         <file>components/NavigatorPanel/NavigatorItem.qml</file>
+        <file>pages/SettingsPage.qml</file>
+        <file>pages/PlaylistPage.qml</file>
+        <file>pages/LibraryPage.qml</file>
+        <file>pages/CalendarPage.qml</file>
+        <file>pages/InformationPage.qml</file>
     </qresource>
 </RCC>
