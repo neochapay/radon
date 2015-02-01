@@ -5,24 +5,27 @@
 
 #include "src/qjack/client.h"
 #include "src/jackprocessor.h"
+#include "src/applicationsettings.h"
+#include "src/collection.h"
 
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
-    QSettings *Settings = new QSettings("radion.conf",QSettings::NativeFormat);
+    ApplicationSettings *Settings = new ApplicationSettings();
+    Collection *collection = new Collection();
 
     QJack::Client client;
     client.connectToServer("radon");
     JackProcessor *Processor = new JackProcessor(client);
     Processor->setupMp3Decoder();
-//    Processor->loadFile(QString("/home/neochapay/Музыка/001_7Б - Молодые Ветра.mp3"));
     QObject::connect(Processor->audioDecoder, SIGNAL(bufferReady()), Processor, SLOT(transferSamples()));
 
 
     QQmlApplicationEngine engine;
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     engine.rootContext()->setContextProperty("Settings", Settings);
+    engine.rootContext()->setContextProperty("Collection", collection);
 
     return app.exec();
 }

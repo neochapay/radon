@@ -2,7 +2,7 @@ TEMPLATE = app
 
 QT += qml quick widgets multimedia
 
-LIBS += -ljack
+LIBS += -ljack -ltag
 
 SOURCES += main.cpp \
     src/qjack/client.cpp \
@@ -12,7 +12,10 @@ SOURCES += main.cpp \
     src/qjack/audiobuffer.cpp \
     src/qjack/buffer.cpp \
     src/qjack/midibuffer.cpp \
-    src/jackprocessor.cpp
+    src/jackprocessor.cpp \
+    src/applicationsettings.cpp \
+    src/collection.cpp \
+    src/audiofile.cpp
 
 RESOURCES += qml.qrc
 
@@ -55,5 +58,8 @@ HEADERS += \
     src/qjack/buffer.h \
     src/qjack/ringbuffer.h \
     src/qjack/midibuffer.h \
-    src/jackprocessor.h
+    src/jackprocessor.h \
+    src/applicationsettings.h \
+    src/collection.h \
+    src/audiofile.h
 
