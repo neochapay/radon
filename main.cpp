@@ -11,6 +11,10 @@
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
+    app.setApplicationName("RadON");
+    app.setApplicationVersion("0.1.0a");
+    app.setOrganizationName("Open STUDiO");
+    app.setOrganizationDomain("ostudio.org");
 
     ApplicationSettings *Settings = new ApplicationSettings();
     Collection *collection = new Collection();
