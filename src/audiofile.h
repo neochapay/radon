@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QFile>
+#include <taglib/fileref.h>
 
 class AudioFile : public QObject
 {
@@ -11,11 +12,28 @@ public:
     explicit AudioFile(QString audiofile, QObject *parent = 0);
     ~AudioFile();
 
-    QList<QString> getTags();
-    bool setTags(QList<QString> tags);
+    QString artist;
+    QString title;
+    QString album;
+    QString comment;
+    QString genre;
+    uint track;
+    uint year;
 
+    void setTitle(QString title);
+    void setArtist(QString artist);
+    void setAlbum(QString album);
+    void setComment(QString comment);
+    void setGenre(QString genre);
+    void setTrack(uint track);
+    void setYear(uint year);
+
+    bool sync();
+
+    void getTags();
 private:
     QFile *mediaFile;
+    TagLib::FileRef *tagFile;
 
 signals:
     void fileNotFound();

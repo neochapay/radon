@@ -18,8 +18,6 @@ public:
     QDir collectionDir;
     QString collectionDirString;
 
-    bool editTags(QFile &file, QList<QString> &tags);
-
 signals:
     void erorrAcces();
     void notAllTags();
