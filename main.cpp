@@ -2,6 +2,7 @@
 #include <QQmlApplicationEngine>
 #include <QSettings>
 #include <QQmlContext>
+#include <QFile>
 
 #include "src/qjack/client.h"
 #include "src/jackprocessor.h"
@@ -21,9 +22,14 @@ int main(int argc, char *argv[])
 
     QJack::Client client;
     client.connectToServer("radon");
-    JackProcessor *Processor = new JackProcessor(client);
-    Processor->setupMp3Decoder();
-    QObject::connect(Processor->audioDecoder, SIGNAL(bufferReady()), Processor, SLOT(transferSamples()));
+    JackProcessor *StreamProcessor = new JackProcessor(client, QString("stream"), true);
+    JackProcessor *DjProcessor = new JackProcessor(client, QString("dj"), true);
+
+    StreamProcessor->setupMp3Decoder();
+    DjProcessor->setupMp3Decoder();
+
+    QObject::connect(StreamProcessor->audioDecoder, SIGNAL(bufferReady()), StreamProcessor, SLOT(transferSamples()));
+    QObject::connect(DjProcessor->audioDecoder, SIGNAL(bufferReady()), DjProcessor, SLOT(transferSamples()));
 
 
     QQmlApplicationEngine engine;

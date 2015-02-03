@@ -4,35 +4,32 @@
 #include <QDebug>
 #include <QAudioDecoder>
 
-JackProcessor::JackProcessor(QJack::Client& client)
+JackProcessor::JackProcessor(QJack::Client& client, QString chanel_name, bool have_in)
     :Processor(client)
 {
     //regisrty out port
-    stream_out_l    = client.registerAudioOutPort("stream_l");
-    stream_out_r    = client.registerAudioOutPort("stream_r");
-    dj_out_l        = client.registerAudioOutPort("dj_out_l");
-    dj_out_r        = client.registerAudioOutPort("dj_out_r");
-    alarm_l         = client.registerAudioOutPort("alarm_r");
-    alarm_r         = client.registerAudioOutPort("alarm_l");
+    out_l    = client.registerAudioOutPort("out_l_"+chanel_name.toUtf8());
+    out_r    = client.registerAudioOutPort("out_r_"+chanel_name.toUtf8());
 
     //regisrty in port
-    dj_in_l         = client.registerAudioInPort("dj_in_l");
-    dj_in_r         = client.registerAudioInPort("dj_in_r");
-    aux_in_l        = client.registerAudioInPort("aux_l");
-    aux_in_r        = client.registerAudioInPort("aux_r");
+    if(have_in)
+    {
+        in_l = client.registerAudioInPort("in_l_"+chanel_name.toUtf8());
+        in_r = client.registerAudioInPort("in_r_"+chanel_name.toUtf8());
+    }
 
     ringBufferLeft  = QJack::AudioRingBuffer(44100 * 1000);
     ringBufferRight = QJack::AudioRingBuffer(44100 * 1000);
 
     client.activate();
 
-    client.connect(client.portByName("system:capture_1"),dj_in_l);
+/*    client.connect(client.portByName("system:capture_1"),dj_in_l);
     client.connect(client.portByName("system:capture_2"),dj_in_r);
 
     client.connect(dj_out_l,client.portByName("system:playback_1"));
     client.connect(dj_out_r,client.portByName("system:playback_2"));
     client.connect(stream_out_l,client.portByName("system:playback_3"));
-    client.connect(stream_out_r,client.portByName("system:playback_4"));
+    client.connect(stream_out_r,client.portByName("system:playback_4"));*/
 
     audioDecoder = new QAudioDecoder();
 }
@@ -83,8 +80,8 @@ void JackProcessor::timerEvent(QTimerEvent*) {
 
 void JackProcessor::process(int samples) {
     // Just shift samples from the ringbuffers to the outputs buffers.
-   dj_out_l.buffer(samples).pop(ringBufferLeft);
-   dj_out_r.buffer(samples).pop(ringBufferRight);
+   out_l.buffer(samples).pop(ringBufferLeft);
+   out_r.buffer(samples).pop(ringBufferRight);
 }
 
 JackProcessor::~JackProcessor()
