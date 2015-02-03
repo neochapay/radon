@@ -1,6 +1,6 @@
 TEMPLATE = app
 
-QT += qml quick widgets multimedia
+QT += qml quick widgets multimedia network
 
 LIBS += -ljack -ltag
 
@@ -15,7 +15,8 @@ SOURCES += main.cpp \
     src/jackprocessor.cpp \
     src/applicationsettings.cpp \
     src/collection.cpp \
-    src/audiofile.cpp
+    src/audiofile.cpp \
+    src/networkconnection.cpp
 
 RESOURCES += qml.qrc
 
@@ -61,5 +62,6 @@ HEADERS += \
     src/jackprocessor.h \
     src/applicationsettings.h \
     src/collection.h \
-    src/audiofile.h
+    src/audiofile.h \
+    src/networkconnection.h
 
