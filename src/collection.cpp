@@ -41,6 +41,7 @@ void Collection::addFile(QFile &file)
         {
             audioFile.setTitle(QString("Unknow Track"));
         }
+        audioFile.sync();
     }
     collectionDir.mkpath(collectionDirString+QString("/"+audioFile.artist.toUtf8()));
     file.copy(file.fileName(),collectionDirString+"/"+audioFile.artist.toUtf8()+"/"+audioFile.title.toUtf8()+".mp3");
