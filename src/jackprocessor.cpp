@@ -21,6 +21,9 @@ JackProcessor::JackProcessor(QJack::Client& client, QString chanel_name, bool ha
     ringBufferLeft  = QJack::AudioRingBuffer(44100 * 1000);
     ringBufferRight = QJack::AudioRingBuffer(44100 * 1000);
 
+    attunation_l = 1.0;
+    attunation_r = 1.0;
+
     client.activate();
 
 /*    client.connect(client.portByName("system:capture_1"),dj_in_l);
@@ -82,6 +85,22 @@ void JackProcessor::process(int samples) {
     // Just shift samples from the ringbuffers to the outputs buffers.
    out_l.buffer(samples).pop(ringBufferLeft);
    out_r.buffer(samples).pop(ringBufferRight);
+   out_l.buffer(samples).multiply(attunation_l);
+   out_l.buffer(samples).multiply(attunation_r);
+}
+
+void JackProcessor::setVolume(double att_l, double att_r)
+{
+    attunation_l = att_l;
+    attunation_r = att_r;
+}
+
+QList<double> JackProcessor::getVolume()
+{
+    QList<double> out;
+    out.append(attunation_l);
+    out.append(attunation_r);
+    return out;
 }
 
 JackProcessor::~JackProcessor()

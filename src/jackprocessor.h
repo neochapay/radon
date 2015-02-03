@@ -18,6 +18,9 @@ class JackProcessor : public QJack::Processor
         void setupMp3Decoder();
         void process(int samples);
 
+        double attunation_l;
+        double attunation_r;
+
         QJack::Client client;
 
         QJack::AudioPort out_l;
@@ -29,6 +32,8 @@ class JackProcessor : public QJack::Processor
         QJack::AudioRingBuffer ringBufferRight;
 
         QAudioDecoder *audioDecoder;
+        void setVolume(double att_l,double att_r);
+        QList<double> getVolume();
 
     protected:
         void timerEvent(QTimerEvent*);
