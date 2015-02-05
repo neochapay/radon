@@ -35,9 +35,11 @@ JackProcessor::JackProcessor(QJack::Client& client, QString chanel_name, bool ha
     client.connect(stream_out_r,client.portByName("system:playback_4"));*/
 
     audioDecoder = new QAudioDecoder();
+    QObject::connect(audioDecoder, SIGNAL(bufferReady()), this, SLOT(transferSamples()));
 }
 
-void JackProcessor::setupMp3Decoder() {
+void JackProcessor::setupMp3Decoder()
+{
     QAudioFormat targetAudioFormat;
     targetAudioFormat.setSampleRate(client.sampleRate());
     targetAudioFormat.setSampleType(QAudioFormat::SignedInt);
@@ -52,7 +54,8 @@ void JackProcessor::loadFile(QString fileName)
     audioDecoder->start();
 }
 
-void JackProcessor::transferSamples() {
+void JackProcessor::transferSamples()
+{
     QAudioBuffer audioBuffer = audioDecoder->read();
     if(audioBuffer.isValid())
     {
@@ -74,14 +77,16 @@ void JackProcessor::transferSamples() {
 }
 
 
-void JackProcessor::timerEvent(QTimerEvent*) {
+void JackProcessor::timerEvent(QTimerEvent*)
+{
     qDebug() << "Samples remaining in the ring buffer: "
              << ringBufferLeft.numberOfElementsAvailableForRead()
              << " / "
              << ringBufferRight.numberOfElementsAvailableForRead();
 }
 
-void JackProcessor::process(int samples) {
+void JackProcessor::process(int samples)
+{
     // Just shift samples from the ringbuffers to the outputs buffers.
    out_l.buffer(samples).pop(ringBufferLeft);
    out_r.buffer(samples).pop(ringBufferRight);

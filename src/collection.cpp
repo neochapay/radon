@@ -27,19 +27,19 @@ Collection::~Collection()
 
 void Collection::addFile(QFile &file)
 {
-    AudioFile audioFile(QString(file.fileName()));
+    AudioFile audioFile(file.fileName());
 
     if(audioFile.album.length() == 0 || audioFile.title.length() == 0)
     {
         emit notAllTags();
         if(audioFile.artist.length() == 0)
         {
-            audioFile.setArtist(QString("Unknow Artist"));
+            audioFile.artist = QString("Unknow Artist");
         }
 
         if(audioFile.title.length() == 0)
         {
-            audioFile.setTitle(QString("Unknow Track"));
+            audioFile.title = QString("Unknow Track");
         }
         audioFile.sync();
     }

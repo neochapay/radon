@@ -17,24 +17,20 @@ int main(int argc, char *argv[])
     app.setOrganizationName("Open STUDiO");
     app.setOrganizationDomain("ostudio.org");
 
-    ApplicationSettings *Settings = new ApplicationSettings();
+    QSettings *settings = new QSettings(QDir::homePath()+"/.radon/radon.conf",QSettings::NativeFormat);
     Collection *collection = new Collection();
 
     QJack::Client client;
     client.connectToServer("radon");
-    JackProcessor *StreamProcessor = new JackProcessor(client, QString("stream"), true);
-    JackProcessor *DjProcessor = new JackProcessor(client, QString("dj"), true);
+    JackProcessor *streamProcessor = new JackProcessor(client, QString("stream"), true);
+    JackProcessor *djProcessor = new JackProcessor(client, QString("dj"), true);
 
-    StreamProcessor->setupMp3Decoder();
-    DjProcessor->setupMp3Decoder();
-
-    QObject::connect(StreamProcessor->audioDecoder, SIGNAL(bufferReady()), StreamProcessor, SLOT(transferSamples()));
-    QObject::connect(DjProcessor->audioDecoder, SIGNAL(bufferReady()), DjProcessor, SLOT(transferSamples()));
-
+    streamProcessor->setupMp3Decoder();
+    djProcessor->setupMp3Decoder();
 
     QQmlApplicationEngine engine;
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
-    engine.rootContext()->setContextProperty("Settings", Settings);
+    engine.rootContext()->setContextProperty("Settings", settings);
     engine.rootContext()->setContextProperty("Collection", collection);
 
     return app.exec();

@@ -23,67 +23,32 @@ AudioFile::AudioFile(QString audiofile, QObject *parent) : QObject(parent)
 
 void AudioFile::getTags()
 {
-    TagLib::String artist = tagFile->tag()->artist();
-    TagLib::String title = tagFile->tag()->title();
-    TagLib::String album = tagFile->tag()->album();
-    TagLib::String comment = tagFile->tag()->comment();
-    TagLib::String genre = tagFile->tag()->genre();
-    TagLib::uint track = tagFile->tag()->track();
-    TagLib::uint year = tagFile->tag()->year();
+    TagLib::String t_artist = tagFile->tag()->artist();
+    TagLib::String t_title = tagFile->tag()->title();
+    TagLib::String t_album = tagFile->tag()->album();
+    TagLib::String t_comment = tagFile->tag()->comment();
+    TagLib::String t_genre = tagFile->tag()->genre();
+    TagLib::uint t_track = tagFile->tag()->track();
+    TagLib::uint t_year = tagFile->tag()->year();
 
-    this->artist = QString::fromStdWString(artist.toCWString());
-    this->album = QString::fromStdWString(album.toCWString());
-    this->title = QString::fromStdWString(title.toCWString());
-    this->comment = QString::fromStdWString(comment.toCWString());
-    this->genre = QString::fromStdWString(genre.toCWString());
-    this->track = track;
-    this->year = year;
-}
-
-void AudioFile::setArtist(QString artist)
-{
-    this->artist = artist;
-}
-
-void AudioFile::setAlbum(QString album)
-{
-    this->album = album;
-}
-
-void AudioFile::setTitle(QString title)
-{
-    this->title = title;
-}
-
-void AudioFile::setComment(QString comment)
-{
-    this->comment = comment;
-}
-
-void AudioFile::setGenre(QString genre)
-{
-    this->genre = genre;
-}
-
-void AudioFile::setTrack(uint track)
-{
-    this->track = track;
-}
-
-void AudioFile::setYear(uint year)
-{
-    this->year = year;
+    artist = QString::fromStdWString(t_artist.toCWString());
+    album = QString::fromStdWString(t_album.toCWString());
+    title = QString::fromStdWString(t_title.toCWString());
+    comment = QString::fromStdWString(t_comment.toCWString());
+    genre = QString::fromStdWString(t_genre.toCWString());
+    track = t_track;
+    year = t_year;
 }
 
 bool AudioFile::sync()
 {
-    tagFile->tag()->setAlbum(this->album.toStdWString());
-    tagFile->tag()->setArtist(this->artist.toStdWString());
-    tagFile->tag()->setComment(this->comment.toStdWString());
-    tagFile->tag()->setGenre(this->genre.toStdWString());
-    tagFile->tag()->setTitle(this->title.toStdWString());
-    tagFile->tag()->setTrack(this->track);
-    tagFile->tag()->setYear(this->year);
+    tagFile->tag()->setAlbum(album.toStdWString());
+    tagFile->tag()->setArtist(artist.toStdWString());
+    tagFile->tag()->setComment(comment.toStdWString());
+    tagFile->tag()->setGenre(genre.toStdWString());
+    tagFile->tag()->setTitle(title.toStdWString());
+    tagFile->tag()->setTrack(track);
+    tagFile->tag()->setYear(year);
     return tagFile->save();
 }
 
