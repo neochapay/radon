@@ -18,12 +18,12 @@ AudioFile::AudioFile(QString audiofile, QObject *parent) : QObject(parent)
         if(mediaFile->open(QIODevice::ReadWrite))
         {
             tagFile = new TagLib::FileRef(QFileInfo(mediaFile->fileName()).absoluteFilePath().toUtf8());
-            this->getTags();
+            loadTags();
         }
     }
 }
 
-void AudioFile::getTags()
+void AudioFile::loadTags()
 {
     if(!tagFile)
     {

@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
     app.setOrganizationDomain("ostudio.org");
 
     QSettings *settings = new QSettings(QDir::homePath()+"/.radon/radon.conf",QSettings::NativeFormat);
-    Collection *collection = new Collection();
+    Collection *audioCollection = new Collection();
 
     QJack::Client client;
     client.connectToServer("radon");
@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     engine.rootContext()->setContextProperty("Settings", settings);
-    engine.rootContext()->setContextProperty("Collection", collection);
+    engine.rootContext()->setContextProperty("Collection", audioCollection);
 
     return app.exec();
 }

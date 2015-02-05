@@ -20,17 +20,9 @@ public:
     uint track;
     uint year;
 
-    void setTitle(QString title);
-    void setArtist(QString artist);
-    void setAlbum(QString album);
-    void setComment(QString comment);
-    void setGenre(QString genre);
-    void setTrack(uint track);
-    void setYear(uint year);
-
     bool sync();
+    void loadTags();
 
-    void getTags();
 private:
     QFile *mediaFile;
     TagLib::FileRef *tagFile;
