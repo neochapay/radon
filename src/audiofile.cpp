@@ -23,6 +23,10 @@ AudioFile::AudioFile(QString audiofile, QObject *parent) : QObject(parent)
 
 void AudioFile::getTags()
 {
+    if(!tagFile)
+    {
+        return;
+    }
     TagLib::String t_artist = tagFile->tag()->artist();
     TagLib::String t_title = tagFile->tag()->title();
     TagLib::String t_album = tagFile->tag()->album();
@@ -42,6 +46,10 @@ void AudioFile::getTags()
 
 bool AudioFile::sync()
 {
+    if(!tagFile)
+    {
+        return false;
+    }
     tagFile->tag()->setAlbum(album.toStdWString());
     tagFile->tag()->setArtist(artist.toStdWString());
     tagFile->tag()->setComment(comment.toStdWString());
