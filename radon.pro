@@ -2,7 +2,7 @@ TEMPLATE = app
 
 QT += qml quick widgets multimedia network
 
-LIBS += -ljack -ltag
+LIBS += -ljack -ltag -lfftw3
 
 SOURCES += main.cpp \
     src/qjack/client.cpp \
@@ -16,7 +16,16 @@ SOURCES += main.cpp \
     src/applicationsettings.cpp \
     src/collection.cpp \
     src/audiofile.cpp \
-    src/networkconnection.cpp
+    src/networkconnection.cpp \
+    src/dsp/qamplifier.cpp \
+    src/dsp/qcompressor.cpp \
+    src/dsp/qequalizer.cpp \
+    src/dsp/qequalizercontrol.cpp \
+    src/dsp/qfftw.cpp \
+    src/dsp/qnoisegate.cpp \
+    src/dsp/qsignalgenerator.cpp \
+    src/dsp/qunits.cpp \
+    src/qjack/qjackbuffer.cpp
 
 RESOURCES += qml.qrc
 
@@ -63,5 +72,15 @@ HEADERS += \
     src/applicationsettings.h \
     src/collection.h \
     src/audiofile.h \
-    src/networkconnection.h
+    src/networkconnection.h \
+    src/dsp/qamplifier.h \
+    src/dsp/qcompressor.h \
+    src/dsp/qdigitalfilter.h \
+    src/dsp/qequalizer.h \
+    src/dsp/qequalizercontrol.h \
+    src/dsp/qfftw.h \
+    src/dsp/qnoisegate.h \
+    src/dsp/qsignalgenerator.h \
+    src/dsp/qunits.h \
+    src/qjack/qjackbuffer.h
 
