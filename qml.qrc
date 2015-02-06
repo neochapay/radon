@@ -15,5 +15,6 @@
         <file>pages/LibraryPage.qml</file>
         <file>pages/CalendarPage.qml</file>
         <file>pages/InformationPage.qml</file>
+        <file>components/WorkPanel/VolumeSlider.qml</file>
     </qresource>
 </RCC>

@@ -1,6 +1,8 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.0
 
+import "../components/WorkPanel"
+
 Rectangle {
     id: workPanel
     color:"#7f7f7f";
@@ -112,6 +114,11 @@ Rectangle {
                     width: djSliders.width
                     horizontalAlignment: Text.AlignHCenter
                 }
+            }
+
+            VolumeSlider{
+                width: 20;
+                height: 280;
             }
         }
     }
