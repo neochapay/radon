@@ -2,7 +2,10 @@ import QtQuick 2.0
 
 Rectangle {
     property string position: "left";
-    property var value;
+    property real value: 100;
+
+    signal valueChange(real value);
+
     id: soundslider;
     color: "transparent";
 
@@ -15,15 +18,34 @@ Rectangle {
             horizontalCenter: parent.horizontalCenter
         }
 
-        gradient: Gradient {
-                GradientStop { position: 0.0; color: "red" }
-                GradientStop { position: 0.15; color: "green" }
-            }
+        Rectangle{
+            id: red
+            width: parent.width
+            height: parent.height*0.10
+            color: "red"
+            anchors.top: parent.top
+        }
+
+        Rectangle{
+            id: yellow
+            width: parent.width
+            height: parent.height*0.10
+            color: "yellow"
+            anchors.top: red.bottom
+        }
+
+        Rectangle{
+            id: green
+            width: parent.width
+            height: parent.height*0.80
+            color: "green"
+            anchors.top: yellow.bottom
+        }
 
         Rectangle {
             id: sliderBtn
             x: -8;
-            y: parent.height*0.1;
+            y: parent.height*0.2;
             width: 20; height: 10
             radius: 2
             smooth: true
@@ -36,10 +58,10 @@ Rectangle {
                 drag.target: parent
                 drag.axis: Drag.YAxis
                 drag.minimumY: 0
-                drag.maximumY: soundslider.height-parent.height-1
+                drag.maximumY: soundslider.height-parent.height
                 onPositionChanged: {
-                    value = ((soundslider.height-this.parent.y)/soundslider.height*1.15)*100
-                    console.log(value);
+                    value = ((soundslider.height-this.parent.y)/soundslider.height)*120
+                    valueChange(value);
                 }
            }
        }
