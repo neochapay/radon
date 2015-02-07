@@ -6,8 +6,14 @@ Rectangle {
 
     signal valueChange(real value);
 
+    function setValue(value)
+    {
+        sliderBtn.y = soundslider.height-soundslider.height/120*value
+    }
+
     id: soundslider;
     color: "transparent";
+    width: 20
 
     Rectangle{
         width: 4

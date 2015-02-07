@@ -52,22 +52,20 @@ Rectangle {
                 height: 300
                 color: "transparent"
 
-                Slider{
+                VolumeSlider{
                     id: streamLeftSlider
-                    orientation: Qt.Vertical
                     height: 280-streamLabel.height
-                    y: 10
                     x: 27
-                    onValueChanged: streamRightSlider.value = this.value
+                    y: 10
+                    onValueChange: streamRightSlider.setValue(this.value)
                 }
 
-                Slider{
+                VolumeSlider{
                     id: streamRightSlider
-                    orientation: Qt.Vertical
                     height: 280-streamLabel.height
                     anchors.left: streamLeftSlider.right
                     y: 10
-                    onValueChanged: streamLeftSlider.value = this.value
+                    onValueChange: streamLeftSlider.setValue(this.value)
                 }
 
                 Text{
@@ -89,22 +87,20 @@ Rectangle {
                     leftMargin: 10
                 }
 
-                Slider{
+                VolumeSlider{
                     id: djLeftSlider
-                    orientation: Qt.Vertical
                     height: 280-djLabel.height
                     y: 10
                     x: 27
-                    onValueChanged: djRightSlider.value = this.value
+                    onValueChange: djRightSlider.setValue(this.value)
                 }
 
-                Slider{
+                VolumeSlider{
                     id: djRightSlider
-                    orientation: Qt.Vertical
                     height: 280-djLabel.height
                     anchors.left: djLeftSlider.right
                     y: 10
-                    onValueChanged: djLeftSlider.value = this.value
+                    onValueChange: djLeftSlider.setValue(this.value)
                 }
 
                 Text{
@@ -114,11 +110,6 @@ Rectangle {
                     width: djSliders.width
                     horizontalAlignment: Text.AlignHCenter
                 }
-            }
-
-            VolumeSlider{
-                width: 20;
-                height: 280;
             }
         }
     }
