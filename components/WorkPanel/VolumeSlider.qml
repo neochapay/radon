@@ -4,11 +4,12 @@ Rectangle {
     property string position: "left";
     property real value: 100;
 
-    signal valueChange(real value);
+    signal valueChange(real val);
 
-    function setValue(value)
+    function setValue(val)
     {
-        sliderBtn.y = soundslider.height-soundslider.height/120*value
+        sliderBtn.y = soundslider.height-soundslider.height/120*val
+        value = val;
     }
 
     id: soundslider;
@@ -64,7 +65,7 @@ Rectangle {
                 drag.target: parent
                 drag.axis: Drag.YAxis
                 drag.minimumY: 0
-                drag.maximumY: soundslider.height-parent.height
+                drag.maximumY: soundslider.height
                 onPositionChanged: {
                     value = ((soundslider.height-this.parent.y)/soundslider.height)*120
                     valueChange(value);

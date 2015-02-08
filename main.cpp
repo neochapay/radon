@@ -23,15 +23,17 @@ int main(int argc, char *argv[])
     QJack::Client client;
     client.connectToServer("radon");
     JackProcessor *streamProcessor = new JackProcessor(client, QString("stream"), true);
-    JackProcessor *djProcessor = new JackProcessor(client, QString("dj"), true);
 
     streamProcessor->setupMp3Decoder();
-    djProcessor->setupMp3Decoder();
+    client.activate();
+
+    streamProcessor->loadFile("/home/neochapay/Музыка/060215/LOUNA - Дорога бойца.mp3");
 
     QQmlApplicationEngine engine;
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     engine.rootContext()->setContextProperty("Settings", settings);
     engine.rootContext()->setContextProperty("Collection", audioCollection);
+    engine.rootContext()->setContextProperty("streamProcessor", streamProcessor);
 
     return app.exec();
 }

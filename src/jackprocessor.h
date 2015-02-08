@@ -11,6 +11,7 @@
 class JackProcessor : public QJack::Processor
 {
      Q_OBJECT
+
     public:
         JackProcessor(QJack::Client &client, QString chanel_name, bool have_in);
         ~JackProcessor();
@@ -32,8 +33,8 @@ class JackProcessor : public QJack::Processor
         QJack::AudioRingBuffer ringBufferRight;
 
         QAudioDecoder *audioDecoder;
-        void setVolume(double att_l,double att_r);
-        QList<double> getVolume();
+
+        Q_INVOKABLE QList<double> getVolume();
 
     protected:
         void timerEvent(QTimerEvent*);
@@ -41,6 +42,7 @@ class JackProcessor : public QJack::Processor
     public slots:
         void transferSamples();
         void loadFile(QString fileName);
+        Q_INVOKABLE void setVolume(double att_l,double att_r);
 };
 
 #endif // JACKPROCESSOR_H

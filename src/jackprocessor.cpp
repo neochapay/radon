@@ -7,6 +7,11 @@
 JackProcessor::JackProcessor(QJack::Client& client, QString chanel_name, bool have_in)
     :Processor(client)
 {
+    //volume
+
+    attunation_l = 1.0;
+    attunation_r = 1.0;
+
     //regisrty out port
     out_l    = client.registerAudioOutPort("out_l_"+chanel_name.toUtf8());
     out_r    = client.registerAudioOutPort("out_r_"+chanel_name.toUtf8());
@@ -20,19 +25,6 @@ JackProcessor::JackProcessor(QJack::Client& client, QString chanel_name, bool ha
 
     ringBufferLeft  = QJack::AudioRingBuffer(44100 * 1000);
     ringBufferRight = QJack::AudioRingBuffer(44100 * 1000);
-
-    attunation_l = 1.0;
-    attunation_r = 1.0;
-
-    client.activate();
-
-/*    client.connect(client.portByName("system:capture_1"),dj_in_l);
-    client.connect(client.portByName("system:capture_2"),dj_in_r);
-
-    client.connect(dj_out_l,client.portByName("system:playback_1"));
-    client.connect(dj_out_r,client.portByName("system:playback_2"));
-    client.connect(stream_out_l,client.portByName("system:playback_3"));
-    client.connect(stream_out_r,client.portByName("system:playback_4"));*/
 
     audioDecoder = new QAudioDecoder();
     QObject::connect(audioDecoder, SIGNAL(bufferReady()), this, SLOT(transferSamples()));
@@ -91,13 +83,15 @@ void JackProcessor::process(int samples)
    out_l.buffer(samples).pop(ringBufferLeft);
    out_r.buffer(samples).pop(ringBufferRight);
    out_l.buffer(samples).multiply(attunation_l);
-   out_l.buffer(samples).multiply(attunation_r);
+   out_r.buffer(samples).multiply(attunation_r);
+   //qDebug() << attunation_l;
 }
 
 void JackProcessor::setVolume(double att_l, double att_r)
 {
     attunation_l = att_l;
     attunation_r = att_r;
+    qDebug() << attunation_l << " - " << attunation_r;
 }
 
 QList<double> JackProcessor::getVolume()

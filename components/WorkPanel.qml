@@ -57,7 +57,10 @@ Rectangle {
                     height: 280-streamLabel.height
                     x: 27
                     y: 10
-                    onValueChange: streamRightSlider.setValue(this.value)
+                    onValueChange:{
+                        streamRightSlider.setValue(this.value)
+                        streamProcessor.setVolume(streamLeftSlider.value/100, streamRightSlider.value/100)
+                    }
                 }
 
                 VolumeSlider{
@@ -65,7 +68,10 @@ Rectangle {
                     height: 280-streamLabel.height
                     anchors.left: streamLeftSlider.right
                     y: 10
-                    onValueChange: streamLeftSlider.setValue(this.value)
+                    onValueChange: {
+                        streamLeftSlider.setValue(this.value)
+                        streamProcessor.setVolume(streamLeftSlider.value/100, streamRightSlider.value/100)
+                    }
                 }
 
                 Text{

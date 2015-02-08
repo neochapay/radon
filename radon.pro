@@ -17,15 +17,8 @@ SOURCES += main.cpp \
     src/collection.cpp \
     src/audiofile.cpp \
     src/networkconnection.cpp \
-    src/dsp/qamplifier.cpp \
-    src/dsp/qcompressor.cpp \
-    src/dsp/qequalizer.cpp \
-    src/dsp/qequalizercontrol.cpp \
     src/dsp/qfftw.cpp \
-    src/dsp/qnoisegate.cpp \
-    src/dsp/qsignalgenerator.cpp \
-    src/dsp/qunits.cpp \
-    src/qjack/qjackbuffer.cpp
+    src/dsp/qunits.cpp
 
 RESOURCES += qml.qrc
 
@@ -73,14 +66,6 @@ HEADERS += \
     src/collection.h \
     src/audiofile.h \
     src/networkconnection.h \
-    src/dsp/qamplifier.h \
-    src/dsp/qcompressor.h \
-    src/dsp/qdigitalfilter.h \
-    src/dsp/qequalizer.h \
-    src/dsp/qequalizercontrol.h \
     src/dsp/qfftw.h \
-    src/dsp/qnoisegate.h \
-    src/dsp/qsignalgenerator.h \
-    src/dsp/qunits.h \
-    src/qjack/qjackbuffer.h
+    src/dsp/qunits.h
 
