@@ -4,5 +4,9 @@ Rectangle {
     width: parent.width
     height: parent.height
     color: "transparent"
+
+    Text{
+        text: "#SETTINGS"
+    }
 }
 

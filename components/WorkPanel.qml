@@ -2,6 +2,7 @@ import QtQuick 2.0
 import QtQuick.Controls 1.0
 
 import "../components/WorkPanel"
+import "../pages"
 
 Rectangle {
     id: workPanel
@@ -9,7 +10,7 @@ Rectangle {
     width: parent.width
 
     Rectangle{
-        id: player
+        id: workArea
         width: workPanel.width-controls.width-30
         height: workPanel.height-20
         x: 10
