@@ -21,6 +21,36 @@ Rectangle {
             left: workPanel.left
             leftMargin: 10
         }
+
+        Component.onCompleted: {
+            playlistPage.visible = true;
+        }
+
+        function listPage(page)
+        {
+            console.log("Page="+page)
+        }
+
+        CalendarPage{
+            id: calendarPage
+            visible: false;
+        }
+        PlaylistPage{
+            id: playlistPage
+            visible: false;
+        }
+        InformationPage{
+            id: informationPage
+            visible: false;
+        }
+        LibraryPage{
+            id: libraryPage
+            visible: false;
+        }
+        SettingsPage{
+            id: settingsPage
+            visible: false;
+        }
     }
 
     Rectangle{
@@ -32,7 +62,7 @@ Rectangle {
         color: "#aaaaaa"
         border.color: "#5b5b5b"
         anchors{
-            left: player.right
+            left: workArea.right
             leftMargin: 10
         }
 

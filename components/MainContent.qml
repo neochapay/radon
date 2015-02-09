@@ -9,10 +9,17 @@ Rectangle {
     MasterPanel{
         id: master
     }
+
+    function update(label)
+    {
+        console.log(label)
+    }
+
     NavigationPanel{
         id: nav
         anchors.top: master.bottom
     }
+
     WorkPanel{
         id: work
         width: parent.width

@@ -5,6 +5,8 @@ Rectangle {
     property var label;
     property bool activate: false;
 
+    signal navButtonClick(string label);
+
     width: 110
     height: parent.height
     state: "deactevated"
@@ -23,19 +25,11 @@ Rectangle {
         anchors.fill: parent;
         anchors.margins: 5
         hoverEnabled: true
-/*        onEntered: {
-            parent.state = "actived"
-        }
-        onExited: {
-            if(parent.state != "actived")
-            {
-                parent.state = "deactevated"
-            }
-        }*/
 
         onClicked: {
             navigationPanel.deactive()
             parent.state = "actived";
+            parent.parent.parent.update(label)
         }
     }
 
