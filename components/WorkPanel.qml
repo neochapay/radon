@@ -9,6 +9,39 @@ Rectangle {
     color:"#7f7f7f";
     width: parent.width
 
+/*OMG I realy need do that !?*/
+    function listPage(page)
+    {
+        calendarPage.visible = false;
+        playlistPage.visible = false;
+        libraryPage.visible = false;
+        calendarPage.visible = false;
+        informationPage.visible = false;
+        settingsPage.visible = false;
+
+        if(page === "Playlist")
+        {
+            playlistPage.visible = true;
+            console.log(page)
+        }
+        if(page === "Library")
+        {
+            libraryPage.visible = true;
+        }
+        if(page === "Calendar")
+        {
+            calendarPage.visible = true;
+        }
+        if(page === "Information")
+        {
+            informationPage.visible = true;
+        }
+        if(page === "Settings")
+        {
+            settingsPage.visible = true;
+        }
+    }
+
     Rectangle{
         id: workArea
         width: workPanel.width-controls.width-30
@@ -24,11 +57,6 @@ Rectangle {
 
         Component.onCompleted: {
             playlistPage.visible = true;
-        }
-
-        function listPage(page)
-        {
-            console.log("Page="+page)
         }
 
         CalendarPage{

@@ -18,7 +18,10 @@ Rectangle {
         settingButton.state = "deactevated";
     }
 
-    Component.onCompleted: playlistButton.state = "actived"
+    Component.onCompleted: {
+        playlistButton.state = "actived"
+    }
+
 
     NavigatorItem{
         id: playlistButton

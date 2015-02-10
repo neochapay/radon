@@ -12,7 +12,7 @@ Rectangle {
 
     function update(label)
     {
-        console.log(label)
+        work.listPage(label)
     }
 
     NavigationPanel{
