@@ -2,12 +2,17 @@ import QtQuick 2.1
 import QtQuick.Controls 1.0
 
 import "components"
+import "js/FontAwesome.js" as FontAwesome
 
 ApplicationWindow {
     id: main
     visible: true
     visibility: "Maximized"
     title: qsTr("RadON")
+
+    FontLoader{
+        source: "fonts/fontawesome-webfont.ttf"
+    }
 
     Item{
         id: content

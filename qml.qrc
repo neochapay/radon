@@ -16,5 +16,7 @@
         <file>pages/CalendarPage.qml</file>
         <file>pages/InformationPage.qml</file>
         <file>components/WorkPanel/VolumeSlider.qml</file>
+        <file>js/FontAwesome.js</file>
+        <file>fonts/fontawesome-webfont.ttf</file>
     </qresource>
 </RCC>

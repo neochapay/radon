@@ -47,7 +47,9 @@ ICON = images/logo.png
 DISTFILES += \
     i18n/ru.ts \
     images/logo.png \
-    images/logo.svg
+    images/logo.svg \
+    js/FontAwesome.js \
+    fonts/fontawesome-webfont.ttf
 
 HEADERS += \
     src/qjack/client.h \
