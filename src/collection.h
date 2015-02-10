@@ -11,9 +11,6 @@ class Collection : public QObject
 public:
     explicit Collection(QObject *parent = 0);
     ~Collection();
-    void addFile(QFile &file);
-    void removeFile(QFile &file);
-    void rescan();
 
     QDir collectionDir;
     QString collectionDirString;
@@ -23,6 +20,9 @@ signals:
     void notAllTags();
 
 public slots:
+    Q_INVOKABLE void addFile(QString fileName);
+    void removeFile(QFile &file);
+    void rescan();
 };
 
 #endif // COLLECTION_H

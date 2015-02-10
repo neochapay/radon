@@ -42,6 +42,7 @@ void JackProcessor::setupMp3Decoder()
 
 void JackProcessor::loadFile(QString fileName)
 {
+    qDebug() << fileName;
     audioDecoder->setSourceFilename(fileName);
     audioDecoder->start();
 }

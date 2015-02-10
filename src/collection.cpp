@@ -25,10 +25,10 @@ Collection::~Collection()
 
 }
 
-void Collection::addFile(QFile &file)
+void Collection::addFile(QString fileName)
 {
-    AudioFile audioFile(file.fileName());
-
+    AudioFile audioFile(fileName);
+    QFile file;
     if(audioFile.album.length() == 0 || audioFile.title.length() == 0)
     {
         emit notAllTags();
@@ -44,7 +44,7 @@ void Collection::addFile(QFile &file)
         audioFile.sync();
     }
     collectionDir.mkpath(collectionDirString+QString("/"+audioFile.artist.toUtf8()));
-    file.copy(file.fileName(),collectionDirString+"/"+audioFile.artist.toUtf8()+"/"+audioFile.title.toUtf8()+".mp3");
+    file.copy(fileName,collectionDirString+"/"+audioFile.artist.toUtf8()+"/"+audioFile.title.toUtf8()+".mp3");
 }
 
 void Collection::removeFile(QFile &file)
