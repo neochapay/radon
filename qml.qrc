@@ -18,5 +18,6 @@
         <file>components/WorkPanel/VolumeSlider.qml</file>
         <file>js/FontAwesome.js</file>
         <file>fonts/fontawesome-webfont.ttf</file>
+        <file>pages/PlayList/PlayListItem.qml</file>
     </qresource>
 </RCC>
