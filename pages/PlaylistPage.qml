@@ -11,16 +11,20 @@ Rectangle {
 
         ListElement {
             artist: "Би-2"
-            title: "Реки любви"
+            track: "Реки любви"
         }
         ListElement {
             artist: "Би-2"
-            title: "16+"
+            track: "16+"
         }
 
         ListElement {
             artist: "Би-2"
-            title: "Полковнику ни кто не пишет"
+            track: "Полковнику ни кто не пишет"
+        }
+        ListElement {
+            artist: "Запрещённые барабанщики"
+            track: "Миллион долларов США"
         }
     }
 

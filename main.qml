@@ -2,7 +2,6 @@ import QtQuick 2.1
 import QtQuick.Controls 1.0
 
 import "components"
-import "js/FontAwesome.js" as FontAwesome
 
 ApplicationWindow {
     id: main
