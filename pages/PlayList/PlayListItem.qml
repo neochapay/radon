@@ -94,21 +94,37 @@ Rectangle {
     }
 
     Text {
-        id: menuButton
-        text: FontAwesome.Icon.reorder
+        id: blockArtistButton
+        text: FontAwesome.Icon.user_times
         anchors{
             right: parent.right
             bottom: parent.bottom
             rightMargin: 3
             bottomMargin: 3
         }
-        MouseArea{
-            id: menuButtonArea
-            anchors.fill: parent
-            onClicked: {
-                contextMenu.popup()
-            }
+    }
+
+    PlayListItemIcon {
+        id: blockTrackButton
+        text: FontAwesome.Icon.times
+        anchors.right: blockArtistButton.left
+        onButtonClicked: {
+            messageDialog.dialogTitle = "TITLE"
+            messageDialog.visible = true;
         }
+    }
+
+
+    PlayListItemIcon {
+        id: editTrackButton
+        text: FontAwesome.Icon.pencil_square_o
+        anchors.right: blockTrackButton.left
+    }
+
+    PlayListItemIcon {
+        id: removeFromPlayListButton
+        text: FontAwesome.Icon.minus_square
+        anchors.right: editTrackButton.left
     }
 
     Rectangle{

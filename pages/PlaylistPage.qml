@@ -1,4 +1,6 @@
 import QtQuick 2.0
+import QtQuick.Dialogs 1.1
+
 import "PlayList/"
 
 Rectangle {
@@ -37,6 +39,16 @@ Rectangle {
         delegate: PlayListItem{
 
         }
+    }
+
+    MessageDialog {
+        property string dialogTitle
+        property string dialogText
+
+        id: messageDialog
+        title: dialogTitle
+        text: dialogText
+        standardButtons: StandardButton.Yes | StandardButton.No
     }
 }
 

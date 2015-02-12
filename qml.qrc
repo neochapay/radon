@@ -19,5 +19,6 @@
         <file>js/FontAwesome.js</file>
         <file>fonts/fontawesome-webfont.ttf</file>
         <file>pages/PlayList/PlayListItem.qml</file>
+        <file>pages/PlayList/PlayListItemIcon.qml</file>
     </qresource>
 </RCC>
