@@ -29,7 +29,7 @@ void Collection::addFile(QString fileName)
 {
     AudioFile audioFile(fileName);
     QFile file;
-    if(audioFile.album.length() == 0 || audioFile.title.length() == 0)
+    if(audioFile.artist.length() == 0 || audioFile.title.length() == 0)
     {
         emit notAllTags();
         if(audioFile.artist.length() == 0)

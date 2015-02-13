@@ -33,7 +33,6 @@ JackProcessor::JackProcessor(QJack::Client& client, QString chanel_name, bool ha
 void JackProcessor::setupMp3Decoder()
 {
     QAudioFormat targetAudioFormat;
-    targetAudioFormat.setSampleRate(client.sampleRate());
     targetAudioFormat.setSampleType(QAudioFormat::SignedInt);
     targetAudioFormat.setChannelCount(2);
     targetAudioFormat.setCodec("audio/x-raw");
@@ -42,7 +41,6 @@ void JackProcessor::setupMp3Decoder()
 
 void JackProcessor::loadFile(QString fileName)
 {
-    qDebug() << fileName;
     audioDecoder->setSourceFilename(fileName);
     audioDecoder->start();
 }
@@ -50,12 +48,14 @@ void JackProcessor::loadFile(QString fileName)
 void JackProcessor::transferSamples()
 {
     QAudioBuffer audioBuffer = audioDecoder->read();
+    int frames = audioBuffer.frameCount();
+
+    samples += frames;
+
     if(audioBuffer.isValid())
     {
-        int frames = audioBuffer.frameCount();
         QJack::AudioSample left[frames];
         QJack::AudioSample right[frames];
-
 
         const QAudioBuffer::S16S *stereoBuffer = audioBuffer.constData<QAudioBuffer::S16S>();
         for (int i = 0; i < frames; i++)
@@ -63,7 +63,6 @@ void JackProcessor::transferSamples()
             left[i]     = (QJack::AudioSample)(stereoBuffer[i].left / 65536.0);
             right[i]    = (QJack::AudioSample)(stereoBuffer[i].right / 65536.0);
         }
-
         ringBufferLeft.write(left, frames);
         ringBufferRight.write(right, frames);
     }
@@ -72,27 +71,21 @@ void JackProcessor::transferSamples()
 
 void JackProcessor::timerEvent(QTimerEvent*)
 {
-    qDebug() << "Samples remaining in the ring buffer: "
-             << ringBufferLeft.numberOfElementsAvailableForRead()
-             << " / "
-             << ringBufferRight.numberOfElementsAvailableForRead();
+
 }
 
 void JackProcessor::process(int samples)
 {
-    // Just shift samples from the ringbuffers to the outputs buffers.
    out_l.buffer(samples).pop(ringBufferLeft);
    out_r.buffer(samples).pop(ringBufferRight);
    out_l.buffer(samples).multiply(attunation_l);
    out_r.buffer(samples).multiply(attunation_r);
-   //qDebug() << attunation_l;
 }
 
 void JackProcessor::setVolume(double att_l, double att_r)
 {
     attunation_l = att_l;
     attunation_r = att_r;
-    qDebug() << attunation_l << " - " << attunation_r;
 }
 
 QList<double> JackProcessor::getVolume()

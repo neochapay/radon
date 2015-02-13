@@ -19,6 +19,8 @@ class JackProcessor : public QJack::Processor
         void setupMp3Decoder();
         void process(int samples);
 
+        int samples;
+
         double attunation_l;
         double attunation_r;
 

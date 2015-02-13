@@ -27,8 +27,6 @@ int main(int argc, char *argv[])
     streamProcessor->setupMp3Decoder();
     client.activate();
 
-    //streamProcessor->loadFile("/home/neochapay/Музыка/001_7Б - Молодые Ветра.mp3");
-
     QQmlApplicationEngine engine;
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     engine.rootContext()->setContextProperty("Settings", settings);
