@@ -18,11 +18,21 @@ Collection::Collection(QObject *parent) : QObject(parent)
             emit erorrAcces();
         }
     }
+    QObject::connect(this,SIGNAL(readyToCopy(QString)),this,SLOT(addFile(QString)));
 }
 
 Collection::~Collection()
 {
 
+}
+
+void Collection::addFiles(QVariant files)
+{
+    QList<QVariant> fileUrls = files.toList();
+    for(int i=0; i<fileUrls.length(); i++)
+    {
+       emit readyToCopy(fileUrls[i].toString());
+    }
 }
 
 void Collection::addFile(QString fileName)

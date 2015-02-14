@@ -6,9 +6,12 @@ import QtQuick.Window 2.0
 
 Rectangle {
     id: libraryPageArea
+    objectName: "libraryPageArea"
     width: parent.width
     height: parent.height
     color: "transparent"
+
+    signal addFiles(variant list)
 
     Button{
         text: "Add files to library"
@@ -27,11 +30,12 @@ Rectangle {
         selectedNameFilter: "All files (*)"
         selectMultiple: true
         onAccepted: {
-            console.log("Accepted: " + fileUrls)
+            var list = []
             for (var i = 0; i < fileUrls.length; ++i)
             {
-                Collection.addFile(fileUrls[i].replace("file://",""));
+                list.push(fileUrls[i].replace("file://",""))
             }
+            addFiles(list)
         }
         onRejected: { console.log("Rejected") }
     }

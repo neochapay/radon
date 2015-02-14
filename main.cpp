@@ -33,5 +33,10 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("Collection", audioCollection);
     engine.rootContext()->setContextProperty("streamProcessor", streamProcessor);
 
+    QObject *object = engine.rootObjects().first();
+    QObject *libraryView = object->findChild<QObject*>("libraryPageArea");
+
+    QObject::connect(libraryView,SIGNAL(addFiles(QVariant)),audioCollection,SLOT(addFiles(QVariant)));
+
     return app.exec();
 }

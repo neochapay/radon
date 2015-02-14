@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QFile>
 #include <QDir>
+#include <QVariant>
 
 class Collection : public QObject
 {
@@ -18,9 +19,11 @@ public:
 signals:
     void erorrAcces();
     void notAllTags();
+    void readyToCopy(QString file);
 
 public slots:
-    Q_INVOKABLE void addFile(QString fileName);
+    void addFiles(QVariant files);
+    void addFile(QString fileName);
     void removeFile(QFile &file);
     void rescan();
 };
