@@ -25,7 +25,7 @@ Collection::Collection(QObject *parent) : QObject(parent)
 
 Collection::~Collection()
 {
-
+    thread->quit();
 }
 
 void Collection::addFiles(QVariant files)
@@ -33,8 +33,9 @@ void Collection::addFiles(QVariant files)
     ThreadFileCopy* tCopy = new ThreadFileCopy();
     tCopy->setFileList(files.toList());
 
-    QThread* thread = new QThread;
+    thread = new QThread;
     connect(thread, SIGNAL(started()), tCopy, SLOT(proccess()));
+    connect(tCopy,SIGNAL(fileCopied(QString)),this,SLOT(setStatus(QString)));
 
     tCopy->moveToThread(thread);
 
@@ -71,4 +72,9 @@ void Collection::removeFile(QFile &file)
 void Collection::rescan()
 {
 
+}
+
+void Collection::setStatus(QString status)
+{
+    emit setStatusText(QVariant("Add to collection: "+status));
 }

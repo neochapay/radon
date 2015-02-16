@@ -16,15 +16,20 @@ public:
     QDir collectionDir;
     QString collectionDirString;
 
+private:
+    QThread* thread;
+
 signals:
     void erorrAcces();
     void notAllTags();
     void readyToCopy(QString file);
+    void setStatusText(QVariant status);
 
 public slots:
     void addFiles(QVariant files);
     void addFile(QString fileName);
     void removeFile(QFile &file);
+    void setStatus(QString status);
     void rescan();
 };
 

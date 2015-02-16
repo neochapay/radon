@@ -42,6 +42,7 @@ void ThreadFileCopy::addFile(QString fileName)
     }
     collectionDir.mkpath(collectionDirString+QString("/"+audioFile->artist.toUtf8()));
     file.copy(fileName,collectionDirString+"/"+audioFile->artist.toUtf8()+"/"+audioFile->title.toUtf8()+".mp3");
+    emit fileCopied(fileName);
 }
 
 void ThreadFileCopy::proccess()

@@ -24,7 +24,14 @@ ApplicationWindow {
 
     StatusBar{
         id: statusBar
+        objectName: "rootView"
         anchors.bottom: content.bottom
+
+        function setStatus(status)
+        {
+            statusText.text = status;
+        }
+
         Image{
             id: statusImage
             height: parent.height

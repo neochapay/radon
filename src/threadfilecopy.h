@@ -23,6 +23,7 @@ public slots:
 
 signals:
     void finishCopy();
+    void fileCopied(QString fileName);
 };
 
 #endif // THREADFILECOPY_H
