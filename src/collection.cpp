@@ -36,9 +36,11 @@ void Collection::addFiles(QVariant files)
     thread = new QThread;
     connect(thread, SIGNAL(started()), tCopy, SLOT(proccess()));
     connect(tCopy,SIGNAL(fileCopied(QString)),this,SLOT(setStatus(QString)));
+    connect(this,SIGNAL(fileCopyTick()),this,SLOT(processTick()));
 
     tCopy->moveToThread(thread);
-
+    copyAll = files.toList().length();
+    copyCount = 0;
     thread->start();
 }
 
@@ -76,5 +78,18 @@ void Collection::rescan()
 
 void Collection::setStatus(QString status)
 {
+    emit fileCopyTick();
     emit setStatusText(QVariant("Add to collection: "+status));
+}
+
+void Collection::processTick()
+{
+    copyCount++;
+    setProcess();
+}
+
+void Collection::setProcess()
+{
+    QVariant prc = copyCount/copyAll*100;
+    emit setStatusProcess(prc);
 }

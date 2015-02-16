@@ -47,7 +47,6 @@ void ThreadFileCopy::addFile(QString fileName)
 
 void ThreadFileCopy::proccess()
 {
-    qDebug() << "process";
     for(int i=0; i<fileList.length(); i++)
     {
         addFile(fileList[i].toString());

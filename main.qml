@@ -30,6 +30,13 @@ ApplicationWindow {
         function setStatus(status)
         {
             statusText.text = status;
+            textTimer.restart();
+        }
+
+        function setProcess(val)
+        {
+            statusProgres.value = val;
+            statusProgres.visible = true;
         }
 
         Image{
@@ -44,9 +51,31 @@ ApplicationWindow {
         }
         Text{
             id: statusText
+            width: parent-statusProgres.width
             anchors{
                 fill: parent
                 right: statusImage.left
+            }
+        }
+
+        ProgressBar{
+            id: statusProgres
+            width: 200
+            height: parent.height
+            anchors.right: parent.right
+            maximumValue: 100
+            minimumValue: 0
+            visible: false
+        }
+
+        Timer{
+            id: textTimer
+            interval: 2000
+            repeat: false
+            running: true;
+            onTriggered: {
+                statusProgres.visible = false
+                statusText.text = ""
             }
         }
     }

@@ -18,18 +18,24 @@ public:
 
 private:
     QThread* thread;
+    double copyCount;
+    double copyAll;
+    void setProcess();
 
 signals:
     void erorrAcces();
     void notAllTags();
     void readyToCopy(QString file);
     void setStatusText(QVariant status);
+    void setStatusProcess(QVariant prc);
+    void fileCopyTick();
 
 public slots:
     void addFiles(QVariant files);
     void addFile(QString fileName);
     void removeFile(QFile &file);
     void setStatus(QString status);
+    void processTick();
     void rescan();
 };
 
