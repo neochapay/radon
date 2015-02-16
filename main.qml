@@ -24,7 +24,7 @@ ApplicationWindow {
 
     StatusBar{
         id: statusBar
-        objectName: "rootView"
+        objectName: "statusBar"
         anchors.bottom: content.bottom
 
         function setStatus(status)

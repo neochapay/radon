@@ -35,10 +35,10 @@ int main(int argc, char *argv[])
 
     QObject *object = engine.rootObjects().first();
     QObject *libraryView = object->findChild<QObject*>("libraryPageArea");
-    QObject *rootView = object->findChild<QObject*>("rootView");
+    QObject *statusBar = object->findChild<QObject*>("statusBar");
 
     QObject::connect(libraryView,SIGNAL(addFiles(QVariant)),audioCollection,SLOT(addFiles(QVariant)));
-    QObject::connect(audioCollection,SIGNAL(setStatusText(QVariant)),rootView,SLOT(setStatus(QVariant)));
+    QObject::connect(audioCollection,SIGNAL(setStatusText(QVariant)),statusBar,SLOT(setStatus(QVariant)));
 
     return app.exec();
 }
