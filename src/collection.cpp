@@ -1,9 +1,11 @@
 #include "collection.h"
 #include "audiofile.h"
+#include "threadfilecopy.h"
 
 #include <QFile>
 #include <QDir>
 #include <QDebug>
+#include <QThread>
 
 Collection::Collection(QObject *parent) : QObject(parent)
 {
@@ -28,11 +30,15 @@ Collection::~Collection()
 
 void Collection::addFiles(QVariant files)
 {
-    QList<QVariant> fileUrls = files.toList();
-    for(int i=0; i<fileUrls.length(); i++)
-    {
-       emit readyToCopy(fileUrls[i].toString());
-    }
+    ThreadFileCopy* tCopy = new ThreadFileCopy();
+    tCopy->setFileList(files.toList());
+
+    QThread* thread = new QThread;
+    connect(thread, SIGNAL(started()), tCopy, SLOT(proccess()));
+
+    tCopy->moveToThread(thread);
+
+    thread->start();
 }
 
 void Collection::addFile(QString fileName)

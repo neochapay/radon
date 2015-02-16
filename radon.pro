@@ -18,7 +18,8 @@ SOURCES += main.cpp \
     src/audiofile.cpp \
     src/networkconnection.cpp \
     src/dsp/qfftw.cpp \
-    src/dsp/qunits.cpp
+    src/dsp/qunits.cpp \
+    src/threadfilecopy.cpp
 
 RESOURCES += qml.qrc
 
@@ -69,5 +70,6 @@ HEADERS += \
     src/audiofile.h \
     src/networkconnection.h \
     src/dsp/qfftw.h \
-    src/dsp/qunits.h
+    src/dsp/qunits.h \
+    src/threadfilecopy.h
 
