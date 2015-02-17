@@ -34,6 +34,7 @@ Rectangle {
     Text{
         id: lisenButton
         text: FontAwesome.Icon.volume_up
+        font.family: "FontAwesome"
         font.pointSize: 25
         x: 10
         MouseArea{
@@ -48,6 +49,7 @@ Rectangle {
     Text{
         id: playNowButton
         text: FontAwesome.Icon.play
+        font.family: "FontAwesome"
         font.pointSize: 25
         color: "#FF5D1A"
         x: 10
@@ -107,6 +109,7 @@ Rectangle {
     PlayListItemIcon {
         id: blockTrackButton
         text: FontAwesome.Icon.times
+        font.family: "FontAwesome"
         anchors.right: blockArtistButton.left
         onButtonClicked: {
             messageDialog.dialogTitle = "TITLE"
@@ -118,12 +121,14 @@ Rectangle {
     PlayListItemIcon {
         id: editTrackButton
         text: FontAwesome.Icon.pencil_square_o
+        font.family: "FontAwesome"
         anchors.right: blockTrackButton.left
     }
 
     PlayListItemIcon {
         id: removeFromPlayListButton
         text: FontAwesome.Icon.minus_square
+        font.family: "FontAwesome"
         anchors.right: editTrackButton.left
     }
 
