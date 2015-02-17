@@ -4,6 +4,7 @@
 
 #include <QFile>
 #include <QDir>
+#include <QDirIterator>
 #include <QDebug>
 #include <QThread>
 #include <QtSql>
@@ -98,7 +99,11 @@ void Collection::removeFile(QFile &file)
 
 void Collection::rescan()
 {
+    QDirIterator it(collectionDirString, QStringList() << "*.mp3", QDir::Files, QDirIterator::Subdirectories);
 
+    while (it.hasNext()) {
+        qDebug() << it.next();
+    }
 }
 
 void Collection::setStatus(QString status)

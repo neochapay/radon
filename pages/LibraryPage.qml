@@ -4,6 +4,8 @@ import QtQuick.Dialogs 1.1
 import QtQuick.Layouts 1.1
 import QtQuick.Window 2.0
 
+import "../js/FontAwesome.js" as FontAwesome
+
 Rectangle {
     id: libraryPageArea
     objectName: "libraryPageArea"
@@ -14,6 +16,25 @@ Rectangle {
     signal addFiles(variant list)
 
     Button{
+        width: height
+        anchors{
+            right: addFileButton.left
+            bottom: libraryPageArea.bottom
+            bottomMargin: 5
+            rightMargin: 5
+        }
+        Text{
+            anchors.fill: parent
+            text: FontAwesome.Icon.refresh
+            font.family: "FontAwesome"
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignHCenter
+        }
+        onClicked: Collection.rescan();
+    }
+
+    Button{
+        id: addFileButton
         text: "Add files to library"
         onClicked: fileDialog.visible = true;
         anchors{
