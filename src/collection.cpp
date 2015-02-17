@@ -47,6 +47,10 @@ Collection::~Collection()
 void Collection::initDB()
 {
     qDebug() << "DB INIT";
+    db.exec("CREATE TABLE `artist` (`id` INTEGER PRIMARY KEY AUTOINCREMENT,`name` TEXT )");
+    db.exec("CREATE TABLE `songs` (`id`	INTEGER PRIMARY KEY AUTOINCREMENT,`artist_id` INTEGER NOT NULL,`title` TEXT NOT NULL,`album` TEXT,`comment` TEXT,`genere` TEXT,`track` INTEGER,`year` INTEGER");
+    db.exec("CREATE TABLE `playlist` (`id`	INTEGER PRIMARY KEY AUTOINCREMENT,`song_id`	INTEGER NOT NULL,`time`	INTEGER NOT NULL)");
+    rescan();
 }
 
 void Collection::addFiles(QVariant files)
