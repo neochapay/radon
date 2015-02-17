@@ -32,6 +32,7 @@ signals:
     void setStatusText(QVariant status);
     void setStatusProcess(QVariant prc);
     void fileCopyTick();
+    void baseCreate();
 
 public slots:
     void addFiles(QVariant files);

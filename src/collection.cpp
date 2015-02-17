@@ -4,7 +4,6 @@
 
 #include <QFile>
 #include <QDir>
-#include <QDirIterator>
 #include <QDebug>
 #include <QThread>
 #include <QtSql>
@@ -38,6 +37,7 @@ Collection::Collection(QObject *parent) : QObject(parent)
 
     connect(this,SIGNAL(readyToCopy(QString)),this,SLOT(addFile(QString)));
     connect(this,SIGNAL(fileCopyTick()),this,SLOT(processTick()));
+    connect(this,SIGNAL(baseCreate()),this,SLOT(rescan()));
 }
 
 Collection::~Collection()
@@ -47,11 +47,11 @@ Collection::~Collection()
 
 void Collection::initDB()
 {
-    qDebug() << "DB INIT";
     db.exec("CREATE TABLE `artist` (`id` INTEGER PRIMARY KEY AUTOINCREMENT,`name` TEXT )");
     db.exec("CREATE TABLE `songs` (`id`	INTEGER PRIMARY KEY AUTOINCREMENT,`artist_id` INTEGER NOT NULL,`title` TEXT NOT NULL,`album` TEXT,`comment` TEXT,`genere` TEXT,`track` INTEGER,`year` INTEGER");
     db.exec("CREATE TABLE `playlist` (`id`	INTEGER PRIMARY KEY AUTOINCREMENT,`song_id`	INTEGER NOT NULL,`time`	INTEGER NOT NULL)");
-    rescan();
+
+    emit baseCreate();
 }
 
 void Collection::addFiles(QVariant files)
@@ -68,6 +68,17 @@ void Collection::addFiles(QVariant files)
     copyAll = files.toList().length();
     copyCount = 0;
     thread->start();
+}
+
+
+void Collection::rescan()
+{
+    qDebug() << "rescan";
+    ThreadFileCopy* tCopy = new ThreadFileCopy();
+    QThread *rescanThread = new QThread;
+    connect(rescanThread, SIGNAL(started()), tCopy, SLOT(rescanCollection()));
+    tCopy->moveToThread(rescanThread);
+    rescanThread->start();
 }
 
 void Collection::addFile(QString fileName)
@@ -95,15 +106,6 @@ void Collection::addFile(QString fileName)
 void Collection::removeFile(QFile &file)
 {
     file.remove();
-}
-
-void Collection::rescan()
-{
-    QDirIterator it(collectionDirString, QStringList() << "*.mp3", QDir::Files, QDirIterator::Subdirectories);
-
-    while (it.hasNext()) {
-        qDebug() << it.next();
-    }
 }
 
 void Collection::setStatus(QString status)

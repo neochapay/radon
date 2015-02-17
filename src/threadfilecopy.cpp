@@ -4,6 +4,7 @@
 #include <QThread>
 #include <QDebug>
 #include <QDir>
+#include <QDirIterator>
 
 ThreadFileCopy::ThreadFileCopy()
 {
@@ -56,4 +57,15 @@ void ThreadFileCopy::proccess()
 void ThreadFileCopy::stop()
 {
 
+}
+
+void ThreadFileCopy::rescanCollection()
+{
+    QString collectionDirString = QString(QDir::homePath()+"/.radon/collection/");
+    QDirIterator it(collectionDirString, QStringList() << "*.mp3", QDir::Files, QDirIterator::Subdirectories);
+
+    while (it.hasNext()) {
+        AudioFile *audioFile = new AudioFile(it.next());
+        qDebug() << audioFile->artist << " - " << audioFile->title;
+    }
 }

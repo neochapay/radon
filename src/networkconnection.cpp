@@ -1,5 +1,6 @@
 #include "networkconnection.h"
 
+
 #include <QDir>
 
 NetworkConnection::NetworkConnection(QObject *parent) : QObject(parent)
