@@ -1,6 +1,6 @@
 TEMPLATE = app
 
-QT += qml quick widgets multimedia network
+QT += qml quick widgets multimedia network sql
 
 LIBS += -ljack -ltag -lfftw3
 

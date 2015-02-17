@@ -6,6 +6,7 @@
 #include <QDir>
 #include <QDebug>
 #include <QThread>
+#include <QtSql>
 
 Collection::Collection(QObject *parent) : QObject(parent)
 {
@@ -20,12 +21,32 @@ Collection::Collection(QObject *parent) : QObject(parent)
             emit erorrAcces();
         }
     }
-    QObject::connect(this,SIGNAL(readyToCopy(QString)),this,SLOT(addFile(QString)));
+
+
+    db = QSqlDatabase::addDatabase("QSQLITE");
+    db.setDatabaseName(QDir::homePath()+"/.radon/db.sql");
+    if(!db.open())
+    {
+          qDebug() << db.lastError().text();
+    }
+
+    if(QFile(QDir::homePath()+"/.radon/db.sql").size() == 0)
+    {
+        initDB();
+    }
+
+    connect(this,SIGNAL(readyToCopy(QString)),this,SLOT(addFile(QString)));
+    connect(this,SIGNAL(fileCopyTick()),this,SLOT(processTick()));
 }
 
 Collection::~Collection()
 {
     thread->quit();
+}
+
+void Collection::initDB()
+{
+    qDebug() << "DB INIT";
 }
 
 void Collection::addFiles(QVariant files)
@@ -34,9 +55,9 @@ void Collection::addFiles(QVariant files)
     tCopy->setFileList(files.toList());
 
     thread = new QThread;
+
     connect(thread, SIGNAL(started()), tCopy, SLOT(proccess()));
     connect(tCopy,SIGNAL(fileCopied(QString)),this,SLOT(setStatus(QString)));
-    connect(this,SIGNAL(fileCopyTick()),this,SLOT(processTick()));
 
     tCopy->moveToThread(thread);
     copyAll = files.toList().length();

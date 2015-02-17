@@ -5,6 +5,7 @@
 #include <QFile>
 #include <QDir>
 #include <QVariant>
+#include <QtSql>
 
 class Collection : public QObject
 {
@@ -18,9 +19,11 @@ public:
 
 private:
     QThread* thread;
+    QSqlDatabase db;
     double copyCount;
     double copyAll;
     void setProcess();
+    void initDB();
 
 signals:
     void erorrAcces();
