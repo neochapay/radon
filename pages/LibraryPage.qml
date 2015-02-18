@@ -30,7 +30,7 @@ Rectangle {
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignHCenter
         }
-        onClicked: Collection.rescan();
+        onClicked: Collection.rescanBase()
     }
 
     Button{

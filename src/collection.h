@@ -1,11 +1,14 @@
 #ifndef COLLECTION_H
 #define COLLECTION_H
 
+#include "dbadapter.h"
+
 #include <QObject>
 #include <QFile>
 #include <QDir>
 #include <QVariant>
 #include <QtSql>
+
 
 class Collection : public QObject
 {
@@ -18,8 +21,9 @@ public:
     QString collectionDirString;
 
 private:
+    dbAdapter* dba;
+
     QThread* thread;
-    QSqlDatabase db;
     double copyCount;
     double copyAll;
     void setProcess();
@@ -40,7 +44,7 @@ public slots:
     void removeFile(QFile &file);
     void setStatus(QString status);
     void processTick();
-    void rescan();
+    void rescanBase();
 };
 
 #endif // COLLECTION_H

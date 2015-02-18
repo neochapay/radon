@@ -19,7 +19,8 @@ SOURCES += main.cpp \
     src/networkconnection.cpp \
     src/dsp/qfftw.cpp \
     src/dsp/qunits.cpp \
-    src/threadfilecopy.cpp
+    src/threadfilecopy.cpp \
+    src/dbadapter.cpp
 
 RESOURCES += qml.qrc
 
@@ -71,5 +72,6 @@ HEADERS += \
     src/networkconnection.h \
     src/dsp/qfftw.h \
     src/dsp/qunits.h \
-    src/threadfilecopy.h
+    src/threadfilecopy.h \
+    src/dbadapter.h
 

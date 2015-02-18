@@ -20,7 +20,6 @@ private:
 public slots:
     void proccess();
     void stop();
-    void rescanCollection();
 
 signals:
     void finishCopy();
