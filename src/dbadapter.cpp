@@ -14,6 +14,8 @@ dbAdapter::dbAdapter(QObject *parent) : QObject(parent)
           qDebug() << db.lastError().text();
     }
 
+    query = QSqlQuery(db);
+
     if(QFile(QDir::homePath()+"/.radon/db.sql").size() == 0)
     {
         initDB();
@@ -44,7 +46,49 @@ void dbAdapter::rescanCollection()
     while (it.hasNext()) {
         AudioFile *audioFile = new AudioFile(it.next());
         qDebug() << audioFile->artist << " - " << audioFile->title;
-        QString str = QString("INSERT INTO artist (name) VALUES (%1)").arg(audioFile->artist);
-        db.exec(str.toUtf8());
+        addArtist(audioFile->artist);
+        addSong(getArtistID(audioFile->artist),audioFile->title,audioFile->album,audioFile->comment,audioFile->genre,audioFile->track,audioFile->year);
     }
+}
+
+void dbAdapter::addArtist(QString name)
+{
+    QString str = QString("INSERT INTO artist (name) VALUES ('%1')").arg(name);
+    query.exec(str);
+}
+
+int dbAdapter::getArtistID(QString name)
+{
+    QString str = QString("SELECT id FROM artist WHERE `name` = '%1'").arg(name);
+    query.exec(str);
+    while(query.next())
+    {
+        return query.value("id").toInt();
+    }
+    return 0;
+}
+
+QList<int> dbAdapter::getArtistSong(int artist_id)
+{
+    QList<int> songList;
+    QString str = QString("SELECT id FROM song WHERE `artist_id` = '%1'").arg(artist_id);
+    query.exec(str);
+    while(query.next())
+    {
+        songList.append(query.value("id").toInt());
+    }
+    return songList;
+}
+
+void dbAdapter::addSong(int artist_id, QString title, QString album, QString comment, QString genere, int track, int year)
+{
+    query.prepare("INSERT INTO songs (`artist_id`, `title`, `album`, `comment`, `genere`, `track`, `year`) VALUES (:artist_id,:title,:album,:comment,:genere,:track,:year)");
+    query.bindValue(":artist_id",artist_id);
+    query.bindValue(":title",title);
+    query.bindValue(":album",album);
+    query.bindValue(":comment",comment);
+    query.bindValue(":genere",genere);
+    query.bindValue(":track",track);
+    query.bindValue(":year",year);
+    query.exec();
 }
