@@ -2,6 +2,7 @@
 #include "audiofile.h"
 
 #include <QtSql>
+#include <QSqlQueryModel>
 #include <QDir>
 #include <QDebug>
 
@@ -49,6 +50,7 @@ void dbAdapter::rescanCollection()
         addArtist(audioFile->artist);
         addSong(getArtistID(audioFile->artist),audioFile->title,audioFile->album,audioFile->comment,audioFile->genre,audioFile->track,audioFile->year);
     }
+    emit dbRescanEnd();
 }
 
 void dbAdapter::addArtist(QString name)
@@ -66,6 +68,18 @@ int dbAdapter::getArtistID(QString name)
         return query.value("id").toInt();
     }
     return 0;
+}
+
+QMap<int,QString> dbAdapter::getAllArtsits()
+{
+    QMap<int,QString> artistMap;
+    QString str = QString("SELECT * FROM artist");
+    query.exec(str);
+    while(query.next())
+    {
+        artistMap[query.value("id").toInt()] = query.value("name").toInt();
+    }
+    return artistMap;
 }
 
 QList<int> dbAdapter::getArtistSong(int artist_id)

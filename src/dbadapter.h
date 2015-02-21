@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QtSql>
+#include <QSqlQueryModel>
 
 class dbAdapter : public QObject
 {
@@ -16,14 +17,17 @@ public:
     QList<int> getArtistSong(int artist_id);
 
     void addSong(int artist_id, QString title, QString album, QString comment, QString genere, int track, int year);
+    QMap<int, QString> getAllArtsits();
 
 private:
     QSqlDatabase db;
     QSqlQuery query;
+
     void initDB();
 
 signals:
     void baseCreate();
+    void dbRescanEnd();
 
 public slots:
     void rescanCollection();
