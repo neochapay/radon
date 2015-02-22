@@ -15,6 +15,24 @@ Rectangle {
 
     signal addFiles(variant list)
 
+    Rectangle{
+        id: artistArea
+        width: 200
+        height: parent.height-addFileButton.height-12
+        x: 1
+        y: 1
+        color: "transparent"
+    }
+
+    Rectangle{
+        id: songArea
+        width: parent.width-artistArea.width-2
+        height: parent.height-addFileButton.height-12
+        anchors.left: artistArea.right
+        y:1
+        color: "transparent"
+    }
+
     Button{
         width: height
         anchors{
