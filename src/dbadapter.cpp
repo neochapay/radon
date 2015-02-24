@@ -70,16 +70,12 @@ int dbAdapter::getArtistID(QString name)
     return 0;
 }
 
-QMap<int,QString> dbAdapter::getAllArtsits()
+QSqlTableModel* dbAdapter::getTable(QString table)
 {
-    QMap<int,QString> artistMap;
-    QString str = QString("SELECT * FROM artist");
-    query.exec(str);
-    while(query.next())
-    {
-        artistMap[query.value("id").toInt()] = query.value("name").toInt();
-    }
-    return artistMap;
+    QSqlTableModel *model = new QSqlTableModel();
+    model->setTable(table);
+    model->select();
+    return model;
 }
 
 QList<int> dbAdapter::getArtistSong(int artist_id)

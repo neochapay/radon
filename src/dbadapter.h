@@ -17,7 +17,7 @@ public:
     QList<int> getArtistSong(int artist_id);
 
     void addSong(int artist_id, QString title, QString album, QString comment, QString genere, int track, int year);
-    QMap<int, QString> getAllArtsits();
+    QSqlTableModel *getTable(QString table);
 
 private:
     QSqlDatabase db;
