@@ -27,7 +27,8 @@ Collection::Collection(QObject *parent) : QObject(parent)
     connect(this,SIGNAL(readyToCopy(QString)),this,SLOT(addFile(QString)));
     connect(this,SIGNAL(fileCopyTick()),this,SLOT(processTick()));
 
-
+    artistModel = dba->getTable("artist");
+    songModel = dba->getTable("songs");
 }
 
 Collection::~Collection()
@@ -58,6 +59,10 @@ void Collection::rescanBase()
     connect(rescanThread, SIGNAL(started()), dba, SLOT(rescanCollection()));
     dba->moveToThread(rescanThread);
     rescanThread->start();
+
+    //FIXME need do it after end of scan collection
+    artistModel = dba->getTable("artist");
+    songModel = dba->getTable("songs");
 }
 
 void Collection::addFile(QString fileName)
@@ -103,4 +108,11 @@ void Collection::setProcess()
 {
     QVariant prc = copyCount/copyAll*100;
     emit setStatusProcess(prc);
+}
+
+
+QObject *Collection::getArtistModel()
+{
+    QStringListModel *listModel = new QStringListModel(artistModel);
+    return listModel;
 }

@@ -22,6 +22,14 @@ Rectangle {
         x: 1
         y: 1
         color: "transparent"
+
+        ListView{
+            id: artisListView
+            model: Collection.getArtistModel()
+            width: parent.width
+            height: parent.height
+            y: 1
+        }
     }
 
     Rectangle{
