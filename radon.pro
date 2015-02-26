@@ -20,7 +20,8 @@ SOURCES += main.cpp \
     src/dsp/qfftw.cpp \
     src/dsp/qunits.cpp \
     src/threadfilecopy.cpp \
-    src/dbadapter.cpp
+    src/dbadapter.cpp \
+    src/model/artist.cpp
 
 RESOURCES += qml.qrc
 
@@ -73,5 +74,7 @@ HEADERS += \
     src/dsp/qfftw.h \
     src/dsp/qunits.h \
     src/threadfilecopy.h \
-    src/dbadapter.h
+    src/dbadapter.h \
+    src/model/item.h \
+    src/model/artist.h
 
