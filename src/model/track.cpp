@@ -21,7 +21,7 @@ Track* Track::toId(int trackId)
     QSqlDatabase db = dbAdapter::instance().db;
     QSqlQuery query(db);
     query.prepare("SELECT artist_id,title,album,comment,genere,track,year FROM songs WHERE id=:id");
-    query.addBindValue(":id",trackId);
+    query.bindValue(":id",trackId);
 
     bool ok = query.exec();
     if(!ok)
