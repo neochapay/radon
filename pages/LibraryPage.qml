@@ -25,7 +25,6 @@ Rectangle {
 
         ListView{
             id: artisListView
-            model: Collection.getArtistModel()
             width: parent.width
             height: parent.height
             y: 1
