@@ -13,6 +13,7 @@ public:
     ~dbAdapter();
 
     static dbAdapter& instance();
+    QSqlDatabase db;
 
     int getArtistID(QString);
     void addArtist(QString);
@@ -22,7 +23,6 @@ public:
     QSqlQueryModel *getTable(QString table);
 
 private:
-    QSqlDatabase db;
     QSqlQuery query;
     QMutex lock;
     void initDB();
