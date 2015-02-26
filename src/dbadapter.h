@@ -16,7 +16,7 @@ public:
     QSqlDatabase db;
 
     int getArtistID(QString);
-    void addArtist(QString);
+    int addArtist(QString);
     QList<int> getArtistSong(int artist_id);
 
     void addSong(int artist_id, QString title, QString album, QString comment, QString genere, int track, int year);

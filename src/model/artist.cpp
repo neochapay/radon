@@ -27,7 +27,7 @@ Artist* Artist::toId(int artistId)
     }
     if(query.next())
     {
-        Artist* artist;
+        Artist* artist = new Artist();
         artist->setId(artistId);
         artist->setName(query.value(0).toString());
 
@@ -40,13 +40,12 @@ Artist* Artist::toId(int artistId)
 
 int Artist::idFromName(QString name)
 {
-    int id = -1;
+    int id = 0;
     QSqlDatabase db = dbAdapter::instance().db;
     QSqlQuery query(db);
-    query.prepare("SELECT id FROM arists WHERE name=:name");
-    query.bindValue(":name",name);
+    QString str = QString("SELECT id FROM artist WHERE `name`='%1'").arg(name);
 
-    bool ok = query.exec();
+    bool ok = query.exec(str);
     if(!ok)
     {
         qDebug() << query.lastQuery() << query.lastError().text();
@@ -64,10 +63,9 @@ void Artist::insert()
 {
     QSqlDatabase db = dbAdapter::instance().db;
     QSqlQuery query(db);
-    query.prepare("INSERT INTO arists (name) VALUES (:name)");
-    query.bindValue(":name",name);
+    QString str = QString("INSERT INTO artist (name) VALUES ('%1')").arg(name);
 
-    bool ok = query.exec();
+    bool ok = query.exec(str);
     if(!ok)
     {
         qDebug() << query.lastQuery() << query.lastError().text();

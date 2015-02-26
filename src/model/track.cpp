@@ -30,7 +30,7 @@ Track* Track::toId(int trackId)
     }
     if(query.next())
     {
-        Track* track;
+        Track* track = new Track();
         track->setId(trackId);
         track->setArtistId(query.value(0).toInt());
         track->setTitle(query.value(1).toString());

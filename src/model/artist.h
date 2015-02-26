@@ -9,9 +9,11 @@ class Artist : public Item
     Q_OBJECT
 public:
     Artist(QObject *parent = 0);
+
     static Artist* toId(int artistId);
     static int idFromName(QString name);
     void setName(QString name) {this->name = name;}
+    QString getName() {return name;}
 
     void insert();
     void update();
@@ -22,6 +24,11 @@ private:
 
     static QString getHash(const QString&);
     static QHash<int, Artist*> cache;
+
+    int trackCount();
 };
+
+typedef QPointer<Artist> ArtistPointer;
+Q_DECLARE_METATYPE(ArtistPointer)
 
 #endif // ARTIST_H

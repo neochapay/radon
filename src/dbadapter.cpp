@@ -1,6 +1,9 @@
 #include "dbadapter.h"
 #include "audiofile.h"
 
+#include "model/artist.h"
+#include "model/track.h"
+
 #include <QtSql>
 #include <QSqlQueryModel>
 #include <QDir>
@@ -58,57 +61,34 @@ void dbAdapter::rescanCollection()
     while (it.hasNext()) {
         AudioFile *audioFile = new AudioFile(it.next());
         qDebug() << audioFile->artist << " - " << audioFile->title;
-        addArtist(audioFile->artist);
-        addSong(getArtistID(audioFile->artist),audioFile->title,audioFile->album,audioFile->comment,audioFile->genre,audioFile->track,audioFile->year);
+        int artist_id = addArtist(audioFile->artist);
+        addSong(artist_id,audioFile->title,audioFile->album,audioFile->comment,audioFile->genre,audioFile->track,audioFile->year);
     }
     emit dbRescanEnd();
 }
 
-void dbAdapter::addArtist(QString name)
+int dbAdapter::addArtist(QString name)
 {
-    QString str = QString("INSERT INTO artist (name) VALUES ('%1')").arg(name);
-    query.exec(str);
-}
-
-int dbAdapter::getArtistID(QString name)
-{
-    QString str = QString("SELECT id FROM artist WHERE `name` = '%1'").arg(name);
-    query.exec(str);
-    while(query.next())
+    Artist* artist = new Artist();
+    int a_id = artist->idFromName(name);
+    if(a_id == 0)
     {
-        return query.value("id").toInt();
+        artist->setName(name);
+        artist->insert();
+        a_id = artist->idFromName(name);
     }
-    return 0;
-}
-
-QSqlQueryModel* dbAdapter::getTable(QString table)
-{
-    QSqlQueryModel *model = new QSqlQueryModel;
-    model->setQuery(QString("SELECT * FROM %1").arg(table));
-    return model;
-}
-
-QList<int> dbAdapter::getArtistSong(int artist_id)
-{
-    QList<int> songList;
-    QString str = QString("SELECT id FROM song WHERE `artist_id` = '%1'").arg(artist_id);
-    query.exec(str);
-    while(query.next())
-    {
-        songList.append(query.value("id").toInt());
-    }
-    return songList;
+    return a_id;
 }
 
 void dbAdapter::addSong(int artist_id, QString title, QString album, QString comment, QString genere, int track, int year)
 {
-    query.prepare("INSERT INTO songs (`artist_id`, `title`, `album`, `comment`, `genere`, `track`, `year`) VALUES (:artist_id,:title,:album,:comment,:genere,:track,:year)");
-    query.bindValue(":artist_id",artist_id);
-    query.bindValue(":title",title);
-    query.bindValue(":album",album);
-    query.bindValue(":comment",comment);
-    query.bindValue(":genere",genere);
-    query.bindValue(":track",track);
-    query.bindValue(":year",year);
-    query.exec();
+    Track *nTrack = new Track();
+    nTrack->setArtistId(artist_id);
+    nTrack->setTitle(title);
+    nTrack->setAlbum(album);
+    nTrack->setComment(comment);
+    nTrack->setGenere(genere);
+    nTrack->setTrack(track);
+    nTrack->setYear(year);
+    nTrack->insert();
 }
