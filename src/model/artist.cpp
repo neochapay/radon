@@ -17,8 +17,8 @@ Artist* Artist::toId(int artistId)
 
     QSqlDatabase db = dbAdapter::instance().db;
     QSqlQuery query(db);
-    query.prepare("SELECT name FROM arists WHERE id=?");
-    query.addBindValue(artistId);
+    query.prepare("SELECT name FROM arists WHERE id=:id");
+    query.addBindValue(":id",artistId);
 
     bool ok = query.exec();
     if(!ok)
@@ -43,8 +43,9 @@ int Artist::idFromName(QString name)
     int id = -1;
     QSqlDatabase db = dbAdapter::instance().db;
     QSqlQuery query(db);
-    query.prepare("SELECT id FROM arists WHERE name=?");
-    query.addBindValue(name);
+    query.prepare("SELECT id FROM arists WHERE name=:name");
+    query.addBindValue(":name",name);
+
     bool ok = query.exec();
     if(!ok)
     {
@@ -63,8 +64,9 @@ void Artist::insert()
 {
     QSqlDatabase db = dbAdapter::instance().db;
     QSqlQuery query(db);
-    query.prepare("INSERT INTO arists (name) VALUES (name)");
-    query.addBindValue(name);
+    query.prepare("INSERT INTO arists (name) VALUES (:name)");
+    query.addBindValue(":name",name);
+
     bool ok = query.exec();
     if(!ok)
     {
@@ -76,9 +78,10 @@ void Artist::update()
 {
     QSqlDatabase db = dbAdapter::instance().db;
     QSqlQuery query(db);
-    query.prepare("UPDATE arists SET name=? WHEER if=?");
-    query.addBindValue(name);
-    query.addBindValue(id);
+    query.prepare("UPDATE arists SET name=:name WHEER id=:id");
+    query.addBindValue(":name",name);
+    query.addBindValue(":id",id);
+
     bool ok = query.exec();
     if(!ok)
     {

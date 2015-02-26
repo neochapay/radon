@@ -1,6 +1,7 @@
 #ifndef ARTIST_H
 #define ARTIST_H
 
+#include <QtCore>
 #include "item.h"
 
 class Artist : public Item
