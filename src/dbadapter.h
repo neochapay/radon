@@ -12,17 +12,19 @@ public:
     explicit dbAdapter(QObject *parent = 0);
     ~dbAdapter();
 
+    static dbAdapter& instance();
+
     int getArtistID(QString);
     void addArtist(QString);
     QList<int> getArtistSong(int artist_id);
 
     void addSong(int artist_id, QString title, QString album, QString comment, QString genere, int track, int year);
-    QSqlTableModel *getTable(QString table);
+    QSqlQueryModel *getTable(QString table);
 
 private:
     QSqlDatabase db;
     QSqlQuery query;
-
+    QMutex lock;
     void initDB();
 
 signals:

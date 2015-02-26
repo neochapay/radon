@@ -6,8 +6,11 @@
 #include <QDir>
 #include <QDebug>
 
+static dbAdapter *dbAdapterInstance = 0;
+
 dbAdapter::dbAdapter(QObject *parent) : QObject(parent)
 {
+    QMutexLocker locker(&lock);
     db = QSqlDatabase::addDatabase("QSQLITE");
     db.setDatabaseName(QDir::homePath()+"/.radon/db.sql");
     if(!db.open())
@@ -26,6 +29,14 @@ dbAdapter::dbAdapter(QObject *parent) : QObject(parent)
 dbAdapter::~dbAdapter()
 {
     db.close();
+}
+
+
+dbAdapter& dbAdapter::instance(){
+    static QMutex mutex;
+    QMutexLocker locker(&mutex);
+    if(!dbAdapterInstance) dbAdapterInstance = new dbAdapter();
+    return *dbAdapterInstance;
 }
 
 void dbAdapter::initDB()
@@ -70,11 +81,10 @@ int dbAdapter::getArtistID(QString name)
     return 0;
 }
 
-QSqlTableModel* dbAdapter::getTable(QString table)
+QSqlQueryModel* dbAdapter::getTable(QString table)
 {
-    QSqlTableModel *model = new QSqlTableModel();
-    model->setTable(table);
-    model->select();
+    QSqlQueryModel *model = new QSqlQueryModel;
+    model->setQuery(QString("SELECT * FROM %1").arg(table));
     return model;
 }
 
