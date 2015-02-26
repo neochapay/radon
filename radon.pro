@@ -21,7 +21,8 @@ SOURCES += main.cpp \
     src/dsp/qunits.cpp \
     src/threadfilecopy.cpp \
     src/dbadapter.cpp \
-    src/model/artist.cpp
+    src/model/artist.cpp \
+    src/model/track.cpp
 
 RESOURCES += qml.qrc
 
@@ -76,5 +77,6 @@ HEADERS += \
     src/threadfilecopy.h \
     src/dbadapter.h \
     src/model/item.h \
-    src/model/artist.h
+    src/model/artist.h \
+    src/model/track.h
 
