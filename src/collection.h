@@ -19,8 +19,8 @@ public:
 
     QDir collectionDir;
     QString collectionDirString;
-    Q_INVOKABLE QSqlTableModel *artistModel;
-    QSqlTableModel *songModel;
+    Q_INVOKABLE QSqlQueryModel *artistModel;
+    Q_INVOKABLE QSqlQueryModel *songModel;
 
 private:
     dbAdapter* dba;
@@ -47,8 +47,6 @@ public slots:
     void setStatus(QString status);
     void processTick();
     void rescanBase();
-
-    QObject *getArtistModel();
 };
 
 #endif // COLLECTION_H

@@ -109,10 +109,3 @@ void Collection::setProcess()
     QVariant prc = copyCount/copyAll*100;
     emit setStatusProcess(prc);
 }
-
-
-QObject *Collection::getArtistModel()
-{
-    QStringListModel *listModel = new QStringListModel(artistModel);
-    return listModel;
-}
