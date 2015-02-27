@@ -9,6 +9,8 @@
 #include "src/applicationsettings.h"
 #include "src/collection.h"
 
+#include "src/model/artistsqlmodel.h"
+
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
@@ -20,6 +22,7 @@ int main(int argc, char *argv[])
     QSettings *settings = new QSettings(QDir::homePath()+"/.radon/radon.conf",QSettings::NativeFormat);
     Collection *audioCollection = new Collection();
 
+    //Load Jack client
     QJack::Client client;
     client.connectToServer("radon");
     JackProcessor *streamProcessor = new JackProcessor(client, QString("stream"), true);
@@ -27,11 +30,15 @@ int main(int argc, char *argv[])
     streamProcessor->setupMp3Decoder();
     client.activate();
 
+    //LoadModels
+    ArtistSqlModel *artistSqlModel = new ArtistSqlModel();
+
     QQmlApplicationEngine engine;
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     engine.rootContext()->setContextProperty("Settings", settings);
     engine.rootContext()->setContextProperty("Collection", audioCollection);
     engine.rootContext()->setContextProperty("streamProcessor", streamProcessor);
+    engine.rootContext()->setContextProperty("artistModel", artistSqlModel);
 
     QObject *object = engine.rootObjects().first();
     QObject *libraryView = object->findChild<QObject*>("libraryPageArea");

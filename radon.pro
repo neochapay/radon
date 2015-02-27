@@ -22,7 +22,8 @@ SOURCES += main.cpp \
     src/threadfilecopy.cpp \
     src/dbadapter.cpp \
     src/model/artist.cpp \
-    src/model/track.cpp
+    src/model/track.cpp \
+    src/model/artistsqlmodel.cpp
 
 RESOURCES += qml.qrc
 
@@ -78,5 +79,6 @@ HEADERS += \
     src/dbadapter.h \
     src/model/item.h \
     src/model/artist.h \
-    src/model/track.h
+    src/model/track.h \
+    src/model/artistsqlmodel.h
 
