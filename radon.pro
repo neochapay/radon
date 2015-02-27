@@ -23,7 +23,8 @@ SOURCES += main.cpp \
     src/dbadapter.cpp \
     src/model/artist.cpp \
     src/model/track.cpp \
-    src/model/artistsqlmodel.cpp
+    src/model/artistsqlmodel.cpp \
+    src/model/tracksqlmodel.cpp
 
 RESOURCES += qml.qrc
 
@@ -80,5 +81,6 @@ HEADERS += \
     src/model/item.h \
     src/model/artist.h \
     src/model/track.h \
-    src/model/artistsqlmodel.h
+    src/model/artistsqlmodel.h \
+    src/model/tracksqlmodel.h
 

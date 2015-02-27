@@ -10,6 +10,7 @@
 #include "src/collection.h"
 
 #include "src/model/artistsqlmodel.h"
+#include "src/model/tracksqlmodel.h"
 
 int main(int argc, char *argv[])
 {
@@ -32,13 +33,16 @@ int main(int argc, char *argv[])
 
     //LoadModels
     ArtistSqlModel *artistSqlModel = new ArtistSqlModel();
+    TrackSqlModel *trackSqlModel = new TrackSqlModel();
 
     QQmlApplicationEngine engine;
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     engine.rootContext()->setContextProperty("Settings", settings);
     engine.rootContext()->setContextProperty("Collection", audioCollection);
     engine.rootContext()->setContextProperty("streamProcessor", streamProcessor);
+
     engine.rootContext()->setContextProperty("artistModel", artistSqlModel);
+    engine.rootContext()->setContextProperty("trackModel", trackSqlModel);
 
     QObject *object = engine.rootObjects().first();
     QObject *libraryView = object->findChild<QObject*>("libraryPageArea");
