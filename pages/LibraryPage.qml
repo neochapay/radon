@@ -5,6 +5,7 @@ import QtQuick.Layouts 1.1
 import QtQuick.Window 2.0
 
 import "../js/FontAwesome.js" as FontAwesome
+import "Library"
 
 Rectangle {
     id: libraryPageArea
@@ -28,6 +29,11 @@ Rectangle {
             width: parent.width
             height: parent.height
             y: 1
+            model: artistModel
+            delegate: LibraryArtistItem {
+                title: name;
+                artist_id: id;
+            }
         }
     }
 
@@ -38,6 +44,17 @@ Rectangle {
         anchors.left: artistArea.right
         y:1
         color: "transparent"
+        ListView{
+            id: trackListView
+            width: parent.width
+            height: parent.height
+            y: 1
+            model: trackModel
+            delegate: Text{
+                    text: title
+                    width: parent.width
+                }
+        }
     }
 
     Button{
