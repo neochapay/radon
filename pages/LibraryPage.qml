@@ -20,9 +20,10 @@ Rectangle {
     Rectangle{
         id: artistArea
         width: 200
-        height: parent.height-addFileButton.height-12
+        height: parent.height-addFileButton.height-15
         x: 1
         y: 1
+        clip: true
         color: "transparent"
 
         ListView{
@@ -39,9 +40,10 @@ Rectangle {
     Rectangle{
         id: songArea
         width: parent.width-artistArea.width-2
-        height: parent.height-addFileButton.height-12
+        height: parent.height-addFileButton.height-15
         anchors.left: artistArea.right
         y:1
+        clip: true
         color: "transparent"
         ListView{
             id: trackListView
