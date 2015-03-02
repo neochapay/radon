@@ -13,6 +13,7 @@ Rectangle {
     width: parent.width
     height: parent.height
     color: "transparent"
+    clip: true
 
     signal addFiles(variant list)
 

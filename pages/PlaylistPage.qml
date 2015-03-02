@@ -7,6 +7,7 @@ Rectangle {
     width: parent.width
     height: parent.height
     color: "transparent"
+    clip: true
 
     ListModel {
         id: playListModel
