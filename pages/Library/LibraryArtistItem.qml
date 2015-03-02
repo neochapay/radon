@@ -3,7 +3,6 @@ import QtQuick.Controls 1.0
 
 Rectangle {
     property string title: "Unknow Artist"
-    property int artist_id;
 
     width: parent.width
     height: label.height+6

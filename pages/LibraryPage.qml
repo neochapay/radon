@@ -32,8 +32,6 @@ Rectangle {
             y: 1
             model: artistModel
             delegate: LibraryArtistItem {
-                title: name;
-                artist_id: id;
             }
         }
     }

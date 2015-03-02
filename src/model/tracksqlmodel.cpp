@@ -2,7 +2,7 @@
 
 TrackSqlModel::TrackSqlModel(QObject *parent) : QSqlQueryModel(parent)
 {
-    hash.insert(Qt::UserRole  ,QByteArray("id"));
+    hash.insert(Qt::UserRole  ,QByteArray("track_id"));
     hash.insert(Qt::UserRole+1,QByteArray("artist_id"));
     hash.insert(Qt::UserRole+2,QByteArray("title"));
     hash.insert(Qt::UserRole+3,QByteArray("album"));
@@ -13,7 +13,7 @@ TrackSqlModel::TrackSqlModel(QObject *parent) : QSqlQueryModel(parent)
     refresh();
 }
 
-const char* TrackSqlModel::SQL_SELECT = "SELECT id,artist_id,title,album,comment,genere,track,year FROM songs";
+const char* TrackSqlModel::SQL_SELECT = "SELECT id as track_id,artist_id,title,album,comment,genere,track,year FROM songs";
 
 QVariant TrackSqlModel::data(const QModelIndex &index, int role) const{
     QVariant value = QSqlQueryModel::data(index, role);
