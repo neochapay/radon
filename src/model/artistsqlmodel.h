@@ -11,12 +11,14 @@ class ArtistSqlModel :public QSqlQueryModel
 public:
     explicit ArtistSqlModel(QObject *parent = 0);
     QVariant data(const QModelIndex &index, int role) const;
-    void refresh();
     QHash<int, QByteArray> roleNames() const { return hash; }
 
 private:
     const static char* SQL_SELECT;
     QHash<int,QByteArray> hash;
+
+public slots:
+    void refresh();
 };
 
 #endif // ARTISTSQLMODEL_H

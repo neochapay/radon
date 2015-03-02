@@ -52,5 +52,8 @@ int main(int argc, char *argv[])
     QObject::connect(audioCollection,SIGNAL(setStatusText(QVariant)),statusBar,SLOT(setStatus(QVariant)));
     QObject::connect(audioCollection,SIGNAL(setStatusProcess(QVariant)),statusBar,SLOT(setProcess(QVariant)));
 
+    QObject::connect(audioCollection,SIGNAL(baseCreate()),artistSqlModel,SLOT(refresh()));
+    QObject::connect(audioCollection,SIGNAL(baseCreate()),trackSqlModel,SLOT(refresh()));
+
     return app.exec();
 }

@@ -56,6 +56,7 @@ void Collection::rescanBase()
     connect(rescanThread, SIGNAL(started()), dba, SLOT(rescanCollection()));
     dba->moveToThread(rescanThread);
     rescanThread->start();
+    connect(dba,SIGNAL(dbRescanEnd()),this,SIGNAL(baseCreate()));
 }
 
 void Collection::addFile(QString fileName)
