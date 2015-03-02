@@ -51,10 +51,8 @@ Rectangle {
             height: parent.height
             y: 1
             model: trackModel
-            delegate: Text{
-                    text: title
-                    width: parent.width
-                }
+            delegate: LibraryTrackItem{
+            }
         }
     }
 

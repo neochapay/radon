@@ -21,5 +21,6 @@
         <file>pages/PlayList/PlayListItem.qml</file>
         <file>pages/PlayList/PlayListItemIcon.qml</file>
         <file>pages/Library/LibraryArtistItem.qml</file>
+        <file>pages/Library/LibraryTrackItem.qml</file>
     </qresource>
 </RCC>
