@@ -26,13 +26,42 @@ Rectangle {
         clip: true
         color: "transparent"
 
-        ListView{
-            id: artisListView
+        TextInput{
+            id: searchArtist
+            focus: true
+            selectByMouse: true
+            autoScroll: true
+            wrapMode: TextEdit.WrapAtWordBoundaryOrAnywhere;
+            color: "black";
+            anchors.margins: 3
+            onTextChanged: {
+                if(text.length > 0)
+                {
+                    artistModel.searchQuery(text);
+                }
+                else
+                {
+                    artistModel.cleanQuery();
+                }
+                artistModel.refresh();
+            }
+        }
+
+        Rectangle{
             width: parent.width
-            height: parent.height
-            y: 1
-            model: artistModel
-            delegate: LibraryArtistItem {
+            height: artistArea.height-searchArtist.height
+            clip: true
+            anchors.top: searchArtist.bottom
+            color: "transparent"
+
+            ListView{
+                id: artisListView
+                width: parent.width
+                height: parent.height
+                y: 1
+                model: artistModel
+                delegate: LibraryArtistItem {
+                }
             }
         }
     }

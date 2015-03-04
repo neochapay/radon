@@ -26,6 +26,16 @@ QVariant ArtistSqlModel::data(const QModelIndex &index, int role) const{
     return value;
 }
 
+void ArtistSqlModel::searchQuery(QString name)
+{
+    SQL_SELECT = QString("SELECT id as artist_id, name FROM artist WHERE `name` LIKE '%%1%' ORDER BY name ASC").arg(name).toUtf8();
+}
+
+void ArtistSqlModel::cleanQuery()
+{
+    SQL_SELECT = "SELECT id as artist_id, name FROM artist ORDER BY name ASC";
+}
+
 void ArtistSqlModel::refresh()
 {
     this->setQuery(SQL_SELECT);

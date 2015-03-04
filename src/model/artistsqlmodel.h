@@ -19,6 +19,8 @@ private:
 
 public slots:
     void refresh();
+    void searchQuery(QString name);
+    void cleanQuery();
 };
 
 #endif // ARTISTSQLMODEL_H
