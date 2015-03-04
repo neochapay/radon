@@ -37,5 +37,12 @@ Rectangle {
         acceptedButtons: Qt.RightButton
         onClicked: contextMenu.popup()
     }
+
+    MouseArea{
+        anchors.fill: parent
+        onDoubleClicked: {
+            console.log("DBL")
+        }
+    }
 }
 

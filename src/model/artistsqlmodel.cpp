@@ -9,7 +9,7 @@ ArtistSqlModel::ArtistSqlModel(QObject *parent) : QSqlQueryModel(parent)
     refresh();
 }
 
-const char* ArtistSqlModel::SQL_SELECT = "SELECT id as artist_id, name FROM artist";
+const char* ArtistSqlModel::SQL_SELECT = "SELECT id as artist_id, name FROM artist ORDER BY name ASC";
 
 QVariant ArtistSqlModel::data(const QModelIndex &index, int role) const{
     QVariant value = QSqlQueryModel::data(index, role);

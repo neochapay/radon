@@ -13,7 +13,7 @@ TrackSqlModel::TrackSqlModel(QObject *parent) : QSqlQueryModel(parent)
     refresh();
 }
 
-const char* TrackSqlModel::SQL_SELECT = "SELECT id as track_id,artist_id,title,album,comment,genere,track,year FROM songs";
+const char* TrackSqlModel::SQL_SELECT = "SELECT id as track_id,artist_id,title,album,comment,genere,track,year FROM songs ORDER BY title ASC";
 
 QVariant TrackSqlModel::data(const QModelIndex &index, int role) const{
     QVariant value = QSqlQueryModel::data(index, role);
