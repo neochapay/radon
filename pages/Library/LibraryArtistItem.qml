@@ -41,7 +41,8 @@ Rectangle {
     MouseArea{
         anchors.fill: parent
         onDoubleClicked: {
-            console.log("DBL")
+            trackModel.setArtist(artist_id)
+            trackModel.refresh()
         }
     }
 }

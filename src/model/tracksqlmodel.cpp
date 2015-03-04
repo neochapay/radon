@@ -14,7 +14,7 @@ TrackSqlModel::TrackSqlModel(QObject *parent) : QSqlQueryModel(parent)
     refresh();
 }
 
-const char* TrackSqlModel::SQL_SELECT = "SELECT songs.id as track_id,songs.artist_id,songs.title,songs.album,songs.comment,songs.genere,songs.track,songs.year,artist.name as artist_name FROM songs INNER JOIN artist ON artist.id = songs.artist_id ORDER BY songs.title ASC";
+const char* TrackSqlModel::SQL_SELECT = "SELECT songs.id as track_id,songs.artist_id,songs.title,songs.album,songs.comment,songs.genere,songs.track,songs.year,artist.name as artist_name FROM songs INNER JOIN artist ON artist.id = songs.artist_id ORDER BY artist_name ASC";
 
 QVariant TrackSqlModel::data(const QModelIndex &index, int role) const{
     QVariant value = QSqlQueryModel::data(index, role);
@@ -34,4 +34,16 @@ QVariant TrackSqlModel::data(const QModelIndex &index, int role) const{
 void TrackSqlModel::refresh()
 {
     this->setQuery(SQL_SELECT);
+}
+
+
+void TrackSqlModel::setArtist(int artist_id)
+{
+    SQL_SELECT = QString("SELECT songs.id as track_id,songs.artist_id,songs.title,songs.album,songs.comment,songs.genere,songs.track,songs.year,artist.name as artist_name FROM songs INNER JOIN artist ON artist.id = songs.artist_id WHERE artist_id = %1 ORDER BY artist_name ASC").arg(artist_id).toUtf8();
+}
+
+
+void TrackSqlModel::cleanQuery()
+{
+    SQL_SELECT = "SELECT songs.id as track_id,songs.artist_id,songs.title,songs.album,songs.comment,songs.genere,songs.track,songs.year,artist.name as artist_name FROM songs INNER JOIN artist ON artist.id = songs.artist_id ORDER BY artist_name ASC";
 }

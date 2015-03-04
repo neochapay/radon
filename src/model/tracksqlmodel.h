@@ -18,6 +18,8 @@ private:
 
 public slots:
     void refresh();
+    void setArtist(int artist_id);
+    void cleanQuery();
 };
 
 #endif // TRACKSQLMODEL_H
