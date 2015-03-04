@@ -33,7 +33,7 @@ Rectangle {
 
     Text{
         id: tarckLabel
-        text: title
+        text: artist_name+" - "+title
         x: 3
         y: 3
         anchors.margins: 3
