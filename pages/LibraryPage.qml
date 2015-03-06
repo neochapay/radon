@@ -26,32 +26,42 @@ Rectangle {
         clip: true
         color: "transparent"
 
-        TextInput{
-            id: searchArtist
-            focus: true
-            selectByMouse: true
-            autoScroll: true
-            wrapMode: TextEdit.WrapAtWordBoundaryOrAnywhere;
-            color: "black";
+        Rectangle{
+            id: searchArtistArea
             anchors.margins: 3
-            onTextChanged: {
-                if(text.length > 0)
-                {
-                    artistModel.searchQuery(text);
-                }
-                else
-                {
-                    artistModel.cleanQuery();
-                }
-                artistModel.refresh();
-            }
-        }
+            radius: 3
+            x:2
+            y:2
+            width: parent.width-4
+            height: searchArtist.height
+            color: "white"
 
+            TextInput{
+                id: searchArtist
+                focus: true
+                selectByMouse: true
+                autoScroll: true
+                wrapMode: TextEdit.WrapAtWordBoundaryOrAnywhere;
+                color: "black";
+                onTextChanged: {
+                    if(text.length > 0)
+                    {
+                        artistModel.searchQuery(text);
+                    }
+                    else
+                    {
+                        artistModel.cleanQuery();
+                    }
+                    artistModel.refresh();
+                }
+            }
+
+        }
         Rectangle{
             width: parent.width
-            height: artistArea.height-searchArtist.height
+            height: artistArea.height-searchArtistArea.height
             clip: true
-            anchors.top: searchArtist.bottom
+            anchors.top: searchArtistArea.bottom
             color: "transparent"
 
             ListView{
