@@ -21,7 +21,7 @@ public:
     QString getComment() {return comment;}
 
     void setArtistId(int artist_id) {this->artist_id = artist_id;}
-    void setTitle(QString title) {this->title = title;}
+    bool setTitle(QString title);
     void setAlbum(QString album) {this->album = album;}
     void setGenere(QString genere) {this->genere = genere;}
     void setTrack(int track) {this->track = track;}

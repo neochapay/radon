@@ -1,6 +1,7 @@
 #include "track.h"
 #include "artist.h"
 #include "../dbadapter.h"
+#include "../audiofile.h"
 
 Track::Track()
 {
@@ -85,5 +86,52 @@ void Track::update()
     if(!ok)
     {
         qDebug() << query.lastQuery() << query.lastError().text();
+    }
+    else
+    {
+        Artist* artist = new Artist();
+        artist->toId(artist_id);
+        QString fileName = QString(QDir::homePath()+"/.radon/collection/"+artist->getName()+"/"+title+".mp3");
+
+        AudioFile audioFile(fileName);
+        audioFile.artist = artist->getName();
+        audioFile.title = title;
+        audioFile.album = album;
+        audioFile.comment = comment;
+        audioFile.genre = genere;
+        audioFile.track = track;
+        audioFile.year = year;
+
+        audioFile.sync();
+    }
+}
+
+bool Track::setTitle(QString title)
+{
+    Artist* artist = new Artist();
+    artist->toId(artist_id);
+
+    QString oldFileName = QString(QDir::homePath()+"/.radon/collection/"+artist->getName()+"/"+this->title+".mp3");
+    QString newFileName = QString(QDir::homePath()+"/.radon/collection/"+artist->getName()+"/"+this->title+".mp3");
+
+    QFile* oldFile = new QFile(oldFileName);
+    QFile* newFile = new QFile(newFileName);
+
+    if(newFile->exists())
+    {
+        qDebug() << "Track is exists";
+        return false;
+    }
+    else
+    {
+        oldFile->copy(oldFileName,newFileName);
+        oldFile->remove();
+
+        AudioFile audioFile(newFileName);
+        audioFile.title = title;
+        audioFile.sync();
+
+        this->title = title;
+        return true;
     }
 }
