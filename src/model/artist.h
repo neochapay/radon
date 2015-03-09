@@ -14,7 +14,7 @@ public:
     static int idFromName(QString name);
     void setName(QString name) {this->name = name;}
     QString getName() {return name;}
-
+    QList<Track*> getTracks();
     void insert();
     void update();
 

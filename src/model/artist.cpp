@@ -1,4 +1,5 @@
 #include "artist.h"
+#include "track.h"
 #include "../dbadapter.h"
 
 Artist::Artist(QObject *parent) : Item(parent)
@@ -85,4 +86,26 @@ void Artist::update()
     {
         qDebug() << query.lastQuery() << query.lastError().text();
     }
+}
+
+QList<Track*> Artist::getTracks()
+{
+    QList<Track*> tracks;
+    QSqlDatabase db = dbAdapter::instance().db;
+    QSqlQuery query(db);
+    query.prepare("SELECT id FROM songs WHERE artist_id = :id");
+    query.bindValue(":id",id);
+
+    bool ok = query.exec();
+    if(!ok)
+    {
+        qDebug() << query.lastQuery() << query.lastError().text();
+    }
+    while (query.next())
+    {
+        int trackId = query.value(0).toInt();
+        Track* track = Track::toId(trackId);
+        tracks << track;
+    }
+    return tracks;
 }
