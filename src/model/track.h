@@ -20,7 +20,7 @@ public:
     int getYear() {return year;}
     QString getComment() {return comment;}
 
-    void setArtistId(int artist_id) {this->artist_id = artist_id;}
+    bool setArtistId(int artist_id);
     bool setTitle(QString title);
     void setAlbum(QString album) {this->album = album;}
     void setGenere(QString genere) {this->genere = genere;}

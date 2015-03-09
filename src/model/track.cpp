@@ -109,7 +109,7 @@ void Track::update()
 bool Track::setTitle(QString title)
 {
     Artist* artist = new Artist();
-    artist->toId(artist_id);
+    artist->toId(this->artist_id);
 
     QString oldFileName = QString(QDir::homePath()+"/.radon/collection/"+artist->getName()+"/"+this->title+".mp3");
     QString newFileName = QString(QDir::homePath()+"/.radon/collection/"+artist->getName()+"/"+this->title+".mp3");
@@ -132,6 +132,37 @@ bool Track::setTitle(QString title)
         audioFile.sync();
 
         this->title = title;
+        return true;
+    }
+}
+
+
+bool Track::setArtistId(int artist_id)
+{
+    Artist* artist = new Artist();
+    artist->toId(artist_id);
+
+    QString oldFileName = QString(QDir::homePath()+"/.radon/collection/"+artist->getName()+"/"+this->title+".mp3");
+    QString newFileName = QString(QDir::homePath()+"/.radon/collection/"+artist->getName()+"/"+this->title+".mp3");
+
+    QFile* oldFile = new QFile(oldFileName);
+    QFile* newFile = new QFile(newFileName);
+
+    if(newFile->exists())
+    {
+        qDebug() << "Track is exists";
+        return false;
+    }
+    else
+    {
+        oldFile->copy(oldFileName,newFileName);
+        oldFile->remove();
+
+        AudioFile audioFile(newFileName);
+        audioFile.artist = artist->getName();
+        audioFile.sync();
+
+        this->artist_id = artist_id;
         return true;
     }
 }
