@@ -4,6 +4,7 @@ import QtQuick.Controls 1.0
 
 import "../components/WorkPanel"
 import "../pages"
+import "../pages/Dialogs"
 
 Rectangle {
     id: workPanel
@@ -182,83 +183,6 @@ Rectangle {
 /*
 WorkPanelDialogs
 */
-    Dialog{
-        property string trackTitle: "Unknow Track"
-        property string trackArtist: "Unknow Artist"
-        property string trackAlbum
-        property string trackGenere
-        property string filename
-        property int trackYear
-        property int trackNum
-
-        signal saveTags()
-
-        id: editTrackDialog
-        width: 400
-        height: 300
-
-        title: qsTr("Edit track")
-        standardButtons: StandardButton.Save
-        contentItem: Rectangle{
-            color: "#aaaaaa"
-            anchors.fill: parent
-
-            Row{
-                id: artistRow
-                x: 5
-                y: 5
-                Text{
-                    id: artistLabel
-                    width: 100
-                    text: qsTr("Artist:")
-                }
-
-                TextInput{
-                    id: artistInput
-                    text: editTrackDialog.trackArtist
-                    width: editTrackDialog.width-artistLabel.width
-                    maximumLength: 50
-                }
-            }
-
-            Row{
-                id: titleRow
-                x: 5
-                y: 5
-                anchors.top: artistRow.bottom
-                Text{
-                    id: titleLabel
-                    width: 100
-                    text: qsTr("Title")
-                }
-
-                TextInput{
-                    id: titleInput
-                    text: editTrackDialog.trackTitle
-                    width: editTrackDialog.width-titleLabel.width
-                    maximumLength: 50
-                }
-            }
-
-            Button{
-                id: saveButton
-                text: qsTr("Save")
-
-                onClicked: {
-                    editTrackDialog.trackArtist = artistInput.text
-                    editTrackDialog.trackTitle = titleInput.text
-                    editTrackDialog.saveTags();
-                }
-
-                anchors{
-                    bottom: parent.bottom
-                    right: parent.right
-                    margins: 5
-                }
-            }
-
-        }
-
-    }
+    EditTrackDialog{id: editTrackDialog}
 }
 
