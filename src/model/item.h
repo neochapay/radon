@@ -17,6 +17,7 @@ public:
 protected:
     int id;
 };
-
+typedef QPointer<Item> ItemPointer;
+Q_DECLARE_METATYPE(ItemPointer)
 #endif // ITEM
 
