@@ -111,6 +111,14 @@ void Artist::update()
     {
         qDebug() << query.lastQuery() << query.lastError().text();
     }
+    else
+    {
+        QList<Track*> tracks = this->getTracks();
+        for (int i = 0;i<tracks.count();i++)
+        {
+            tracks[i]->setArtistId(id);
+        }
+    }
 }
 
 QList<Track*> Artist::getTracks()
