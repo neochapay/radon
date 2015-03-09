@@ -11,6 +11,8 @@
 
 #include "src/model/artistsqlmodel.h"
 #include "src/model/tracksqlmodel.h"
+#include "src/model/artist.h"
+#include "src/model/track.h"
 
 int main(int argc, char *argv[])
 {
@@ -34,6 +36,8 @@ int main(int argc, char *argv[])
     //LoadModels
     ArtistSqlModel *artistSqlModel = new ArtistSqlModel();
     TrackSqlModel *trackSqlModel = new TrackSqlModel();
+    Artist* artistModel = new Artist();
+    Track* trackModel = new Track();
 
     QQmlApplicationEngine engine;
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
@@ -41,8 +45,11 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("Collection", audioCollection);
     engine.rootContext()->setContextProperty("streamProcessor", streamProcessor);
 
-    engine.rootContext()->setContextProperty("artistModel", artistSqlModel);
-    engine.rootContext()->setContextProperty("trackModel", trackSqlModel);
+    engine.rootContext()->setContextProperty("artistSqlModel", artistSqlModel);
+    engine.rootContext()->setContextProperty("trackSqlModel", trackSqlModel);
+
+    engine.rootContext()->setContextProperty("artistModel", artistModel);
+    engine.rootContext()->setContextProperty("trackModel", trackModel);
 
     QObject *object = engine.rootObjects().first();
     QObject *libraryView = object->findChild<QObject*>("libraryPageArea");

@@ -69,7 +69,7 @@ Rectangle {
                 width: parent.width
                 height: parent.height
                 y: 1
-                model: artistModel
+                model: artistSqlModel
                 delegate: LibraryArtistItem {
                 }
             }
@@ -89,7 +89,7 @@ Rectangle {
             width: parent.width
             height: parent.height
             y: 1
-            model: trackModel
+            model: trackSqlModel
             delegate: LibraryTrackItem{
             }
         }
