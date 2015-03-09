@@ -73,6 +73,31 @@ void Artist::insert()
     }
 }
 
+bool Artist::setName(QString name)
+{
+    QSqlDatabase db = dbAdapter::instance().db;
+    QSqlQuery query(db);
+    QString str = QString("SELECT id FROM artist WHERE `name`='%1'").arg(name);
+
+    bool ok = query.exec(str);
+    if(!ok)
+    {
+        qDebug() << query.lastQuery() << query.lastError().text();
+    }
+
+    if(query.next())
+    {
+        qDebug() << "Name is not original";
+        return false;
+    }
+    else
+    {
+        this->name = name;
+        return true;
+    }
+
+}
+
 void Artist::update()
 {
     QSqlDatabase db = dbAdapter::instance().db;

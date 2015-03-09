@@ -12,7 +12,7 @@ public:
 
     static Artist* toId(int artistId);
     static int idFromName(QString name);
-    void setName(QString name) {this->name = name;}
+    bool setName(QString name);
     QString getName() {return name;}
     QList<Track*> getTracks();
     void insert();
