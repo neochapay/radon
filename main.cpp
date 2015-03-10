@@ -1,7 +1,9 @@
 #include <QApplication>
-#include <QQmlApplicationEngine>
 #include <QSettings>
+#include <QtQml>
 #include <QQmlContext>
+#include <QQmlEngine>
+#include <QQmlApplicationEngine>
 #include <QFile>
 
 #include "src/qjack/client.h"
@@ -36,8 +38,8 @@ int main(int argc, char *argv[])
     //LoadModels
     ArtistSqlModel *artistSqlModel = new ArtistSqlModel();
     TrackSqlModel *trackSqlModel = new TrackSqlModel();
-    Artist* artistModel = new Artist();
-    Track* trackModel = new Track();
+
+    qmlRegisterType<Track>("trackAdapter",1,0,"BTrack");
 
     QQmlApplicationEngine engine;
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
@@ -47,9 +49,6 @@ int main(int argc, char *argv[])
 
     engine.rootContext()->setContextProperty("artistSqlModel", artistSqlModel);
     engine.rootContext()->setContextProperty("trackSqlModel", trackSqlModel);
-
-    engine.rootContext()->setContextProperty("artistModel", artistModel);
-    engine.rootContext()->setContextProperty("trackModel", trackModel);
 
     QObject *object = engine.rootObjects().first();
     QObject *libraryView = object->findChild<QObject*>("libraryPageArea");

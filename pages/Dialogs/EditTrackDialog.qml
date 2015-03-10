@@ -2,6 +2,8 @@ import QtQuick 2.0
 import QtQuick.Dialogs 1.2
 import QtQuick.Controls 1.0
 
+import trackAdapter 1.0
+
 Dialog{
     property string trackTitle: "Unknow Track"
     property string trackArtist: "Unknow Artist"
@@ -13,6 +15,7 @@ Dialog{
 
     function setTrackId(track_id)
     {
+        BTrack.toId(track_id)
         console.log(track_id)
     }
 
@@ -105,6 +108,60 @@ Dialog{
                     text: editTrackDialog.trackAlbum
                     width: parent.width
                     maximumLength: 50
+                }
+            }
+        }
+
+        Row{
+            id: tarckYearRow
+            x: 5
+            y: 5
+            anchors{
+                topMargin: 5
+                top: albumRow.bottom
+            }
+            Text{
+                id: trackLabel
+                width: 100
+                text: qsTr("Track")
+            }
+            Rectangle{
+                id: trackInputArea
+                radius: 3
+                width: editTrackDialog.width/2-trackLabel.width-12
+                height: albumInput.height
+                clip: true
+                anchors.left: trackLabel.right
+                TextInput{
+                    id: trackInput
+                    text: editTrackDialog.trackNum
+                    width: parent.width
+                    maximumLength: 2
+                    inputMask: "90"
+                }
+            }
+            Text{
+                id: yearLabel
+                width: 100
+                text: qsTr("Year")
+                anchors{
+                    leftMargin: 6
+                    left: trackInputArea.right
+                }
+            }
+            Rectangle{
+                id: yearInputArea
+                radius: 3
+                width: editTrackDialog.width/2-trackLabel.width-6
+                height: albumInput.height
+                clip: true
+                anchors.left: yearLabel.right
+                TextInput{
+                    id: yearInput
+                    text: editTrackDialog.trackYear
+                    width: parent.width
+                    maximumLength: 4
+                    inputMask: "0000"
                 }
             }
         }
