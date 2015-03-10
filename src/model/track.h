@@ -31,11 +31,13 @@ public:
     Artist* getArtist() {return artist;}
     void setArtist(Artist *artist) {this->artist = artist;}
 
-    static Track* toId(int trackId);
+
     static void remove(int track_id);
 
     void insert();
     void update();
+public slots:
+    static Track* toId(int trackId);
 
 private:
     static QHash<int, Track*> cache;
@@ -54,5 +56,6 @@ private:
     uint startTime;
     uint endTime;
 };
-
+typedef QPointer<Track> TrackPointer;
+Q_DECLARE_METATYPE(TrackPointer)
 #endif // TRACK_H

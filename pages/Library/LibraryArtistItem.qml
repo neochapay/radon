@@ -11,6 +11,7 @@ Rectangle {
         MenuItem
         {
             text: qsTr('Edit')
+            onToggled: console.log("edit");
         }
         MenuItem
         {
