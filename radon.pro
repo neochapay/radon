@@ -45,7 +45,18 @@ evil_hack {
     components/MasterPanel/NowPlaying.qml \
     components/NavigationPanel.qml \
     components/NavigationPanel/NavigationItem.qml \
-    components/WorkPanel.qml
+    components/WorkPanel.qml \
+    components/VolumeSlider \
+    pages/CalendarPage.qml \
+    pages/Dialogs/EditTrackDialog.qml \
+    pages/InformationPage.qml \
+    pages/Library/LibraryArtistItem.qml \
+    pages/Library/LibraryTrackItem.qml \
+    pages/LibraryPage.qml \
+    pages/PlayList/PlayListItem.qml \
+    pages/PlayList/PlayListItemIcon.qml \
+    pages/PlaylistPage.qml \
+    pages/SettingsPage.qml
 }
 
 ICON = images/logo.png
