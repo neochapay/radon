@@ -95,7 +95,6 @@ bool Artist::setName(QString name)
         this->name = name;
         return true;
     }
-
 }
 
 void Artist::update()

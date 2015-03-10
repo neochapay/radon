@@ -40,6 +40,7 @@ int main(int argc, char *argv[])
     TrackSqlModel *trackSqlModel = new TrackSqlModel();
 
     qmlRegisterType<Track>("trackAdapter",1,0,"BTrack");
+    qmlRegisterType<Artist>("artistAdapter",1,0,"BArtist");
 
     QQmlApplicationEngine engine;
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));

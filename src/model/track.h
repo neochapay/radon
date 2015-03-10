@@ -12,19 +12,11 @@ class Track : public Item
 public:
     Track();
 
-    int getArtistId() {return artist_id;}
-    QString getTitle() {return title;}
-    QString getAlibum() {return album;}
-    QString getGenere() {return genere;}
-    int getTrack() {return track;}
-    int getYear() {return year;}
-    QString getComment() {return comment;}
-
     bool setArtistId(int artist_id);
     bool setTitle(QString title);
     void setAlbum(QString album) {this->album = album;}
     void setGenere(QString genere) {this->genere = genere;}
-    void setTrack(int track) {this->track = track;}
+    void setTrack(int track) {this->number = track;}
     void setYear(int year) {this->year = year;}
     void setComment(QString comment) {this->comment = comment;}
 
@@ -32,11 +24,20 @@ public:
     void setArtist(Artist *artist) {this->artist = artist;}
 
     static void remove(int track_id);
-
     void insert();
     void update();
+
 public slots:
     Q_INVOKABLE static Track* toId(int trackId);
+    Q_INVOKABLE QString getTitle() {return this->title;}
+    Q_INVOKABLE QString getAlbum() {return this->album;}
+    Q_INVOKABLE QString getGenere() {return this->genere;}
+    Q_INVOKABLE QString getComment() {return this->comment;}
+
+    int getArtistId() {return this->artist_id;}
+    int getNumber() {return this->number;}
+    int getYear() {return this->year;}
+
 
 signals:
     void titleChanged();
@@ -48,7 +49,7 @@ private:
     QString title;
     QString album;
     QString genere;
-    int track;
+    int number;
     int year;
     QString comment;
 

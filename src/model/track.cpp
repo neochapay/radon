@@ -6,7 +6,7 @@
 Track::Track()
 {
     artist_id = 0;
-    track = 0;
+    number = 0;
     year = 0;
 }
 
@@ -29,17 +29,18 @@ Track* Track::toId(int trackId)
     {
         qDebug() << query.lastQuery() << query.lastError().text();
     }
+
     if(query.next())
     {
         Track* track = new Track();
         track->setId(trackId);
-        track->setArtistId(query.value(0).toInt());
-        track->setTitle(query.value(1).toString());
-        track->setAlbum(query.value(2).toString());
-        track->setGenere(query.value(3).toString());
-        track->setComment(query.value(4).toString());
-        track->setTrack(query.value(5).toInt());
-        track->setYear(query.value(6).toInt());
+        track->artist_id = query.value(0).toInt();
+        track->title = query.value(1).toString();
+        track->album = query.value(2).toString();
+        track->genere = query.value(3).toString();
+        track->comment = query.value(4).toString();
+        track->number = query.value(5).toInt();
+        track->year = query.value(6).toInt();
 
         cache.insert(trackId,track);
         return track;
@@ -58,7 +59,7 @@ void Track::insert()
     query.bindValue(":album",album);
     query.bindValue(":comment",comment);
     query.bindValue(":genere",genere);
-    query.bindValue(":track",track);
+    query.bindValue(":track",number);
     query.bindValue(":year",year);
 
     bool ok = query.exec();
@@ -78,7 +79,7 @@ void Track::update()
     query.bindValue(":album",album);
     query.bindValue(":comment",comment);
     query.bindValue(":genere",genere);
-    query.bindValue(":track",track);
+    query.bindValue(":track",number);
     query.bindValue(":year",year);
     query.bindValue(":id",id);
 
@@ -99,8 +100,10 @@ void Track::update()
         audioFile.album = album;
         audioFile.comment = comment;
         audioFile.genre = genere;
-        audioFile.track = track;
+        audioFile.track = number;
         audioFile.year = year;
+
+        qDebug() << this->title;
 
         audioFile.sync();
     }

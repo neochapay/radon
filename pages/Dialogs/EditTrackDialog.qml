@@ -15,8 +15,17 @@ Dialog{
 
     function setTrackId(track_id)
     {
-        BTrack.toId(track_id)
-        console.log(track_id)
+        var trackB = testTrack.toId(track_id)
+        trackTitle = trackB.getTitle();
+        //trackArtist = trackB.getArtist();
+        trackAlbum = trackB.getAlbum();
+        trackGenere = trackB.getGenere();
+        trackYear = trackB.getYear();
+        trackNum = trackB.getNumber();
+    }
+
+    BTrack {
+        id: testTrack
     }
 
     signal saveTags()
