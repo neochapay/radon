@@ -18,7 +18,7 @@ Artist* Artist::toId(int artistId)
 
     QSqlDatabase db = dbAdapter::instance().db;
     QSqlQuery query(db);
-    query.prepare(QString("SELECT name FROM artist WHERE id=:id"));
+    query.prepare("SELECT name FROM artist WHERE id=:id");
     query.bindValue(":id",artistId);
 
     bool ok = query.exec();
