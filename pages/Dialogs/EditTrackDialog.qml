@@ -3,29 +3,38 @@ import QtQuick.Dialogs 1.2
 import QtQuick.Controls 1.0
 
 import trackAdapter 1.0
+import artistAdapter 1.0
 
 Dialog{
     property string trackTitle: "Unknow Track"
     property string trackArtist: "Unknow Artist"
     property string trackAlbum
     property string trackGenere
+    property string trackComment
     property string filename
     property int trackYear
     property int trackNum
 
     function setTrackId(track_id)
     {
-        var trackB = testTrack.toId(track_id)
+        var trackB =  editTrack.toId(track_id)
         trackTitle = trackB.getTitle();
-        //trackArtist = trackB.getArtist();
         trackAlbum = trackB.getAlbum();
         trackGenere = trackB.getGenere();
         trackYear = trackB.getYear();
         trackNum = trackB.getNumber();
+        trackComment = trackB.getComment();
+
+        var artistB = editArtist.toId(trackB.getArtistId());
+        trackArtist = artistB.getName();
     }
 
     BTrack {
-        id: testTrack
+        id: editTrack
+    }
+
+    BArtist{
+        id: editArtist
     }
 
     signal saveTags()

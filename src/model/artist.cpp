@@ -29,8 +29,8 @@ Artist* Artist::toId(int artistId)
     if(query.next())
     {
         Artist* artist = new Artist();
-        artist->setId(artistId);
-        artist->setName(query.value(0).toString());
+        artist->id = artistId;
+        artist->name = query.value(0).toString();
 
         cache.insert(artistId,artist);
         return artist;

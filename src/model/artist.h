@@ -10,13 +10,16 @@ class Artist : public Item
 public:
     Artist(QObject *parent = 0);
 
-    static Artist* toId(int artistId);
     static int idFromName(QString name);
     bool setName(QString name);
-    QString getName() {return name;}
+
     QList<Track*> getTracks();
     void insert();
     void update();
+
+public slots:
+    static Artist* toId(int artistId);
+    QString getName() {return this->name;}
 
 private:
     QString name;
