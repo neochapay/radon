@@ -42,8 +42,12 @@ Track* Track::toId(int trackId)
         track->number = query.value(5).toInt();
         track->year = query.value(6).toInt();
 
+
         Artist* artist = new Artist();
         track->artist = artist->toId(track->artist_id);
+
+        QString artistName = track->artist->getName();
+        track->fileName = QString(QDir::homePath()+"/.radon/collection/"+artistName+"/"+track->title+".mp3");
 
         cache.insert(trackId,track);
         return track;
@@ -76,15 +80,15 @@ void Track::update()
 {
     QSqlDatabase db = dbAdapter::instance().db;
     QSqlQuery query(db);
-    query.prepare("UPADTE songs SET `artist_id`=:artist_id, `title`=:title, `album`=:album, `comment`=:comment, `genere`=:genere, `track`=:track, `year`=:year WHERE id=:id");
-    query.bindValue(":artist_id",this->artist_id);
-    query.bindValue(":title",this->title);
-    query.bindValue(":album",this->album);
-    query.bindValue(":comment",this->comment);
-    query.bindValue(":genere",this->genere);
-    query.bindValue(":track",this->number);
-    query.bindValue(":year",this->year);
-    query.bindValue(":id",this->id);
+    query.prepare("UPDATE songs SET artist_id=:AID,title=:Title,track=:Track,album=:Album,comment=:Comment,genere=:Genere,year=:Year WHERE id=:rid");
+    query.bindValue(":AID",this->artist_id);
+    query.bindValue(":Title",this->title);
+    query.bindValue(":Album",this->album);
+    query.bindValue(":Comment",this->comment);
+    query.bindValue(":Genere",this->genere);
+    query.bindValue(":Track",this->number);
+    query.bindValue(":Year",this->year);
+    query.bindValue(":rid",this->id);
 
     bool ok = query.exec();
     if(!ok)
@@ -93,96 +97,55 @@ void Track::update()
     }
     else
     {
-        Artist* artist = new Artist();
-        artist->toId(artist_id);
-        QString fileName = QString(QDir::homePath()+"/.radon/collection/"+artist->getName()+"/"+title+".mp3");
-
-        AudioFile audioFile(fileName);
+        AudioFile audioFile(this->fileName);
         audioFile.artist = artist->getName();
-        audioFile.title = title;
-        audioFile.album = album;
-        audioFile.comment = comment;
-        audioFile.genre = genere;
-        audioFile.track = number;
-        audioFile.year = year;
-
-        qDebug() << this->title;
+        audioFile.title = this->title;
+        audioFile.album = this->album;
+        audioFile.comment = this->comment;
+        audioFile.genre = this->genere;
+        audioFile.track = this->number;
+        audioFile.year = this->year;
 
         audioFile.sync();
-    }
-}
 
-bool Track::setTitle(QString title)
-{
-    QString artistName = this->artist->getName();
-    QString oldFileName = QString(QDir::homePath()+"/.radon/collection/"+artistName+"/"+this->title+".mp3");
-    QString newFileName = QString(QDir::homePath()+"/.radon/collection/"+artistName+"/"+title+".mp3");
-
-    QFile* oldFile = new QFile(oldFileName);
-    QFile* newFile = new QFile(newFileName);
-
-    if(newFile->exists())
-    {
-        qDebug() << "Track is exists";
-        return false;
-    }
-    else
-    {
-        QSqlDatabase db = dbAdapter::instance().db;
-        QSqlQuery query(db);
-
-        query.prepare("UPDATE songs SET title=:title WHERE id=:id");
-        query.bindValue(":id",this->id);
-        query.bindValue(":title",title);
-
-        bool ok = query.exec();
-        if(ok)
+        QString artistName = this->artist->getName();
+        QString newFileName = QString(QDir::homePath()+"/.radon/collection/"+artistName+"/"+this->title+".mp3");
+        if(this->fileName != newFileName)
         {
-            oldFile->copy(oldFileName,newFileName);
+            QFile* oldFile = new QFile(this->fileName);
+            oldFile->copy(this->fileName,newFileName);
             oldFile->remove();
-
-            AudioFile audioFile(newFileName);
-            audioFile.title = title;
-            audioFile.sync();
-
-            this->title = title;
-            return true;
-        }
-        else
-        {
-            qDebug() << query.lastQuery() << query.lastError().text();
-            return false;
+            this->fileName = newFileName;
         }
     }
 }
 
-
-bool Track::setArtistId(int artist_id)
+void Track::setArtistName(QString name)
 {
     Artist* artist = new Artist();
-    artist->toId(artist_id);
-
-    QString oldFileName = QString(QDir::homePath()+"/.radon/collection/"+artist->getName()+"/"+this->title+".mp3");
-    QString newFileName = QString(QDir::homePath()+"/.radon/collection/"+artist->getName()+"/"+this->title+".mp3");
-
-    QFile* oldFile = new QFile(oldFileName);
-    QFile* newFile = new QFile(newFileName);
-
-    if(newFile->exists())
+    int a_id = artist->idFromName(name);
+    if(a_id == 0)
     {
-        qDebug() << "Track is exists";
-        return false;
+        artist->setName(name);
+        artist->insert();
+        a_id = artist->idFromName(name);
     }
-    else
+    this->artist_id = a_id;
+    this->artist = artist->toId(a_id);
+}
+
+
+void Track::remove()
+{
+    QSqlDatabase db = dbAdapter::instance().db;
+    QSqlQuery query(db);
+    query.prepare("DELETE FROM songs WHERE id=:id");
+    query.bindValue(":id",this->id);
+
+    bool ok = query.exec();
+
+    if(!ok)
     {
-        oldFile->copy(oldFileName,newFileName);
-        oldFile->remove();
-
-        AudioFile audioFile(newFileName);
-        audioFile.artist = artist->getName();
-        audioFile.sync();
-
-        this->artist_id = artist_id;
-        return true;
+        qDebug() << query.lastQuery() << query.lastError().text();
     }
 }

@@ -20,6 +20,7 @@ public:
 public slots:
     static Artist* toId(int artistId);
     QString getName() {return this->name;}
+    void remove();
 
 private:
     QString name;

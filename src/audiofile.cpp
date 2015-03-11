@@ -48,7 +48,7 @@ void AudioFile::loadTags()
 
 bool AudioFile::sync()
 {
-    if(!tagFile)
+    if(!mediaFile->exists())
     {
         return false;
     }

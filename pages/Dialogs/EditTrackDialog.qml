@@ -36,8 +36,16 @@ Dialog{
     {
         var trackB =  editTrack.toId(editTrackDialog.track_id)
         trackB.setTitle(trackTitle);
+        trackB.setAlbum(trackAlbum);
+        trackB.setGenere(trackGenere);
+        trackB.setComment(trackComment);
+        trackB.setYear(trackYear);
+        trackB.setNum(trackNum);
+        trackB.setArtistName(trackArtist);
+        trackB.update();
         editTrackDialog.visible = false;
         trackSqlModel.refresh();
+        artistSqlModel.refresh();
     }
 
     BTrack {

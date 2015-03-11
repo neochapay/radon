@@ -58,13 +58,51 @@ void dbAdapter::rescanCollection()
     QString collectionDirString = QString(QDir::homePath()+"/.radon/collection/");
     QDirIterator it(collectionDirString, QStringList() << "*.mp3", QDir::Files, QDirIterator::Subdirectories);
 
+/*Find files in collection directory*/
     while (it.hasNext()) {
         AudioFile *audioFile = new AudioFile(it.next());
         qDebug() << audioFile->artist << " - " << audioFile->title;
         int artist_id = addArtist(audioFile->artist);
         addSong(artist_id,audioFile->title,audioFile->album,audioFile->comment,audioFile->genre,audioFile->track,audioFile->year);
     }
+/*Check missing files*/
+    QSqlDatabase db = this->instance().db;
+    QSqlQuery query(db);
+    query.prepare("SELECT id FROM songs");
+    query.exec();
+    while (query.next()) {
+        int song_id = query.value(0).toInt();
+        Track* track = Track::toId(song_id);
+        Artist* trackArtist = track->getArtist();
+        QString artistName = trackArtist->getName();
+        QFile* trackFile = new QFile(QDir::homePath()+"/.radon/collection/"+artistName+"/"+track->getTitle()+".mp3");
+        if(!trackFile->exists())
+        {
+            track->remove();
+        }
+    }
+/*Check 0-tracks artist*/
+    query.prepare("SELECT id FROM artist");
+    bool ok = query.exec();
+    if(!ok)
+    {
+        qDebug() << query.lastQuery() << query.lastError().text();
+    }
+    else
+    {
+        while (query.next())
+        {
+            int artistId = query.value(0).toInt();
+            Artist* artist = Artist::toId(artistId);
+            if(artist->getTracks().length() == 0)
+            {
+                artist->remove();
+            }
+        }
+    }
     emit dbRescanEnd();
+
+
 }
 
 int dbAdapter::addArtist(QString name)
@@ -82,13 +120,17 @@ int dbAdapter::addArtist(QString name)
 
 void dbAdapter::addSong(int artist_id, QString title, QString album, QString comment, QString genere, int track, int year)
 {
+    if(comment.length() < 1)
+    {
+        comment = QString("");
+    }
     Track *nTrack = new Track();
     nTrack->setArtistId(artist_id);
     nTrack->setTitle(title);
     nTrack->setAlbum(album);
     nTrack->setComment(comment);
     nTrack->setGenere(genere);
-    nTrack->setTrack(track);
+    nTrack->setNum(track);
     nTrack->setYear(year);
     nTrack->insert();
 }

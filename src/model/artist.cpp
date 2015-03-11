@@ -70,6 +70,11 @@ void Artist::insert()
     {
         qDebug() << query.lastQuery() << query.lastError().text();
     }
+    else
+    {
+        QDir artistDir = QDir();
+        artistDir.mkpath(QString(QDir::homePath()+"/.radon/collection/"+name));
+    }
 }
 
 bool Artist::setName(QString name)
@@ -100,7 +105,7 @@ void Artist::update()
 {
     QSqlDatabase db = dbAdapter::instance().db;
     QSqlQuery query(db);
-    query.prepare("UPDATE arists SET name=:name WHEER id=:id");
+    query.prepare("UPDATE artist SET name=:name WHERE id=:id");
     query.bindValue(":name",name);
     query.bindValue(":id",id);
 
@@ -141,4 +146,25 @@ QList<Track*> Artist::getTracks()
         tracks << track;
     }
     return tracks;
+}
+
+
+void Artist::remove()
+{
+    QSqlDatabase db = dbAdapter::instance().db;
+    QSqlQuery query(db);
+    query.prepare("DELETE FROM artist WHERE id=:id");
+    query.bindValue(":id",this->id);
+
+    bool ok = query.exec();
+
+    if(!ok)
+    {
+        qDebug() << query.lastQuery() << query.lastError().text();
+    }
+    else
+    {
+        QDir artistDir = QDir();
+        artistDir.remove(QString(QDir::homePath()+"/.radon/collection/"+this->name));
+    }
 }

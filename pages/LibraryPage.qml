@@ -110,7 +110,11 @@ Rectangle {
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignHCenter
         }
-        onClicked: Collection.rescanBase()
+        onClicked:{
+            Collection.rescanBase()
+            trackSqlModel.refresh()
+            artistSqlModel.refresh()
+        }
     }
 
     Button{

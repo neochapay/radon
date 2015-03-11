@@ -42,8 +42,8 @@ Rectangle {
     MouseArea{
         anchors.fill: parent
         onDoubleClicked: {
-            trackModel.setArtist(artist_id)
-            trackModel.refresh()
+            trackSqlModel.setArtist(artist_id)
+            trackSqlModel.refresh()
         }
     }
 }

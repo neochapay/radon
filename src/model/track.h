@@ -14,7 +14,6 @@ public:
 
     Artist* getArtist() {return artist;}
     void setArtist(Artist *artist) {this->artist = artist;}
-    static void remove(int track_id);
 
 public slots:
     Q_INVOKABLE static Track* toId(int trackId);
@@ -27,16 +26,18 @@ public slots:
     int getNumber() {return this->number;}
     int getYear() {return this->year;}
 
-    bool setArtistId(int artist_id);
-    bool setTitle(QString title);
+    void setTitle(QString title) {this->title = title;}
     void setAlbum(QString album) {this->album = album;}
     void setGenere(QString genere) {this->genere = genere;}
-    void setTrack(int track) {this->number = track;}
+    void setNum(int num) {this->number = num;}
     void setYear(int year) {this->year = year;}
     void setComment(QString comment) {this->comment = comment;}
+    void setArtistId(int id){this->artist_id = id;}
+    void setArtistName(QString name);
 
     void insert();
     void update();
+    void remove();
 
 signals:
     void titleChanged();
@@ -51,6 +52,7 @@ private:
     int number;
     int year;
     QString comment;
+    QString fileName;
 
     Artist *artist;
     bool played;
