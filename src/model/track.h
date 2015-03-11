@@ -12,20 +12,9 @@ class Track : public Item
 public:
     Track();
 
-    bool setArtistId(int artist_id);
-    bool setTitle(QString title);
-    void setAlbum(QString album) {this->album = album;}
-    void setGenere(QString genere) {this->genere = genere;}
-    void setTrack(int track) {this->number = track;}
-    void setYear(int year) {this->year = year;}
-    void setComment(QString comment) {this->comment = comment;}
-
     Artist* getArtist() {return artist;}
     void setArtist(Artist *artist) {this->artist = artist;}
-
     static void remove(int track_id);
-    void insert();
-    void update();
 
 public slots:
     Q_INVOKABLE static Track* toId(int trackId);
@@ -38,6 +27,16 @@ public slots:
     int getNumber() {return this->number;}
     int getYear() {return this->year;}
 
+    bool setArtistId(int artist_id);
+    bool setTitle(QString title);
+    void setAlbum(QString album) {this->album = album;}
+    void setGenere(QString genere) {this->genere = genere;}
+    void setTrack(int track) {this->number = track;}
+    void setYear(int year) {this->year = year;}
+    void setComment(QString comment) {this->comment = comment;}
+
+    void insert();
+    void update();
 
 signals:
     void titleChanged();

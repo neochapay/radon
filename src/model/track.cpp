@@ -33,7 +33,7 @@ Track* Track::toId(int trackId)
     if(query.next())
     {
         Track* track = new Track();
-        track->setId(trackId);
+        track->id = trackId;
         track->artist_id = query.value(0).toInt();
         track->title = query.value(1).toString();
         track->album = query.value(2).toString();
@@ -41,6 +41,9 @@ Track* Track::toId(int trackId)
         track->comment = query.value(4).toString();
         track->number = query.value(5).toInt();
         track->year = query.value(6).toInt();
+
+        Artist* artist = new Artist();
+        track->artist = artist->toId(track->artist_id);
 
         cache.insert(trackId,track);
         return track;
@@ -73,15 +76,15 @@ void Track::update()
 {
     QSqlDatabase db = dbAdapter::instance().db;
     QSqlQuery query(db);
-    query.prepare("UPADTE songs SET `artist_id`=':artist_id', `title`=':title', `album`=':album', `comment`=':comment', `genere`=':genere', `track`=':track', `year`=':year' WHERE id=:id");
-    query.bindValue(":artist_id",artist_id);
-    query.bindValue(":title",title);
-    query.bindValue(":album",album);
-    query.bindValue(":comment",comment);
-    query.bindValue(":genere",genere);
-    query.bindValue(":track",number);
-    query.bindValue(":year",year);
-    query.bindValue(":id",id);
+    query.prepare("UPADTE songs SET `artist_id`=:artist_id, `title`=:title, `album`=:album, `comment`=:comment, `genere`=:genere, `track`=:track, `year`=:year WHERE id=:id");
+    query.bindValue(":artist_id",this->artist_id);
+    query.bindValue(":title",this->title);
+    query.bindValue(":album",this->album);
+    query.bindValue(":comment",this->comment);
+    query.bindValue(":genere",this->genere);
+    query.bindValue(":track",this->number);
+    query.bindValue(":year",this->year);
+    query.bindValue(":id",this->id);
 
     bool ok = query.exec();
     if(!ok)
@@ -111,11 +114,9 @@ void Track::update()
 
 bool Track::setTitle(QString title)
 {
-    Artist* artist = new Artist();
-    artist->toId(this->artist_id);
-
-    QString oldFileName = QString(QDir::homePath()+"/.radon/collection/"+artist->getName()+"/"+this->title+".mp3");
-    QString newFileName = QString(QDir::homePath()+"/.radon/collection/"+artist->getName()+"/"+this->title+".mp3");
+    QString artistName = this->artist->getName();
+    QString oldFileName = QString(QDir::homePath()+"/.radon/collection/"+artistName+"/"+this->title+".mp3");
+    QString newFileName = QString(QDir::homePath()+"/.radon/collection/"+artistName+"/"+title+".mp3");
 
     QFile* oldFile = new QFile(oldFileName);
     QFile* newFile = new QFile(newFileName);
@@ -127,15 +128,31 @@ bool Track::setTitle(QString title)
     }
     else
     {
-        oldFile->copy(oldFileName,newFileName);
-        oldFile->remove();
+        QSqlDatabase db = dbAdapter::instance().db;
+        QSqlQuery query(db);
 
-        AudioFile audioFile(newFileName);
-        audioFile.title = title;
-        audioFile.sync();
+        query.prepare("UPDATE songs SET title=:title WHERE id=:id");
+        query.bindValue(":id",this->id);
+        query.bindValue(":title",title);
 
-        this->title = title;
-        return true;
+        bool ok = query.exec();
+        if(ok)
+        {
+            oldFile->copy(oldFileName,newFileName);
+            oldFile->remove();
+
+            AudioFile audioFile(newFileName);
+            audioFile.title = title;
+            audioFile.sync();
+
+            this->title = title;
+            return true;
+        }
+        else
+        {
+            qDebug() << query.lastQuery() << query.lastError().text();
+            return false;
+        }
     }
 }
 

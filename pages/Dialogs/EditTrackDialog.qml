@@ -6,6 +6,7 @@ import trackAdapter 1.0
 import artistAdapter 1.0
 
 Dialog{
+    id: editTrackDialog
     property string trackTitle: "Unknow Track"
     property string trackArtist: "Unknow Artist"
     property string trackAlbum
@@ -14,10 +15,12 @@ Dialog{
     property string filename
     property int trackYear
     property int trackNum
+    property int track_id;
 
-    function setTrackId(track_id)
+    function setTrackId(trackId)
     {
-        var trackB =  editTrack.toId(track_id)
+        editTrackDialog.track_id = trackId
+        var trackB =  editTrack.toId(trackId)
         trackTitle = trackB.getTitle();
         trackAlbum = trackB.getAlbum();
         trackGenere = trackB.getGenere();
@@ -29,6 +32,14 @@ Dialog{
         trackArtist = artistB.getName();
     }
 
+    function saveTags()
+    {
+        var trackB =  editTrack.toId(editTrackDialog.track_id)
+        trackB.setTitle(trackTitle);
+        editTrackDialog.visible = false;
+        trackSqlModel.refresh();
+    }
+
     BTrack {
         id: editTrack
     }
@@ -37,9 +48,6 @@ Dialog{
         id: editArtist
     }
 
-    signal saveTags()
-
-    id: editTrackDialog
     width: 400
     height: 300
 
