@@ -32,7 +32,7 @@ public slots:
     void setNum(int num) {this->number = num;}
     void setYear(int year) {this->year = year;}
     void setComment(QString comment) {this->comment = comment;}
-    void setArtistId(int id){this->artist_id = id;}
+    void setArtistId(int id);
     void setArtistName(QString name);
 
     void insert();

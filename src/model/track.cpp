@@ -134,6 +134,12 @@ void Track::setArtistName(QString name)
     this->artist = artist->toId(a_id);
 }
 
+void Track::setArtistId(int id)
+{
+    Artist* artist = new Artist();
+    this->artist = artist->toId(id);
+    this->artist_id = id;
+}
 
 void Track::remove()
 {
