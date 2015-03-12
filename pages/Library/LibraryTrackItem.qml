@@ -1,10 +1,18 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.0
+import trackAdapter 1.0
 
 Rectangle {
+    id: trackItem
     width: parent.width
     height: tarckLabel.height+6
     color: index % 2 == 0 ? "#c7c7c7":"#d8d8d8"
+
+    property var tTrack;
+
+    BTrack {
+        id: thisTrack
+    }
 
     Menu{
         id: contextMenu
@@ -32,6 +40,11 @@ Rectangle {
         MenuItem
         {
             text: qsTr('Delete')
+            onTriggered: {
+                var tTrack = thisTrack.toId(track_id);
+                tTrack.remove();
+                trackSqlModel.refresh()
+            }
         }
     }
 

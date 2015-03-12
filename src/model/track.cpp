@@ -148,4 +148,14 @@ void Track::remove()
     {
         qDebug() << query.lastQuery() << query.lastError().text();
     }
+    else
+    {
+        QFile* file = new QFile(this->fileName);
+        file->remove();
+
+        if(this->artist->getTracks().length() == 0)
+        {
+            this->artist->remove();
+        }
+    }
 }

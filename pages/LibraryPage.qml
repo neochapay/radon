@@ -141,6 +141,8 @@ Rectangle {
                 list.push(fileUrls[i].replace("file://",""))
             }
             addFiles(list)
+            trackSqlModel.refresh()
+            artistSqlModel.refresh()
         }
         onRejected: { console.log("Rejected") }
     }
