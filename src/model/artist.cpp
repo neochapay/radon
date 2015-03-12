@@ -116,8 +116,12 @@ void Artist::update()
     }
     else
     {
-        QDir artistDir = QDir();
-        artistDir.mkpath(QString(QDir::homePath()+"/.radon/collection/"+this->name+"/"));
+        QDir artistDir = QDir(QString(QDir::homePath()+"/.radon/collection/"+this->name+"/"));
+        if(!artistDir.exists())
+        {
+            artistDir.mkpath(QString(QDir::homePath()+"/.radon/collection/"+this->name+"/"));
+        }
+
         QList<Track*> tracks = this->getTracks();
         for (int i = 0;i<tracks.count();i++)
         {
