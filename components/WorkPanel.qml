@@ -184,5 +184,6 @@ Rectangle {
 WorkPanelDialogs
 */
     EditTrackDialog{id: editTrackDialog}
+    EditArtistDialog{id: editArtistDialog}
 }
 

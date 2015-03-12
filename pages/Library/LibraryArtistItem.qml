@@ -11,7 +11,10 @@ Rectangle {
         MenuItem
         {
             text: qsTr('Edit')
-            onToggled: console.log("edit");
+            onTriggered: {
+                editArtistDialog.setArtistID(artist_id);
+                editArtistDialog.visible = true;
+            }
         }
         MenuItem
         {

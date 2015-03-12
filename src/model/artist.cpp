@@ -122,6 +122,7 @@ void Artist::update()
         for (int i = 0;i<tracks.count();i++)
         {
             tracks[i]->setArtistId(id);
+            tracks[i]->update();
         }
     }
 }

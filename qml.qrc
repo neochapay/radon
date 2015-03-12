@@ -23,5 +23,6 @@
         <file>pages/Library/LibraryArtistItem.qml</file>
         <file>pages/Library/LibraryTrackItem.qml</file>
         <file>pages/Dialogs/EditTrackDialog.qml</file>
+        <file>pages/Dialogs/EditArtistDialog.qml</file>
     </qresource>
 </RCC>
