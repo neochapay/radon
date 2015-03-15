@@ -8,8 +8,8 @@ ApplicationWindow {
     visible: true
     visibility: "Maximized"
     title: qsTr("RadON")
-    minimumHeight: 900
-    minimumWidth: 1200
+    minimumHeight: 600
+    minimumWidth: 1100
 
     FontLoader{
         source: "fonts/fontawesome-webfont.ttf"
