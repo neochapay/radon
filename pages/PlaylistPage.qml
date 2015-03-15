@@ -4,6 +4,7 @@ import QtQuick.Dialogs 1.1
 import "PlayList/"
 
 Rectangle {
+    id: playList
     width: parent.width
     height: parent.height
     color: "transparent"
@@ -13,21 +14,17 @@ Rectangle {
         id: playListModel
 
         ListElement {
-            artist: "Би-2"
-            track: "Реки любви"
+            trackId: 1
         }
         ListElement {
-            artist: "Би-2"
-            track: "16+"
+            trackId: 2
         }
 
         ListElement {
-            artist: "Би-2"
-            track: "Полковнику ни кто не пишет"
+            trackId: 3
         }
         ListElement {
-            artist: "Запрещённые барабанщики"
-            track: "Миллион долларов США"
+            trackId: 4
         }
     }
 
@@ -38,7 +35,7 @@ Rectangle {
         height: parent.height
         y: 1
         delegate: PlayListItem{
-
+            track_id: trackId
         }
     }
 

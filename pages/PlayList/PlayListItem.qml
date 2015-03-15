@@ -1,6 +1,9 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.0
 
+import trackAdapter 1.0
+import artistAdapter 1.0
+
 import "../../js/FontAwesome.js" as FontAwesome
 
 Rectangle {
@@ -10,6 +13,27 @@ Rectangle {
     x: 1
     y: 1
     color: index % 2 == 0 ? "#d8d8d8" : "#c7c7c7"
+
+    property int track_id;
+    property int artist_id;
+    property var track;
+    property var artist;
+
+    BTrack {
+        id: thisTrack
+    }
+
+    BArtist{
+        id: thisArtist
+    }
+
+    Component.onCompleted:
+    {
+        track_id = trackId;
+        track = thisTrack.toId(track_id)
+        artist_id = track.getArtistId();
+        artist = thisArtist.toId(artist_id);
+    }
 
     Menu{
         id: contextMenu
@@ -68,7 +92,7 @@ Rectangle {
 
     Text{
         id: artistTitle
-        text: artist
+        text: artist.getName()
         font.pointSize: 12
         x: 100
         y: 10
@@ -86,7 +110,7 @@ Rectangle {
 
     Text{
         id: trackTitle
-        text: track
+        text: track.getTitle()
         font.pointSize: 12
         anchors{
             left: minus.right
