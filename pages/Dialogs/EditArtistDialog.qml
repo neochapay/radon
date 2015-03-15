@@ -63,7 +63,7 @@ Dialog{
 
             onClicked: {
                 var artistB = editArtist.toId(editArtistDialog.artist_id);
-                artistName = artistB.setName(editArtistDialog.artistName)
+                artistName = artistB.setName(artistInput.text)
                 artistB.update();
                 artistSqlModel.refresh()
                 trackSqlModel.refresh()
