@@ -30,13 +30,11 @@ Rectangle {
 
     ListView{
         id: playListView
-        model: playListModel
+        model: playList.getPlayList()
         width: parent.width
         height: parent.height
         y: 1
-        delegate: PlayListItem{
-            track_id: trackId
-        }
+        delegate: PlayListItem{}
     }
 
     MessageDialog {
