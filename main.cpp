@@ -15,7 +15,7 @@
 #include "src/model/tracksqlmodel.h"
 #include "src/model/artist.h"
 #include "src/model/track.h"
-#include "src/model/playlist.h"
+#include "src/model/playlistmodel.h"
 
 int main(int argc, char *argv[])
 {
@@ -39,7 +39,7 @@ int main(int argc, char *argv[])
     //LoadModels
     ArtistSqlModel *artistSqlModel = new ArtistSqlModel();
     TrackSqlModel *trackSqlModel = new TrackSqlModel();
-    PlayList *playList = new PlayList();
+    PlayListModel *playListModel = new PlayListModel();
 
     qmlRegisterType<Track>("trackAdapter",1,0,"BTrack");
     qmlRegisterType<Artist>("artistAdapter",1,0,"BArtist");
@@ -52,7 +52,7 @@ int main(int argc, char *argv[])
 
     engine.rootContext()->setContextProperty("artistSqlModel", artistSqlModel);
     engine.rootContext()->setContextProperty("trackSqlModel", trackSqlModel);
-    engine.rootContext()->setContextProperty("playList", playList);
+    engine.rootContext()->setContextProperty("playListModel",playListModel);
 
     QObject *object = engine.rootObjects().first();
     QObject *libraryView = object->findChild<QObject*>("libraryPageArea");

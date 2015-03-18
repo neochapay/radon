@@ -30,7 +30,7 @@ Rectangle {
 
     ListView{
         id: playListView
-        model: playList.getPlayList()
+        model: playListModel
         width: parent.width
         height: parent.height
         y: 1

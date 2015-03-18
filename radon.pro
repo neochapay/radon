@@ -25,7 +25,7 @@ SOURCES += main.cpp \
     src/model/track.cpp \
     src/model/artistsqlmodel.cpp \
     src/model/tracksqlmodel.cpp \
-    src/model/playlist.cpp
+    src/model/playlistmodel.cpp
 
 RESOURCES += qml.qrc
 
@@ -95,5 +95,5 @@ HEADERS += \
     src/model/track.h \
     src/model/artistsqlmodel.h \
     src/model/tracksqlmodel.h \
-    src/model/playlist.h
+    src/model/playlistmodel.h
 
