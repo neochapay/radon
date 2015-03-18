@@ -14,7 +14,6 @@ Rectangle {
     y: 1
     color: index % 2 == 0 ? "#d8d8d8" : "#c7c7c7"
 
-    property int track_id;
     property int artist_id;
     property var track;
     property var artist;
@@ -29,8 +28,7 @@ Rectangle {
 
     Component.onCompleted:
     {
-        track_id = trackId;
-        track = thisTrack.toId(track_id)
+        track = thisTrack.toId(trackId)
         artist_id = track.getArtistId();
         artist = thisArtist.toId(artist_id);
     }

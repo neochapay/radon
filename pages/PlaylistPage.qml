@@ -10,24 +10,6 @@ Rectangle {
     color: "transparent"
     clip: true
 
-    ListModel {
-        id: playListModel
-
-        ListElement {
-            trackId: 1
-        }
-        ListElement {
-            trackId: 2
-        }
-
-        ListElement {
-            trackId: 3
-        }
-        ListElement {
-            trackId: 4
-        }
-    }
-
     ListView{
         id: playListView
         model: playListModel
