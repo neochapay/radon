@@ -13,7 +13,7 @@ public:
     QVariant data(const QModelIndex &index, int role) const;
     QHash<int, QByteArray> roleNames() const {return hash;}
 
-    bool insertRows(int position, int rows, const QModelIndex &index = QModelIndex());
+    bool insertRows(int position, int rows, int track_id, const QModelIndex &index = QModelIndex());
     bool removeRows(int position, int rows, const QModelIndex &index = QModelIndex());
 
 public slots:
