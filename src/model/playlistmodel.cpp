@@ -11,7 +11,11 @@ PlayListModel::PlayListModel(QObject *parent) :
 
 void PlayListModel::addItem(int track_id, int count)
 {
-    insertRows(playList.size(),1,track_id);
+    if(count == 0)
+    {
+        count = playList.size();
+    }
+    insertRows(count,1,track_id);
 }
 
 int PlayListModel::rowCount(const QModelIndex &parent) const
