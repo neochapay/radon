@@ -21,7 +21,7 @@ Rectangle {
         {
             text: qsTr('Add next')
             onTriggered: {
-                playListModel.addItem(track_id)
+                playListModel.addItem(track_id,"track")
             }
         }
         MenuItem

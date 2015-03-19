@@ -6,16 +6,21 @@ PlayListModel::PlayListModel(QObject *parent) :
     QAbstractListModel(parent)
 {
     hash.insert(Qt::UserRole  ,QByteArray("trackId"));
+    hash.insert(Qt::UserRole+1  ,QByteArray("trackType"));
 }
 
 
-void PlayListModel::addItem(int track_id, int count)
+void PlayListModel::addItem(int track_id,QString type,int count)
 {
+    playListItem item;
+    item.trackId = track_id;
+    item.trackType = type;
+
     if(count == 0)
     {
         count = playList.size();
     }
-    insertRows(count,1,track_id);
+    insertRows(count,1,item);
 }
 
 int PlayListModel::rowCount(const QModelIndex &parent) const
@@ -32,15 +37,23 @@ QVariant PlayListModel::data(const QModelIndex &index, int role) const
 
     if (index.row() >= playList.size())
         return QVariant();
-    return playList.at(index.row());
+    playListItem item = playList.at(index.row());
+    if(role == Qt::UserRole)
+    {
+        return item.trackId;
+    }
+    else
+    {
+        return item.trackType;
+    }
 }
 
-bool PlayListModel::insertRows(int position, int rows, int track_id, const QModelIndex &parent)
+bool PlayListModel::insertRows(int position, int rows, playListItem &item, const QModelIndex &parent)
 {
     Q_UNUSED(parent);
     beginInsertRows(QModelIndex(), position, position+rows-1);
     for (int row = 0; row < rows; ++row) {
-        playList.insert(position, track_id);
+        playList.insert(position, item);
     }
     endInsertRows();
     return true;
