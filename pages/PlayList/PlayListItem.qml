@@ -91,11 +91,22 @@ Rectangle {
             leftMargin: 10
             left: lisenButton.right
         }
+
         MouseArea{
             id: playNowButtonArea
             anchors.fill: parent
             onClicked: {
-                console.log("click lisen")
+                if(playListView.currentIndex == index)
+                {
+                    playListView.currentIndex = index+1;
+                    playNowButton.text = FontAwesome.Icon.play
+                }
+                else
+                {
+                    playListView.currentIndex = index;
+                    playNowButton.text = FontAwesome.Icon.stop
+                    main.setCurrentPlay(artist.getName(),track.getTitle());
+                }
             }
         }
     }

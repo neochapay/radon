@@ -19,6 +19,7 @@ ApplicationWindow {
         id: content
         anchors.fill: parent
         MainContent{
+            id: mainContent
             width: parent.width
             height: parent.height-statusBar.height
         }

@@ -17,6 +17,9 @@ Rectangle {
         height: parent.height
         y: 1
         delegate: PlayListItem{}
+        onCurrentItemChanged: {
+
+        }
     }
 
     MessageDialog {
