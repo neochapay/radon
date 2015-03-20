@@ -12,7 +12,6 @@ Rectangle {
     height: 40
     x: 1
     y: 1
-    color: index % 2 == 0 ? "#d8d8d8" : "#c7c7c7"
 
     property int artist_id;
     property var track;
@@ -31,6 +30,19 @@ Rectangle {
         track = thisTrack.toId(trackId)
         artist_id = track.getArtistId();
         artist = thisArtist.toId(artist_id);
+
+        if(trackType == "track")
+        {
+            playListItem.color = index % 2 == 0 ? "#d8d8d8" : "#c7c7c7"
+        }
+        if(trackType == "advertising")
+        {
+            playListItem.color = index % 2 == 0 ? "#ff5d1a" : "#e55317"
+        }
+        if(trackType == "livecast")
+        {
+            playListItem.color = index % 2 == 0 ? "#95d5f7" : "#86bfde"
+        }
     }
 
     Menu{
