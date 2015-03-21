@@ -84,6 +84,7 @@ Rectangle {
             anchors.fill: parent
             onClicked: {
                 console.log("click lisen")
+                main.setCurrent(artist.getName(), track.getTitle())
             }
         }
     }

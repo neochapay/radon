@@ -15,6 +15,21 @@ ApplicationWindow {
         source: "fonts/fontawesome-webfont.ttf"
     }
 
+    property string prevTextLabel: qsTr("Unknow Artist - Unknow Song")
+    property string prevTimeLabel: "00:00:00"
+
+    property int progress: 34
+    property string currentTextLabel: qsTr("Unknow Artist - Unknow Song")
+
+    property string nextTextLabel: qsTr("Unknow Artist - Unknow Song")
+    property string nextTimeLabel: "00:00:00"
+
+    function setCurrent(artist,title)
+    {
+        main.prevTextLabel = main.currentTextLabel;
+        main.currentTextLabel = artist + " - " + title
+    }
+
     Item{
         id: content
         anchors.fill: parent

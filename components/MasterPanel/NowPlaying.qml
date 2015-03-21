@@ -9,15 +9,6 @@ Rectangle {
         rightMargin: 5
     }
 
-    property string prevTextLabel: qsTr("Unknow Artist - Unknow Song")
-    property string prevTimeLabel: "00:00:00"
-
-    property int progress: 34
-    property string currentTextLabel: qsTr("Unknow Artist - Unknow Song")
-
-    property string nextTextLabel: qsTr("Unknow Artist - Unknow Song")
-    property string nextTimeLabel: "00:00:00"
-
     Rectangle{
         id: prevRow
         width: parent.width
@@ -36,7 +27,7 @@ Rectangle {
             id: prevText
             height: parent.height
             verticalAlignment: Text.AlignVCenter
-            text: prevTextLabel
+            text: main.prevTextLabel
             color: "#dfdfdf"
             anchors.left: prevLabel.right
         }
@@ -46,7 +37,7 @@ Rectangle {
             verticalAlignment: Text.AlignVCenter
             color: "#969696"
             anchors.right: parent.right
-            text: prevTimeLabel
+            text: main.prevTimeLabel
         }
     }
 
@@ -69,7 +60,7 @@ Rectangle {
                 margins: 5
                 left: parent.left
             }
-            text: currentTextLabel
+            text: main.currentTextLabel
             font.pixelSize: 18
         }
 
@@ -83,7 +74,7 @@ Rectangle {
                 id: progressbar
                 color: "#f97202"
                 height: parent.height
-                width: parent.width/100*progress
+                width: parent.width/100*main.progress
             }
         }
     }
@@ -107,7 +98,7 @@ Rectangle {
             id: nextText
             height: parent.height
             verticalAlignment: Text.AlignVCenter
-            text: nextTextLabel
+            text: main.nextTextLabel
             color: "#dfdfdf"
             anchors.left: nextLabel.right
         }
@@ -117,7 +108,7 @@ Rectangle {
             verticalAlignment: Text.AlignVCenter
             color: "#969696"
             anchors.right: parent.right
-            text: nextTimeLabel
+            text: main.nextTimeLabel
         }
     }
 }
