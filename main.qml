@@ -24,7 +24,7 @@ ApplicationWindow {
     property string nextTextLabel: qsTr("Unknow Artist - Unknow Song")
     property string nextTimeLabel: "00:00:00"
 
-    function setCurrent(artist,title)
+    function setCurrentPlay(artist,title)
     {
         main.prevTextLabel = main.currentTextLabel;
         main.currentTextLabel = artist + " - " + title
@@ -34,6 +34,7 @@ ApplicationWindow {
         id: content
         anchors.fill: parent
         MainContent{
+            id: mainContent
             width: parent.width
             height: parent.height-statusBar.height
         }
