@@ -10,6 +10,7 @@ class PlayListModel : public QAbstractListModel
     struct playListItem{
         int trackId;
         QString trackType;
+        bool playEd;
     };
 
 public:
@@ -23,6 +24,7 @@ public:
 
 public slots:
     void addItem(int track_id,QString type, int count=0);
+    void setPlayed(int index);
 
 signals:
     void playListUpdate();
