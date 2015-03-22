@@ -82,16 +82,7 @@ Rectangle {
 
     Text{
         id: playNowButton
-        text: {
-            if(playEd == true)
-            {
-                FontAwesome.Icon.stop
-            }
-            else
-            {
-                FontAwesome.Icon.play
-            }
-        }
+        text: playEd ? FontAwesome.Icon.stop : FontAwesome.Icon.play
         font.family: "FontAwesome"
         font.pointSize: 25
         color: "#FF5D1A"
@@ -105,16 +96,7 @@ Rectangle {
             id: playNowButtonArea
             anchors.fill: parent
             onClicked: {
-                playListModel.setPlayed(index);
-                if(playListView.currentIndex == index)
-                {
-                    playListView.currentIndex = index+1;
-                }
-                else
-                {
-                    playListView.currentIndex = index;
-                    main.setCurrentPlay(artist.getName(),track.getTitle())
-                }
+                playListView.currentIndex = index;
             }
         }
     }

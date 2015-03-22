@@ -79,8 +79,11 @@ bool PlayListModel::removeRows(int position, int rows, const QModelIndex &index)
 
 void PlayListModel::setPlayed(int index)
 {
-    for (int row = 0; row < playList.count(); ++row) {
-        playList[row].playEd = false;
+    if(index <= playList.count())
+    {
+        for (int row = 0; row < playList.count(); ++row) {
+            playList[row].playEd = false;
+        }
+        playList[index].playEd = true;
     }
-    playList[index].playEd = true;
 }

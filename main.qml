@@ -27,6 +27,7 @@ ApplicationWindow {
     function setCurrentPlay(artist,title)
     {
         main.prevTextLabel = main.currentTextLabel;
+        main.prevTimeLabel = Qt.formatTime(new Date(),"hh:mm:ss");
         main.currentTextLabel = artist + " - " + title
     }
 

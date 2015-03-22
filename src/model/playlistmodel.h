@@ -22,6 +22,8 @@ public:
     bool insertRows(int position, int rows, playListItem &item, const QModelIndex &index = QModelIndex());
     bool removeRows(int position, int rows, const QModelIndex &index = QModelIndex());
 
+    QList<playListItem> playList;
+
 public slots:
     void addItem(int track_id,QString type, int count=0);
     void setPlayed(int index);
@@ -30,7 +32,6 @@ signals:
     void playListUpdate();
 
 private:
-    QList<playListItem> playList;
     QHash<int,QByteArray> hash;
 };
 

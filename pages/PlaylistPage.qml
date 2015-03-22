@@ -18,7 +18,9 @@ Rectangle {
         y: 1
         delegate: PlayListItem{}
         onCurrentItemChanged: {
-
+            playListModel.setPlayed(playListView.currentIndex);
+            main.setCurrentPlay(playListView.currentItem.artist.getName(),playListView.currentItem.track.getTitle())
+            playListView.update();
         }
     }
 
