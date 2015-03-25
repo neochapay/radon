@@ -84,8 +84,9 @@ void PlayListModel::setPlayed(int idx, const QModelIndex &parent)
     {
         for (int row = 0; row < playList.count(); ++row) {
             playList[row].playEd = false;
+            dataChanged(index(row),index(row));
         }
         playList[idx].playEd = true;
+        dataChanged(index(idx),index(idx));
     }
-    dataChanged(QModelIndex(),QModelIndex());
 }
