@@ -77,14 +77,15 @@ bool PlayListModel::removeRows(int position, int rows, const QModelIndex &index)
     return true;
 }
 
-void PlayListModel::setPlayed(int index)
+void PlayListModel::setPlayed(int idx, const QModelIndex &parent)
 {
-    if(index <= playList.count())
+    Q_UNUSED(parent);
+    if(idx <= playList.count())
     {
         for (int row = 0; row < playList.count(); ++row) {
             playList[row].playEd = false;
         }
-        playList[index].playEd = true;
+        playList[idx].playEd = true;
     }
-    emit dataChanged(QModelIndex(),QModelIndex());
+    dataChanged(QModelIndex(),QModelIndex());
 }
