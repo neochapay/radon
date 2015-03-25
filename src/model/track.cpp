@@ -60,8 +60,8 @@ void Track::insert()
 {
     QSqlDatabase db = dbAdapter::instance().db;
     QSqlQuery query(db);
-    query.prepare("INSERT INTO songs (`artist_id`, `title`, `album`, `comment`, `genere`, `track`, `year`) VALUES (:artist_id,:title,:album,:comment,:genere,:track,:year)");
-    query.bindValue(":artist_id",artist_id);
+    query.prepare("INSERT INTO songs (`artist_id`, `title`, `album`, `comment`, `genere`, `track`, `year`) VALUES (:artistid, :title, :album, :comment, :genere, :track, :year)");
+    query.bindValue(":artistid",artist_id);
     query.bindValue(":title",title);
     query.bindValue(":album",album);
     query.bindValue(":comment",comment);
