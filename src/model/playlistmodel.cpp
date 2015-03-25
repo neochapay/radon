@@ -86,4 +86,5 @@ void PlayListModel::setPlayed(int index)
         }
         playList[index].playEd = true;
     }
+    emit dataChanged(QModelIndex(),QModelIndex());
 }

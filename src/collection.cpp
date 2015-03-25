@@ -24,7 +24,7 @@ Collection::Collection(QObject *parent) : QObject(parent)
 
     dba = new dbAdapter();
 
-    connect(this,SIGNAL(readyToCopy(QString)),this,SLOT(addFile(QString)));
+    //connect(this,SIGNAL(readyToCopy(QString)),this,SLOT(addFile(QString)));
     connect(this,SIGNAL(fileCopyTick()),this,SLOT(processTick()));
 }
 
@@ -59,7 +59,7 @@ void Collection::rescanBase()
     connect(dba,SIGNAL(dbRescanEnd()),this,SIGNAL(baseCreate()));
 }
 
-void Collection::addFile(QString fileName)
+/*void Collection::addFile(QString fileName)
 {
     AudioFile audioFile(fileName);
     QFile file;
@@ -79,7 +79,7 @@ void Collection::addFile(QString fileName)
     }
     collectionDir.mkpath(collectionDirString+QString("/"+audioFile.artist.toUtf8()));
     file.copy(fileName,collectionDirString+"/"+audioFile.artist.toUtf8()+"/"+audioFile.title.toUtf8()+".mp3");
-}
+}*/
 
 void Collection::removeFile(QFile &file)
 {

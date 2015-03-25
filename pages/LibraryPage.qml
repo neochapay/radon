@@ -46,13 +46,13 @@ Rectangle {
                 onTextChanged: {
                     if(text.length > 0)
                     {
-                        artistModel.searchQuery(text);
+                        artistSqlModel.searchQuery(text);
                     }
                     else
                     {
-                        artistModel.cleanQuery();
+                        artistSqlModel.cleanQuery();
                     }
-                    artistModel.refresh();
+                    artistSqlModel.refresh();
                 }
             }
 

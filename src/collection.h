@@ -42,7 +42,6 @@ signals:
 
 public slots:
     void addFiles(QVariant files);
-    void addFile(QString fileName);
     void removeFile(QFile &file);
     void setStatus(QString status);
     void processTick();
