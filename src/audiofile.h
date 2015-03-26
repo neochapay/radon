@@ -22,11 +22,12 @@ public:
     uint length;
 
     bool sync();
-    void loadTags();
+    bool found;
 
 private:
     QFile *mediaFile;
     TagLib::FileRef *tagFile;
+    void loadTags();
 
 signals:
     void fileNotFound();

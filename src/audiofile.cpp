@@ -10,23 +10,32 @@
 AudioFile::AudioFile(QString audiofile, QObject *parent) : QObject(parent)
 {
     mediaFile = new QFile(audiofile);
+    found = false;
     if(!mediaFile->exists())
     {
+        found = false;
+        qDebug() << "FNF:" << audiofile;
         emit fileNotFound();
     }
     else
     {
         if(mediaFile->open(QIODevice::ReadWrite))
         {
+            found = true;
             tagFile = new TagLib::FileRef(QFileInfo(mediaFile->fileName()).absoluteFilePath().toUtf8());
             loadTags();
+        }
+        else
+        {
+            qDebug() << "FNRW:" << audiofile;
+            found = false;
         }
     }
 }
 
 void AudioFile::loadTags()
 {
-    if(!tagFile)
+    if(!found)
     {
         return;
     }
@@ -37,8 +46,7 @@ void AudioFile::loadTags()
     TagLib::String t_genre = tagFile->tag()->genre();
     TagLib::uint t_track = tagFile->tag()->track();
     TagLib::uint t_year = tagFile->tag()->year();
-    int t_length  = tagFile->audioProperties()->length();
-    qDebug() << t_length;
+    TagLib::uint t_length  = tagFile->audioProperties()->length();
 
     artist = QString::fromStdWString(t_artist.toCWString());
     album = QString::fromStdWString(t_album.toCWString());
@@ -52,7 +60,7 @@ void AudioFile::loadTags()
 
 bool AudioFile::sync()
 {
-    if(!mediaFile->exists())
+    if(!found)
     {
         return false;
     }
