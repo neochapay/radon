@@ -19,6 +19,7 @@ public:
     QString genre;
     uint track;
     uint year;
+    uint length;
 
     bool sync();
     void loadTags();

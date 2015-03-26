@@ -48,6 +48,8 @@ Track* Track::toId(int trackId)
 
         QString artistName = track->artist->getName();
         track->fileName = QString(QDir::homePath()+"/.radon/collection/"+artistName+"/"+track->title+".mp3");
+        AudioFile *trackFile = new AudioFile(track->fileName);
+        track->length = trackFile->length;
 
         cache.insert(trackId,track);
         return track;

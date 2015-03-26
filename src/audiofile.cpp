@@ -36,6 +36,7 @@ void AudioFile::loadTags()
     TagLib::String t_genre = tagFile->tag()->genre();
     TagLib::uint t_track = tagFile->tag()->track();
     TagLib::uint t_year = tagFile->tag()->year();
+    TagLib::uint t_length  = tagFile->audioProperties()->length();
 
     artist = QString::fromStdWString(t_artist.toCWString());
     album = QString::fromStdWString(t_album.toCWString());
@@ -44,6 +45,7 @@ void AudioFile::loadTags()
     genre = QString::fromStdWString(t_genre.toCWString());
     track = t_track;
     year = t_year;
+    length = t_length;
 }
 
 bool AudioFile::sync()

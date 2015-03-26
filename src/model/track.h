@@ -25,6 +25,7 @@ public slots:
     int getArtistId() {return this->artist_id;}
     int getNumber() {return this->number;}
     int getYear() {return this->year;}
+    int getLength() {return this->length;}
 
     void setTitle(QString title) {this->title = title;}
     void setAlbum(QString album) {this->album = album;}
@@ -53,6 +54,7 @@ private:
     int year;
     QString comment;
     QString fileName;
+    int length;
 
     Artist *artist;
     bool played;
