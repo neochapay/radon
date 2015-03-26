@@ -61,9 +61,17 @@ void dbAdapter::rescanCollection()
 /*Find files in collection directory*/
     while (it.hasNext()) {
         AudioFile *audioFile = new AudioFile(it.next());
-        qDebug() << audioFile->artist << " - " << audioFile->title;
-        int artist_id = addArtist(audioFile->artist);
-        addSong(artist_id,audioFile->title,audioFile->album,audioFile->comment,audioFile->genre,audioFile->track,audioFile->year);
+        if(audioFile->found)
+        {
+            qDebug() << audioFile->artist << " - " << audioFile->title;
+            int artist_id = addArtist(audioFile->artist);
+            if(it.next() != collectionDirString+audioFile->artist+"/"+audioFile->title+".mp3")
+            {
+                QFile *f = new QFile();
+                f->copy(it.next(), collectionDirString+audioFile->artist+"/"+audioFile->title+".mp3");
+            }
+            addSong(artist_id,audioFile->title,audioFile->album,audioFile->comment,audioFile->genre,audioFile->track,audioFile->year);
+        }
     }
 /*Check missing files*/
     QSqlDatabase db = this->instance().db;
