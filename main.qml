@@ -48,7 +48,7 @@ ApplicationWindow {
             var nxtArtistId = nxtTrack.getArtistId();
             var nxtArtist = mThisArtist.toId(nxtArtistId);
             main.nextTextLabel = nxtArtist.getName() + " - " + nxtTrack.getTitle();
-            main.nextTimeLabel = Qt.formatTime(new Date(new Date().getTime()+curTrack.getLength()),"hh:mm:ss");
+            main.nextTimeLabel = Qt.formatTime(new Date(new Date().getTime()+curTrack.getLength()*1000),"hh:mm:ss");
         }
         else
         {
