@@ -1,6 +1,9 @@
 import QtQuick 2.1
 import QtQuick.Controls 1.0
 
+import trackAdapter 1.0
+import artistAdapter 1.0
+
 import "components"
 
 ApplicationWindow {
@@ -24,11 +27,34 @@ ApplicationWindow {
     property string nextTextLabel: qsTr("Unknow Artist - Unknow Song")
     property string nextTimeLabel: "00:00:00"
 
-    function setCurrentPlay(artist,title)
+    BTrack {id: mThisTrack}
+    BArtist{id: mThisArtist}
+
+    function setCurrentPlay(index)
     {
+        var curTrackId = playListModel.get(index);
+        var curTrack = mThisTrack.toId(curTrackId);
+        var curArtistId = curTrack.getArtistId();
+        var curArtist = mThisArtist.toId(curArtistId);
+
         main.prevTextLabel = main.currentTextLabel;
         main.prevTimeLabel = Qt.formatTime(new Date(),"hh:mm:ss");
-        main.currentTextLabel = artist + " - " + title
+        main.currentTextLabel = curArtist.getName() + " - " + curTrack.getTitle();
+
+        var nxtTrackId = playListModel.get(index+1);
+        if(nxtTrackId !== 0)
+        {
+            var nxtTrack = mThisTrack.toId(nxtTrackId);
+            var nxtArtistId = nxtTrack.getArtistId();
+            var nxtArtist = mThisArtist.toId(nxtArtistId);
+            main.nextTextLabel = nxtArtist.getName() + " - " + nxtTrack.getTitle();
+            main.nextTimeLabel = Qt.formatTime(new Date(new Date().getTime()+curTrack.getLength()),"hh:mm:ss");
+        }
+        else
+        {
+            main.nextTextLabel = "Unknow Artist - Unknow Song";
+        }
+
     }
 
     Item{
