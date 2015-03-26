@@ -90,3 +90,12 @@ void PlayListModel::setPlayed(int idx, const QModelIndex &parent)
         dataChanged(index(idx),index(idx));
     }
 }
+
+int PlayListModel::get(int idx)
+{
+    if(idx < playList.size())
+    {
+        return playList[idx].trackId;
+    }
+    return 0;
+}
