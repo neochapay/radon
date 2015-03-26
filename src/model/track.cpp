@@ -49,6 +49,15 @@ Track* Track::toId(int trackId)
         QString artistName = track->artist->getName();
         track->fileName = QString(QDir::homePath()+"/.radon/collection/"+artistName+"/"+track->title+".mp3");
 
+        AudioFile *trackFile = new AudioFile(track->fileName);
+        if(trackFile->found)
+        {
+            track->length = trackFile->length;
+        }
+        else
+        {
+            track->length = 0;
+        }
         cache.insert(trackId,track);
         return track;
     }
@@ -98,24 +107,27 @@ void Track::update()
     else
     {
         AudioFile audioFile(this->fileName);
-        audioFile.artist = artist->getName();
-        audioFile.title = this->title;
-        audioFile.album = this->album;
-        audioFile.comment = this->comment;
-        audioFile.genre = this->genere;
-        audioFile.track = this->number;
-        audioFile.year = this->year;
-
-        audioFile.sync();
-
-        QString artistName = this->artist->getName();
-        QString newFileName = QString(QDir::homePath()+"/.radon/collection/"+artistName+"/"+this->title+".mp3");
-        if(this->fileName != newFileName)
+        if(audioFile.found)
         {
-            QFile* oldFile = new QFile(this->fileName);
-            oldFile->copy(this->fileName,newFileName);
-            oldFile->remove();
-            this->fileName = newFileName;
+            audioFile.artist = artist->getName();
+            audioFile.title = this->title;
+            audioFile.album = this->album;
+            audioFile.comment = this->comment;
+            audioFile.genre = this->genere;
+            audioFile.track = this->number;
+            audioFile.year = this->year;
+
+            audioFile.sync();
+
+            QString artistName = this->artist->getName();
+            QString newFileName = QString(QDir::homePath()+"/.radon/collection/"+artistName+"/"+this->title+".mp3");
+            if(this->fileName != newFileName)
+            {
+                QFile* oldFile = new QFile(this->fileName);
+                oldFile->copy(this->fileName,newFileName);
+                oldFile->remove();
+                this->fileName = newFileName;
+            }
         }
     }
 }
@@ -164,11 +176,4 @@ void Track::remove()
             this->artist->remove();
         }
     }
-}
-
-
-int Track::getLength()
-{
-    AudioFile *trackFile = new AudioFile(fileName);
-    return trackFile->length;
 }
