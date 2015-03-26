@@ -5,6 +5,7 @@
 
 #include <QFileInfo>
 #include <QIODevice>
+#include <QDebug>
 
 AudioFile::AudioFile(QString audiofile, QObject *parent) : QObject(parent)
 {
@@ -36,7 +37,8 @@ void AudioFile::loadTags()
     TagLib::String t_genre = tagFile->tag()->genre();
     TagLib::uint t_track = tagFile->tag()->track();
     TagLib::uint t_year = tagFile->tag()->year();
-    TagLib::uint t_length  = tagFile->audioProperties()->length();
+    int t_length  = tagFile->audioProperties()->length();
+    qDebug() << t_length;
 
     artist = QString::fromStdWString(t_artist.toCWString());
     album = QString::fromStdWString(t_album.toCWString());

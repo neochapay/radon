@@ -25,7 +25,7 @@ public slots:
     int getArtistId() {return this->artist_id;}
     int getNumber() {return this->number;}
     int getYear() {return this->year;}
-    int getLength() {return this->length;}
+    int getLength();
 
     void setTitle(QString title) {this->title = title;}
     void setAlbum(QString album) {this->album = album;}
