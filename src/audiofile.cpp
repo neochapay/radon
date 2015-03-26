@@ -56,6 +56,16 @@ void AudioFile::loadTags()
     track = t_track;
     year = t_year;
     length = t_length;
+
+    if(artist.length() < 1)
+    {
+        artist = "Unknow Artist";
+    }
+
+    if(title.length() < 1)
+    {
+        title = "Unknow Track";
+    }
 }
 
 bool AudioFile::sync()
