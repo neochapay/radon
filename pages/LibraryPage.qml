@@ -4,6 +4,7 @@ import QtQuick.Controls 1.2
 import "Library"
 
 TabView{
+    id: libraryTabs
     anchors.fill: parent;
     clip: true;
     Tab{

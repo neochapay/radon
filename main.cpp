@@ -55,10 +55,8 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("playListModel",playListModel);
 
     QObject *object = engine.rootObjects().first();
-    QObject *libraryView = object->findChild<QObject*>("libraryPageArea");
     QObject *statusBar = object->findChild<QObject*>("statusBar");
 
-    QObject::connect(libraryView,SIGNAL(addFiles(QVariant)),audioCollection,SLOT(addFiles(QVariant)));
     QObject::connect(audioCollection,SIGNAL(setStatusText(QVariant)),statusBar,SLOT(setStatus(QVariant)));
     QObject::connect(audioCollection,SIGNAL(setStatusProcess(QVariant)),statusBar,SLOT(setProcess(QVariant)));
 

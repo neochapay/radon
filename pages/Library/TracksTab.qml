@@ -139,7 +139,7 @@ Rectangle {
             {
                 list.push(fileUrls[i].replace("file://",""))
             }
-            addFiles(list)
+            Collection.addFiles(list)
             trackSqlModel.refresh()
             artistSqlModel.refresh()
         }
