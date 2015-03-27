@@ -141,6 +141,17 @@ Rectangle {
         }
     }
 
+    Text{
+        id: trackTimeText
+        text: Qt.formatTime(new Date(track.getLength()*1000),"mm:ss")
+        font.pointSize: 12
+        anchors{
+            right:  removeFromPlayListButton.left
+            top: artistTitle.top
+            rightMargin: 10
+        }
+    }
+
     PlayListItemIcon {
         id: blockTrackButton
         text: FontAwesome.Icon.times
