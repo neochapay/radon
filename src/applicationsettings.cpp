@@ -12,3 +12,17 @@ ApplicationSettings::~ApplicationSettings()
 
 }
 
+void ApplicationSettings::setValue(const QString &key, const QVariant &value)
+{
+    settings->setValue(key, value);
+}
+
+QVariant ApplicationSettings::value(const QString &key, const QVariant &defaultValue)
+{
+    return settings->value(key, defaultValue);
+}
+
+void ApplicationSettings::sync()
+{
+    settings->sync();
+}

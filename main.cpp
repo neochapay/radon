@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
     app.setOrganizationName("Open STUDiO");
     app.setOrganizationDomain("ostudio.org");
 
-    QSettings *settings = new QSettings(QDir::homePath()+"/.radon/radon.conf",QSettings::NativeFormat);
+    ApplicationSettings *settings = new ApplicationSettings();
     Collection *audioCollection = new Collection();
 
     //Load Jack client

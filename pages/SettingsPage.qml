@@ -40,6 +40,10 @@ Rectangle {
                 bottomMargin: 5
                 rightMargin: 5
             }
+
+            onClicked:{
+                Settings.sync();
+            }
         }
     }
 }
