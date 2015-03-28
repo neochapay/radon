@@ -9,7 +9,7 @@ import "../../js/FontAwesome.js" as FontAwesome
 Rectangle {
     id: playListItem
     width: parent.width-2
-    height: 40
+    height: lisenButton.height
     x: 1
     y: 1
 
@@ -106,7 +106,7 @@ Rectangle {
         text: artist.getName()
         font.pointSize: 12
         x: 100
-        y: 10
+        anchors.verticalCenter: lisenButton.verticalCenter
     }
 
     Text{
@@ -130,52 +130,21 @@ Rectangle {
         }
     }
 
-    Text {
-        id: blockArtistButton
-        text: FontAwesome.Icon.user_times
-        anchors{
-            right: parent.right
-            bottom: parent.bottom
-            rightMargin: 3
-            bottomMargin: 3
-        }
-    }
-
     Text{
         id: trackTimeText
         text: Qt.formatTime(new Date(track.getLength()*1000),"mm:ss")
         font.pointSize: 12
         anchors{
-            right:  removeFromPlayListButton.left
+            right:  parent.right
             top: artistTitle.top
             rightMargin: 10
         }
     }
 
-    PlayListItemIcon {
-        id: blockTrackButton
-        text: FontAwesome.Icon.times
-        font.family: "FontAwesome"
-        anchors.right: blockArtistButton.left
-        onButtonClicked: {
-            messageDialog.dialogTitle = "Remove?"
-            messageDialog.dialogText = "Remove from playlist?"
-            messageDialog.visible = true;
-        }
-    }
-
-    PlayListItemIcon {
-        id: editTrackButton
-        text: FontAwesome.Icon.pencil_square_o
-        font.family: "FontAwesome"
-        anchors.right: blockTrackButton.left
-    }
-
-    PlayListItemIcon {
-        id: removeFromPlayListButton
-        text: FontAwesome.Icon.minus_square
-        font.family: "FontAwesome"
-        anchors.right: editTrackButton.left
+    MouseArea{
+        anchors.fill: parent
+        acceptedButtons: Qt.RightButton
+        onClicked: contextMenu.popup()
     }
 
     Rectangle{
