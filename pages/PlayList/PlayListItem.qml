@@ -158,11 +158,11 @@ Rectangle {
         font.family: "FontAwesome"
         anchors.right: blockArtistButton.left
         onButtonClicked: {
-            messageDialog.dialogTitle = "TITLE"
+            messageDialog.dialogTitle = "Remove?"
+            messageDialog.dialogText = "Remove from playlist?"
             messageDialog.visible = true;
         }
     }
-
 
     PlayListItemIcon {
         id: editTrackButton

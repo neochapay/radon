@@ -9,12 +9,8 @@ import "../../js/FontAwesome.js" as FontAwesome
 Rectangle {
     id: libraryPageArea
     objectName: "libraryPageArea"
-    width: parent.width
-    height: parent.height
     color: "transparent"
     clip: true
-
-    signal addFiles(variant list)
 
     Rectangle{
         id: artistArea
@@ -25,44 +21,34 @@ Rectangle {
         clip: true
         color: "transparent"
 
-        Rectangle{
-            id: searchArtistArea
-            anchors.margins: 3
-            radius: 3
-            x:2
-            y:2
-            width: parent.width-4
-            height: searchArtist.height
-            color: "white"
-
-            TextInput{
-                id: searchArtist
-                focus: true
-                selectByMouse: true
-                autoScroll: true
-                wrapMode: TextEdit.WrapAtWordBoundaryOrAnywhere;
-                color: "black";
-                onTextChanged: {
-                    if(text.length > 0)
-                    {
-                        artistSqlModel.searchQuery(text);
-                    }
-                    else
-                    {
-                        artistSqlModel.cleanQuery();
-                    }
-                    artistSqlModel.refresh();
+        TextField{
+            id: searchArtist
+            x: 5
+            y: 5
+            width: parent.width-10
+            focus: true
+            onTextChanged: {
+                if(text.length > 0)
+                {
+                    artistSqlModel.searchQuery(text);
                 }
+                else
+                {
+                    artistSqlModel.cleanQuery();
+                }
+                artistSqlModel.refresh();
             }
-
         }
+
         Rectangle{
             width: parent.width
-            height: artistArea.height-searchArtistArea.height
+            height: artistArea.height-searchArtist.height-10
             clip: true
-            anchors.top: searchArtistArea.bottom
+            anchors{
+                topMargin: 5
+                top: searchArtist.bottom
+            }
             color: "transparent"
-
             ListView{
                 id: artisListView
                 width: parent.width
