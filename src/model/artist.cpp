@@ -96,6 +96,7 @@ bool Artist::setName(QString name)
     }
     else
     {
+        this->oldname = this->name;
         this->name = name;
         return true;
     }
@@ -125,6 +126,9 @@ void Artist::update()
         QList<Track*> tracks = this->getTracks();
         for (int i = 0;i<tracks.count();i++)
         {
+            QFile *aFile = new QFile();
+            aFile->copy(QDir::homePath()+"/.radon/collection/"+this->oldname+"/"+tracks[i]->getTitle()+".mp3", QDir::homePath()+"/.radon/collection/"+this->name+"/"+tracks[i]->getTitle()+".mp3");
+            aFile->remove(QDir::homePath()+"/.radon/collection/"+this->oldname+"/"+tracks[i]->getTitle()+".mp3");
             tracks[i]->setArtistId(id);
             tracks[i]->update();
         }

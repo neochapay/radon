@@ -22,6 +22,7 @@ public slots:
 
 private:
     QString name;
+    QString oldname;
     int id;
 
     static QString getHash(const QString&);

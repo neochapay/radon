@@ -121,6 +121,7 @@ void Track::update()
 
             QString artistName = this->artist->getName();
             QString newFileName = QString(QDir::homePath()+"/.radon/collection/"+artistName+"/"+this->title+".mp3");
+
             if(this->fileName != newFileName)
             {
                 QFile* oldFile = new QFile(this->fileName);
