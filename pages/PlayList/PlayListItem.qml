@@ -61,7 +61,9 @@ Rectangle {
         }
         MenuItem
         {
-            text: qsTr('Delete')
+            onTriggered: {
+                playListModel.remove(index);
+            }
         }
     }
 

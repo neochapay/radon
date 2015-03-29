@@ -99,3 +99,10 @@ int PlayListModel::get(int idx)
     }
     return 0;
 }
+
+
+void PlayListModel::remove(int idx)
+{
+    qDebug("REMOVE");
+    this->removeRows(idx,1);
+}

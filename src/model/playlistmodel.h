@@ -28,6 +28,7 @@ public slots:
     void addItem(int track_id,QString type, int count=0);
     void setPlayed(int idx, const QModelIndex &index = QModelIndex());
     int get(int idx);
+    void remove(int idx);
 signals:
     void playListUpdate();
 
