@@ -61,6 +61,26 @@ Rectangle {
         }
         MenuItem
         {
+            id: effectMenuItem
+            text: qsTr('Show effect bar')
+            onTriggered: {
+                if(jingleArea.visible == true)
+                {
+                    jingleArea.visible = false
+                    effectMenuItem.text = "Show effect bar"
+                    playListItem.height = lisenButton.height
+                }
+                else
+                {
+                    jingleArea.visible = true
+                    effectMenuItem.text = "Hide effect bar"
+                    playListItem.height = lisenButton.height+20
+                }
+            }
+        }
+        MenuItem
+        {
+            text: qsTr('Remove from playlist')
             onTriggered: {
                 playListModel.remove(index);
             }
@@ -73,6 +93,7 @@ Rectangle {
         font.family: "FontAwesome"
         font.pointSize: 25
         x: 10
+        anchors.verticalCenter: parent.verticalCenter
         MouseArea{
             id: lisenButtonArea
             anchors.fill: parent
@@ -92,6 +113,7 @@ Rectangle {
         anchors{
             leftMargin: 10
             left: lisenButton.right
+            verticalCenter: parent.verticalCenter
         }
 
         MouseArea{
@@ -107,8 +129,8 @@ Rectangle {
         id: artistTitle
         text: artist.getName()
         font.pointSize: 12
-        x: 100
-        anchors.verticalCenter: lisenButton.verticalCenter
+        x: 90
+        y: 7
     }
 
     Text{
@@ -138,7 +160,7 @@ Rectangle {
         font.pointSize: 12
         anchors{
             right:  parent.right
-            top: artistTitle.top
+            verticalCenter: playNowButton.verticalCenter
             rightMargin: 10
         }
     }
@@ -147,6 +169,42 @@ Rectangle {
         anchors.fill: parent
         acceptedButtons: Qt.RightButton
         onClicked: contextMenu.popup()
+    }
+
+    Rectangle{
+        id: jingleArea
+        color: "#86BDFA"
+        width: parent.width-artistTitle.x-trackTimeText.width-20
+        height: 20
+        radius: 3
+        visible: false
+        anchors{
+            left: artistTitle.left
+            top: artistTitle.bottom
+            topMargin: 2
+        }
+
+        Rectangle {
+            id: jingleBtn
+            width: 20;
+            height: 20
+            radius: 2
+            smooth: true
+            color:"#99FF5D1A"
+            border.width: 1
+
+            MouseArea {
+                anchors.fill: parent
+                drag.target: parent
+                drag.axis: Drag.XAxis
+                drag.minimumX: 0
+                drag.maximumX: jingleArea.width-20
+                onPositionChanged: {
+                    //value = ((soundslider.height-this.parent.y)/soundslider.height)*120
+                    //console.log(value)
+                }
+           }
+       }
     }
 
     Rectangle{
