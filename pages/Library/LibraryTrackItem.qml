@@ -30,7 +30,7 @@ Rectangle {
         }
         MenuItem
         {
-            text: qsTr('Edit tag')
+            text: qsTr('Edit tags')
             onTriggered: {
                 editTrackDialog.setTrackId(track_id);
                 editTrackDialog.visible = true;

@@ -50,6 +50,10 @@ Rectangle {
         MenuItem
         {
             text: qsTr('Edit tags')
+            onTriggered: {
+                editTrackDialog.setTrackId(trackId);
+                editTrackDialog.visible = true;
+            }
         }
         MenuItem
         {
