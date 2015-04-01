@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
     //Load Jack client
     QJack::Client client;
     client.connectToServer("radon");
-    JackProcessor *streamProcessor = new JackProcessor(client, QString("stream"), true);
+    JackProcessor *streamProcessor = new JackProcessor(client);
 
     streamProcessor->setupMp3Decoder();
     client.activate();
