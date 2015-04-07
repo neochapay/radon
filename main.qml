@@ -1,5 +1,6 @@
 import QtQuick 2.1
 import QtQuick.Controls 1.0
+import QtQuick.Window 2.0
 
 import trackAdapter 1.0
 import artistAdapter 1.0
@@ -9,7 +10,7 @@ import "components"
 ApplicationWindow {
     id: main
     visible: true
-    visibility: "Maximized"
+    visibility: Window.Maximized
     title: qsTr("RadON")
     minimumHeight: 600
     minimumWidth: 1100
