@@ -4,7 +4,7 @@
 #include <QDebug>
 #include <QAudioDecoder>
 
-JackProcessor::JackProcessor(QJack::Client& client, QString chanel_name, bool have_in)
+JackProcessor::JackProcessor(QJack::Client& client)
     :Processor(client)
 {
     //volume
@@ -12,19 +12,17 @@ JackProcessor::JackProcessor(QJack::Client& client, QString chanel_name, bool ha
     attunation_l = 1.0;
     attunation_r = 1.0;
 
-    //regisrty out port
-    out_l    = client.registerAudioOutPort("out_l_"+chanel_name.toUtf8());
-    out_r    = client.registerAudioOutPort("out_r_"+chanel_name.toUtf8());
+    //regisrty out ports
+    stream_out_l    = client.registerAudioOutPort("stream_out_l");
+    stream_out_r    = client.registerAudioOutPort("stream_out_r");
 
-    //regisrty in port
-    if(have_in)
-    {
-        in_l = client.registerAudioInPort("in_l_"+chanel_name.toUtf8());
-        in_r = client.registerAudioInPort("in_r_"+chanel_name.toUtf8());
-    }
+    //regisrty in ports
+    stream_in_l = client.registerAudioInPort("stream_in_l");
+    stream_in_r = client.registerAudioInPort("stream_in_r");
 
-    ringBufferLeft  = QJack::AudioRingBuffer(44100 * 1000);
-    ringBufferRight = QJack::AudioRingBuffer(44100 * 1000);
+
+    streamRingBufferLeft  = QJack::AudioRingBuffer(44100 * 1000);
+    streamRingBufferRight = QJack::AudioRingBuffer(44100 * 1000);
 
     audioDecoder = new QAudioDecoder();
     QObject::connect(audioDecoder, SIGNAL(bufferReady()), this, SLOT(transferSamples()));
@@ -63,8 +61,8 @@ void JackProcessor::transferSamples()
             left[i]     = (QJack::AudioSample)(stereoBuffer[i].left / 65536.0);
             right[i]    = (QJack::AudioSample)(stereoBuffer[i].right / 65536.0);
         }
-        ringBufferLeft.write(left, frames);
-        ringBufferRight.write(right, frames);
+        streamRingBufferLeft.write(left, frames);
+        streamRingBufferRight.write(right, frames);
     }
 }
 
@@ -76,10 +74,10 @@ void JackProcessor::timerEvent(QTimerEvent*)
 
 void JackProcessor::process(int samples)
 {
-   out_l.buffer(samples).pop(ringBufferLeft);
-   out_r.buffer(samples).pop(ringBufferRight);
-   out_l.buffer(samples).multiply(attunation_l);
-   out_r.buffer(samples).multiply(attunation_r);
+   stream_out_l.buffer(samples).pop(streamRingBufferLeft);
+   stream_out_r.buffer(samples).pop(streamRingBufferRight);
+   stream_out_l.buffer(samples).multiply(attunation_l);
+   stream_out_r.buffer(samples).multiply(attunation_r);
 }
 
 void JackProcessor::setVolume(double att_l, double att_r)

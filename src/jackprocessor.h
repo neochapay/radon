@@ -13,7 +13,7 @@ class JackProcessor : public QJack::Processor
      Q_OBJECT
 
     public:
-        JackProcessor(QJack::Client &client, QString chanel_name, bool have_in);
+        JackProcessor(QJack::Client &client);
         ~JackProcessor();
 
         void setupMp3Decoder();
@@ -26,13 +26,19 @@ class JackProcessor : public QJack::Processor
 
         QJack::Client client;
 
-        QJack::AudioPort out_l;
-        QJack::AudioPort out_r;
-        QJack::AudioPort in_l;
-        QJack::AudioPort in_r;
+        QJack::AudioPort stream_out_l;
+        QJack::AudioPort stream_out_r;
+        QJack::AudioPort dj_out_l;
+        QJack::AudioPort dj_out_r;
+        QJack::AudioPort stream_in_l;
+        QJack::AudioPort stream_in_r;
+        QJack::AudioPort dj_in_l;
+        QJack::AudioPort dj_in_r;
 
-        QJack::AudioRingBuffer ringBufferLeft;
-        QJack::AudioRingBuffer ringBufferRight;
+        QJack::AudioRingBuffer streamRingBufferLeft;
+        QJack::AudioRingBuffer streamRingBufferRight;
+        QJack::AudioRingBuffer djRingBufferLeft;
+        QJack::AudioRingBuffer djRingBufferRight;
 
         QAudioDecoder *audioDecoder;
 
