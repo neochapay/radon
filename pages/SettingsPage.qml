@@ -9,6 +9,7 @@ Rectangle {
     color: "transparent"
 
     Rectangle{
+        id: settingsLabel
         width: childrenRect.width+6
         height: childrenRect.height
         z: 9
@@ -31,6 +32,94 @@ Rectangle {
         x: 10
         y: 10
         z:8
+
+        Rectangle{
+            id: songRepeatItem
+            width: parent.width
+            height: artistRepeat.height
+            color: "transparent"
+
+            anchors{
+                top: parent.top
+                left: parent.left
+                topMargin: 15
+            }
+
+            Text{
+                id: songRepeatLabel
+                text: qsTr("Song repeat:")
+                width: 200;
+                anchors{
+                    left: parent.left
+                    verticalCenter: songRepeat.verticalCenter
+                    leftMargin: 10
+                }
+            }
+            TextField{
+                id: songRepeat
+                anchors{
+                    left: songRepeatLabel.right
+                }
+                text: Settings.value("SongRepeat",240)
+                validator: IntValidator{}
+                onEditingFinished: {
+                    Settings.setValue("SongRepeat",songRepeat.text)
+                }
+            }
+            Text{
+                id: songRepeatHelp
+                text: qsTr("time in minuts that must elapse before song can played")
+                anchors{
+                    left: songRepeat.right
+                    verticalCenter: songRepeat.verticalCenter
+                    leftMargin: 10
+                }
+            }
+        }
+
+        Rectangle{
+            id: artistRepeatItem
+            width: parent.width
+            height: artistRepeat.height
+            color: "transparent"
+
+            anchors{
+                top: songRepeatItem.bottom
+                left: parent.left
+                topMargin: 15
+            }
+
+            Text{
+                id: artistRepeatLabel
+                text: qsTr("Artist repeat:")
+                width: 200;
+                anchors{
+                    left: parent.left
+                    verticalCenter: artistRepeat.verticalCenter
+                    leftMargin: 10
+                }
+            }
+            TextField{
+                id: artistRepeat
+                anchors{
+                    left: artistRepeatLabel.right
+                }
+                text: Settings.value("ArtistRepeat",60)
+                validator: IntValidator{}
+                onEditingFinished: {
+                    Settings.setValue("ArtistRepeat",artistRepeat.text)
+                }
+            }
+            Text{
+                id: artistRepeatHelp
+                text: qsTr("time in minuts that must elapse before songs of artist can played")
+                anchors{
+                    left: artistRepeat.right
+                    verticalCenter: artistRepeat.verticalCenter
+                    leftMargin: 10
+                }
+            }
+        }
 
         Button{
             text: qsTr("Save settings")
