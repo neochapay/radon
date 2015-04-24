@@ -1,6 +1,10 @@
 #include "playlistmodel.h"
+#include "../dbadapter.h"
+
 #include <QDebug>
 #include <QAbstractListModel>
+#include <QSqlDatabase>
+#include <QSqlQuery>
 
 PlayListModel::PlayListModel(QObject *parent) :
     QAbstractListModel(parent)
@@ -88,6 +92,13 @@ void PlayListModel::setPlayed(int idx, const QModelIndex &parent)
         }
         playList[idx].playEd = true;
         dataChanged(index(idx),index(idx));
+
+        //add to database
+        int track_id = get(idx);
+        QSqlDatabase db = dbAdapter::instance().db;
+        QSqlQuery query(db);
+        query.prepare("INSERT INTO playlist (`track_id`) VALUES (:trackid)");
+        query.bindValue(":trackid",track_id);
     }
 }
 
@@ -103,6 +114,5 @@ int PlayListModel::get(int idx)
 
 void PlayListModel::remove(int idx)
 {
-    qDebug("REMOVE");
     this->removeRows(idx,1);
 }
