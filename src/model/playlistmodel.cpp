@@ -1,5 +1,6 @@
 #include "playlistmodel.h"
 #include "../dbadapter.h"
+#include "../applicationsettings.h"
 
 #include <QDebug>
 #include <QAbstractListModel>
@@ -115,4 +116,12 @@ int PlayListModel::get(int idx)
 void PlayListModel::remove(int idx)
 {
     this->removeRows(idx,1);
+}
+
+//Format auto playlist
+void PlayListModel::formatAutoPlaylist()
+{
+    ApplicationSettings *settings = new ApplicationSettings();
+    int songRepeat = settings->value("SongRepeat").toInt();
+    int artistRepeat = settings->value("ArtistRepeat").toInt();
 }
