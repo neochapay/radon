@@ -98,8 +98,15 @@ void PlayListModel::setPlayed(int idx, const QModelIndex &parent)
         int track_id = get(idx);
         QSqlDatabase db = dbAdapter::instance().db;
         QSqlQuery query(db);
-        query.prepare("INSERT INTO playlist (`track_id`) VALUES (:trackid)");
+        query.prepare("INSERT INTO playlist (`song_id`, `time`) VALUES ( :trackid , :time)");
         query.bindValue(":trackid",track_id);
+        query.bindValue(":time", QDateTime().toTime_t());
+
+        bool ok = query.exec();
+        if(!ok)
+        {
+            qDebug() << query.lastQuery() << query.lastError().text();
+        }
     }
 }
 
@@ -124,4 +131,12 @@ void PlayListModel::formatAutoPlaylist()
     ApplicationSettings *settings = new ApplicationSettings();
     int songRepeat = settings->value("SongRepeat").toInt();
     int artistRepeat = settings->value("ArtistRepeat").toInt();
+
+    int smartSong = 10; //How many songs add to playlist
+    int errors = 0;     //num of errors
+    int buildRepear = 8;//mar repeat of find song
+
+    QSqlDatabase db = dbAdapter::instance().db;
+    QSqlQuery query(db);
+
 }
