@@ -29,6 +29,7 @@ public slots:
     void setPlayed(int idx, const QModelIndex &index = QModelIndex());
     int get(int idx);
     void remove(int idx);
+
     void formatAutoPlaylist();
 
 signals:

@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import QtQuick.Controls 1.2
 import QtQuick.Dialogs 1.1
 
 import "PlayList/"
@@ -9,6 +10,14 @@ Rectangle {
     height: parent.height
     color: "transparent"
     clip: true
+
+    Button{
+       text: "Create playlist"
+       z:2
+       onClicked: {
+           playListModel.formatAutoPlaylist()
+       }
+    }
 
     ListView{
         id: playListView

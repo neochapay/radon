@@ -129,8 +129,8 @@ void PlayListModel::remove(int idx)
 void PlayListModel::formatAutoPlaylist()
 {
     ApplicationSettings *settings = new ApplicationSettings();
-    int songRepeat = settings->value("SongRepeat").toInt();
-    int artistRepeat = settings->value("ArtistRepeat").toInt();
+    uint songRepeat = settings->value("SongRepeat").toInt()*60;
+    uint artistRepeat = settings->value("ArtistRepeat").toInt()*60;
 
     int smartSong = 10; //How many songs add to playlist
     int errors = 0;     //num of errors
@@ -138,5 +138,19 @@ void PlayListModel::formatAutoPlaylist()
 
     QSqlDatabase db = dbAdapter::instance().db;
     QSqlQuery query(db);
+    query.prepare("SELECT songs.id,playlist.time as ptime FROM songs "
+                  "LEFT OUTER JOIN playlist ON songs.id = playlist.song_id "
+                  "WHERE ptime < :stime OR ptime IS NULL");
+    query.bindValue(":stime",QDateTime().toTime_t()-songRepeat);
 
+    bool ok = query.exec();
+    if(!ok)
+    {
+        qDebug() << query.lastQuery() << query.lastError().text();
+    }
+
+    if(query.next())
+    {
+        qDebug() << query.value(0).toInt();
+    }
 }
