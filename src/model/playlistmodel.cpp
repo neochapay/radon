@@ -136,21 +136,43 @@ void PlayListModel::formatAutoPlaylist()
     int errors = 0;     //num of errors
     int buildRepear = 8;//mar repeat of find song
 
-    QSqlDatabase db = dbAdapter::instance().db;
-    QSqlQuery query(db);
-    query.prepare("SELECT songs.id,playlist.time as ptime FROM songs "
+    for(int i=0; i < smartSong; i++)
+    {
+        if(errors > buildRepear)
+        {
+            break;
+        }
+
+        QString notin = QString("0");
+
+        foreach (playListItem item, playList) {
+            notin.append(","+item.trackId);
+        }
+
+        QSqlDatabase db = dbAdapter::instance().db;
+        QSqlQuery query(db);
+        query.prepare("SELECT songs.id,playlist.time as ptime FROM songs "
                   "LEFT OUTER JOIN playlist ON songs.id = playlist.song_id "
-                  "WHERE ptime < :stime OR ptime IS NULL");
-    query.bindValue(":stime",QDateTime().toTime_t()-songRepeat);
+                  "WHERE ptime < :stime OR ptime IS NULL "
+                  "AND songs.id NOT IN (:notin) "
+                  "ORDER BY RANDOM()");
+        query.bindValue(":stime",QDateTime().toTime_t()-songRepeat);
+        query.bindValue(":notin",notin);
 
-    bool ok = query.exec();
-    if(!ok)
-    {
-        qDebug() << query.lastQuery() << query.lastError().text();
-    }
+        bool ok = query.exec();
+        if(!ok)
+        {
+            qDebug() << query.lastQuery() << query.lastError().text();
+        }
 
-    if(query.next())
-    {
-        qDebug() << query.value(0).toInt();
+        if(query.next())
+        {
+             addItem(query.value(0).toInt(),"track");
+        }
+        else
+        {
+            errors++;
+            i++;
+        }
     }
 }
