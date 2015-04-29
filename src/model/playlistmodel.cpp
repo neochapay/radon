@@ -143,21 +143,35 @@ void PlayListModel::formatAutoPlaylist()
             break;
         }
 
-        QString notin = QString("0");
+        QString s_notin = QString("0");
+        QString a_notin = QString("0");
 
         foreach (playListItem item, playList) {
-            notin.append(","+item.trackId);
+            s_notin.append(","+item.trackId);
         }
 
         QSqlDatabase db = dbAdapter::instance().db;
         QSqlQuery query(db);
+//create played artist list
+        query.prepare("SELECT songs.artist_id FROM songs "
+                      "INNER JOIN playlist ON songs.id = playlist.song_id "
+                      "WHERE ptime < :atime");
+        query.bindValue(":atime",QDateTime().toTime_t()-artistRepeat);
+        if(query.next())
+        {
+            a_notin.append(",");
+            a_notin.append(query.value(0).toString());
+        }
+//create songs list
         query.prepare("SELECT songs.id,playlist.time as ptime FROM songs "
                   "LEFT OUTER JOIN playlist ON songs.id = playlist.song_id "
                   "WHERE ptime < :stime OR ptime IS NULL "
-                  "AND songs.id NOT IN (:notin) "
+                  "AND songs.id NOT IN (:s_notin) "
+                  "AND artist_id NOT IN (:a_notin) "
                   "ORDER BY RANDOM()");
         query.bindValue(":stime",QDateTime().toTime_t()-songRepeat);
-        query.bindValue(":notin",notin);
+        query.bindValue(":s_notin",s_notin);
+        query.bindValue(":a_notin",a_notin);
 
         bool ok = query.exec();
         if(!ok)
