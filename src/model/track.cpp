@@ -69,7 +69,7 @@ void Track::insert()
 {
     QSqlDatabase db = dbAdapter::instance().db;
     QSqlQuery query(db);
-    query.prepare("INSERT INTO songs (`artist_id`, `title`, `album`, `comment`, `genere`, `track`, `year`) VALUES (:artistid, :title, :album, :comment, :genere, :track, :year)");
+    query.prepare("INSERT INTO songs (`artist_id`, `title`, `album`, `comment`, `genere`, `track`, `year`, `length`) VALUES (:artistid, :title, :album, :comment, :genere, :track, :year, :length)");
     query.bindValue(":artistid",artist_id);
     query.bindValue(":title",title);
     query.bindValue(":album",album);
@@ -77,6 +77,7 @@ void Track::insert()
     query.bindValue(":genere",genere);
     query.bindValue(":track",number);
     query.bindValue(":year",year);
+    query.bindValue(":length",length);
 
     bool ok = query.exec();
     if(!ok)

@@ -19,7 +19,7 @@ public:
     int addArtist(QString);
     QList<int> getArtistSong(int artist_id);
 
-    void addSong(int artist_id, QString title, QString album, QString comment, QString genere, int track, int year);
+    void addSong(int artist_id, QString title, QString album, QString comment, QString genere, int track, int year, int length);
     QSqlQueryModel *getTable(QString table);
 
 private:

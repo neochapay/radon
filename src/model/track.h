@@ -32,6 +32,7 @@ public slots:
     void setGenere(QString genere) {this->genere = genere;}
     void setNum(int num) {this->number = num;}
     void setYear(int year) {this->year = year;}
+    void setLength(int length) {this->length = length;}
     void setComment(QString comment) {this->comment = comment;}
     void setArtistId(int id);
     void setArtistName(QString name);

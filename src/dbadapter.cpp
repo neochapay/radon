@@ -45,7 +45,7 @@ dbAdapter& dbAdapter::instance(){
 void dbAdapter::initDB()
 {
     db.exec("CREATE TABLE `artist` (`id` INTEGER PRIMARY KEY AUTOINCREMENT,`name` TEXT )");
-    db.exec("CREATE TABLE `songs` (`id` INTEGER PRIMARY KEY AUTOINCREMENT,`artist_id` INTEGER NOT NULL,`title` TEXT NOT NULL,`album` TEXT,`comment` TEXT,`genere` TEXT,`track` INTEGER,`year` INTEGER)");
+    db.exec("CREATE TABLE `songs` (`id` INTEGER PRIMARY KEY AUTOINCREMENT,`artist_id` INTEGER NOT NULL,`title` TEXT NOT NULL,`album` TEXT,`comment` TEXT,`genere` TEXT,`track` INTEGER,`year` INTEGER,`length` INTEGER)");
     db.exec("CREATE TABLE `playlist` (`id`	INTEGER PRIMARY KEY AUTOINCREMENT,`song_id`	INTEGER NOT NULL,`time`	INTEGER NOT NULL)");
     db.exec("CREATE UNIQUE INDEX artist_idx ON artist(name)");
     db.exec("CREATE UNIQUE INDEX song_idx ON songs(artist_id,title,album,track,year)");
@@ -70,7 +70,7 @@ void dbAdapter::rescanCollection()
                 QFile *f = new QFile();
                 f->copy(it.next(), collectionDirString+audioFile->artist+"/"+audioFile->title+".mp3");
             }
-            addSong(artist_id,audioFile->title,audioFile->album,audioFile->comment,audioFile->genre,audioFile->track,audioFile->year);
+            addSong(artist_id,audioFile->title,audioFile->album,audioFile->comment,audioFile->genre,audioFile->track,audioFile->year,audioFile->length);
         }
     }
 /*Check missing files*/
@@ -126,7 +126,7 @@ int dbAdapter::addArtist(QString name)
     return a_id;
 }
 
-void dbAdapter::addSong(int artist_id, QString title, QString album, QString comment, QString genere, int track, int year)
+void dbAdapter::addSong(int artist_id, QString title, QString album, QString comment, QString genere, int track, int year,int length)
 {
     if(comment.length() < 1)
     {
@@ -140,5 +140,6 @@ void dbAdapter::addSong(int artist_id, QString title, QString album, QString com
     nTrack->setGenere(genere);
     nTrack->setNum(track);
     nTrack->setYear(year);
+    nTrack->setLength(length);
     nTrack->insert();
 }
