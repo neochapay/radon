@@ -9,24 +9,9 @@ Rectangle {
     color: "transparent"
 
     Rectangle{
-        id: settingsLabel
-        width: childrenRect.width+6
-        height: childrenRect.height
-        z: 9
-        x: 20
-        y: 4
-        color: "#aaaaaa"
-
-        Text{
-            text: qsTr("Main settings")
-            x: 3
-        }
-    }
-
-    Rectangle{
-        id: mainSettings
-        width: parent.width-20
-        height: parent.height-20
+        id: repeatSettings
+        width: childrenRect.width
+        height: 100
         border.color: "#5b5b5b"
         color: "transparent"
         x: 10
@@ -34,9 +19,25 @@ Rectangle {
         z:8
 
         Rectangle{
+            id: settingsLabel
+            width: childrenRect.width+6
+            height: childrenRect.height
+            z: 9
+            x: 10
+            y: -8
+            color: "#aaaaaa"
+
+            Text{
+                text: qsTr("Repeat settings")
+                x: 3
+            }
+        }
+
+
+        Rectangle{
             id: songRepeatItem
-            width: parent.width
-            height: artistRepeat.height
+            width: settingsPageArea.width-20
+            height: songRepeat.height
             color: "transparent"
 
             anchors{
@@ -79,7 +80,7 @@ Rectangle {
 
         Rectangle{
             id: artistRepeatItem
-            width: parent.width
+            width: settingsPageArea.width-20
             height: artistRepeat.height
             color: "transparent"
 
@@ -120,19 +121,19 @@ Rectangle {
                 }
             }
         }
+    }
 
-        Button{
-            text: qsTr("Save settings")
-            anchors{
-                bottom: mainSettings.bottom
-                right: mainSettings.right
-                bottomMargin: 5
-                rightMargin: 5
-            }
+    Button{
+        text: qsTr("Save settings")
+        anchors{
+            bottom: settingsPageArea.bottom
+            right: settingsPageArea.right
+            bottomMargin: 5
+            rightMargin: 5
+        }
 
-            onClicked:{
-                Settings.sync();
-            }
+        onClicked:{
+            Settings.sync();
         }
     }
 }
